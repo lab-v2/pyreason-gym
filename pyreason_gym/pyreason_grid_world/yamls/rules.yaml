@@ -1,0 +1,124 @@
+---
+# Makes a spot on the grid 'blocked' if there is a mountain associated with that spot
+obstacle_rule:
+    target: blocked
+    target_criteria:
+        - [blocked, 0, 0]
+    delta_t: 0
+    neigh_criteria:
+        - [node, [x], isMountain, [1,1]]
+        - [edge, [target, x], atLoc, [1,1]]
+    ann_fn: [1,1]
+
+# Moving rules
+# Move UP
+move_up_rule:
+    target:
+    target_criteria:
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_up_change_prev_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], moveUp, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move DOWN
+move_down_rule:
+    target:
+    target_criteria:
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_down_change_prev_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], moveDown, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move LEFT
+move_left_rule:
+    target:
+    target_criteria:
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_left_change_prev_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], moveLeft, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move RIGHT
+move_right_rule:
+    target:
+    target_criteria:
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_right_change_prev_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], moveRight, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
