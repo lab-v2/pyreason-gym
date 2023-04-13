@@ -67,11 +67,11 @@ def generate_graph(grid_dim, num_agents_per_team, base_loc, start_loc, obstacle_
 
     #=======================================================================
 
-    nx.write_graphml_lxml(g, 'pyreason_gym/pyreason_grid_world/graphs/game_graph.graphml', named_key_ids=True)
+    nx.write_graphml_lxml(g, 'pyreason_gym/pyreason_grid_world/graph/game_graph.graphml', named_key_ids=True)
 
 
 def main():
-    generate_graph(grid_dim=8, num_agents_per_team=1, base_loc=[9, 90], start_loc=[[8], [80]], obstacle_loc=[43, 44, 53, 54, 55, 65])
+    generate_graph(grid_dim=8, num_agents_per_team=1, base_loc=[7, 56], start_loc=[[7], [56]], obstacle_loc=[26, 27, 34, 35, 36, 44])
 
 if __name__ == '__main__':
     main()

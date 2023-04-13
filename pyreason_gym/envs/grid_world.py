@@ -1,5 +1,6 @@
 import gym
 from gym import spaces
+import numpy as np
 
 from pyreason_gym.pyreason_grid_world.pyreason_grid_world import PyReasonGridWorld
 
@@ -25,8 +26,8 @@ class GridWorldEnv(gym.Env):
         # Length of the sequence = num_agents_per_team
         self.observation_space = spaces.Dict(
             {
-                'red_team': spaces.Sequence(spaces.Dict({'pos': spaces.Discrete(grid_size*grid_size), 'health': spaces.Box(0,1)})),
-                'blue_team': spaces.Sequence(spaces.Dict({'pos': spaces.Discrete(grid_size*grid_size), 'health': spaces.Box(0,1)}))
+                'red_team': spaces.Sequence(spaces.Dict({'pos': spaces.Discrete(grid_size*grid_size), 'health': spaces.Box(0,1, dtype=np.float32)})),
+                'blue_team': spaces.Sequence(spaces.Dict({'pos': spaces.Discrete(grid_size*grid_size), 'health': spaces.Box(0,1, dtype=np.float32)}))
             }
         )
 
@@ -55,12 +56,12 @@ class GridWorldEnv(gym.Env):
         return self.pyreason_grid_world.get_obs()
 
     def _get_info(self):
-        pass
+        return {}
 
     def _get_rew(self):
         return 0
 
-    def reset(self, seed=None):
+    def reset(self, seed=None, options=None):
         """Resets the environment to the initial conditions
 
         :param seed: random seed if there is a random component, defaults to None
@@ -81,7 +82,6 @@ class GridWorldEnv(gym.Env):
         return observation, info
     
     def step(self, action):
-        # TODO: Send action to pyreason and get observation
         self.pyreason_grid_world.move(action)
 
         observation = self._get_obs()
