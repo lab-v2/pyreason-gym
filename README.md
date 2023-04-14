@@ -8,14 +8,19 @@ An OpenAI gym wrapper for PyReason to use in a reinforcement learning Grid World
 ## Table of Contents
   
 * [Getting Started](#getting-started)
-    * [Conda Environment](#conda-environment)
-    * [Requirements](#requirements)
-    * [Installation](#installation)
-    * [Build](#build)
+    * [The Setting](#the-setting)
+    * [The Actions](#the-actions)
+    * [The Objective](#the-objective)
+    * [Rewards](#rewards)
+* [Installation](#installation)
 * [Usage](#usage)
-* [Documentation](#documentation)
+    * [Actions](#actions)
+    * [Observations](#observations)
+    * [Render Modes](#render-modes)
 * [Contributing](#contributing)
+* [Bibtex](#bibtex)
 * [License](#License)
+* [Contact](#contact)
 
 ## Getting Started
 This is an OpenAI Gym environment for reinforcement learning in a grid world setting using [PyReason](https://github.com/lab-v2/pyreason) as a simulator.
@@ -82,6 +87,8 @@ obs, rew, done, _, _ = env.step(action)
 # Keep using `env.step(action)` and `env.reset()` to get observations and run the grid world game.
 ```
 
+A Tutorial on how to interact with gym environments can be found [here](https://www.gymlibrary.dev/)
+
 ### Actions
 The action space is currently a list for each team with discrete numbers representing each action:
 
@@ -114,6 +121,21 @@ observation = {
 ```
 Information about positions and health can be extracted from this observation space.
 
+### Render Modes
+There are a few render modes supported:
+
+1. `human` - Creates a PyGame visualization of the grid world and actions
+2. `None` - No rendering, interaction only through actions and observations
+3. `rgb_array` - An RGB array of the screen that would have been displayed using `render_mode='human'`. This can be used alongside CNNs etc.
+
+These can be used when creating the environment:
+```python
+env = gym.make('PyReasonGridWorld-v0', render_mode='human')
+# Or
+env = gym.make('PyReasonGridWorld-v0', render_mode=None)
+# Or
+env = gym.make('PyReasonGridWorld-v0', render_mode='rgb_array')
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
