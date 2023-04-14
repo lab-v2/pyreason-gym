@@ -47,6 +47,8 @@ The objecive of the game is to kill all enemy agents or make their `health=0`. T
 **The reward function is currently not defined** A Reward of `0` is given at each step. TODO: Create a reward function.
 
 ## Installation
+Make sure `pyreason>=1.3.0` has been installed using the instructions found [here](https://github.com/lab-v2/pyreason#21-install-as-a-python-library)
+
 Clone the repository, and install:
 ```bash
 git clone https://github.com/lab-v2/pyreason-gym
