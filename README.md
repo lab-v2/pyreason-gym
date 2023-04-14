@@ -17,6 +17,7 @@ An OpenAI gym wrapper for PyReason to use in a reinforcement learning Grid World
     * [Actions](#actions)
     * [Observations](#observations)
     * [Render Modes](#render-modes)
+    * [Other Options](#other-options)
 * [Contributing](#contributing)
 * [Bibtex](#bibtex)
 * [License](#License)
@@ -140,6 +141,12 @@ env = gym.make('PyReasonGridWorld-v0', render_mode='human')
 env = gym.make('PyReasonGridWorld-v0', render_mode=None)
 # Or
 env = gym.make('PyReasonGridWorld-v0', render_mode='rgb_array')
+```
+
+### Other Options
+If you've generated the graph using the `generate_graph.py` script with a custom `grid size` and custom `number of agents per team`, you can pass these parameters to the grid world while creating the environment:
+```python
+env = gym.make('PyReasonGridWorld-v0', grid_size=8, num_agents_per_team=1)
 ```
 
 ## Contributing
