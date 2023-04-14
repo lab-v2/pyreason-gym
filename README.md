@@ -53,7 +53,7 @@ pip install -e pyreason-gym
 ```
 
 ## Usage
-This Grid World scenario needs a graph in GraphML format to run. A graph file has already been generated in the [graphs folder](./pyreason_gym/pyreason_grid_world/graph/). However if you wish to change certain parameters such as
+This Grid World scenario needs a graph in GraphML format to run. A graph file has **already been generated** in the [graphs folder](./pyreason_gym/pyreason_grid_world/graph/). However if you wish to change certain parameters such as
 
 1. Number of agents per team
 2. Start locations of the agents
@@ -61,7 +61,7 @@ This Grid World scenario needs a graph in GraphML format to run. A graph file ha
 4. The Grid World size (height, width)
 5. The locations of the Red and Blue bases
 
-You will need to re-generate the graph file using the [`generate_graph.py`](./generate_graph.py) script by changing the appropriate parameters. This will generate the graph in the appropriate location for PyReason to find.
+You will need to re-generate the graph file using the [`generate_graph.py`](./generate_graph.py) script by changing the appropriate parameters. This will generate the graph in the appropriate location for PyReason to find. NOTE: This is optional if you just want to try out the package--you can use the graph file already provided.
 
 This is an OpenAI Gym custom environment. More on OpenAI Gym:
 
