@@ -53,6 +53,11 @@ pip install -e pyreason-gym
 ```
 
 ## Usage
+To run the environment and get a feel for things you can run the [`test.py`](./test.py) file which will perform random actions in the grid world for 50 steps.
+```bash
+python test.py
+```
+
 This Grid World scenario needs a graph in GraphML format to run. A graph file has **already been generated** in the [graphs folder](./pyreason_gym/pyreason_grid_world/graph/). However if you wish to change certain parameters such as
 
 1. Number of agents per team
