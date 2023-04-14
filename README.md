@@ -2,7 +2,7 @@
 An OpenAI wrapper for PyReason to use in a reinforcement learning Grid World setting.
 
 <!-- Insert Image -->
-<img scr="media/pyreason-gym-demo.gif"/>
+![Grid World Demo](media/pyreason-gym-demo.gif)
 
 
 ## Table of Contents
