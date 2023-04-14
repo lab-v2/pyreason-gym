@@ -4,8 +4,8 @@ import numpy as np
 
 
 class PyReasonGridWorld:
-    def __init__(self, size, num_agents_per_team):
-        self.size = size
+    def __init__(self, grid_size, num_agents_per_team):
+        self.grid_size = grid_size
         self.num_agents_per_team = num_agents_per_team
         self.interpretation = None
         
@@ -23,6 +23,8 @@ class PyReasonGridWorld:
         # Load rules
         pr.load_rules(f'{current_path}/yamls/rules.yaml')
 
+        # Reset to get started
+        self.reset()
 
     def reset(self):
         # Reason for 1 timestep to initialize everything
@@ -56,7 +58,7 @@ class PyReasonGridWorld:
         # Filter edges that are of the form (red-soldier-x, y) where x and y are ints
         red_relevant_edges = [edge for edge in self.interpretation.edges if 'red-soldier' in edge[0] and edge[1].isnumeric()]
         blue_relevant_edges = [edge for edge in self.interpretation.edges if 'blue-soldier' in edge[0] and edge[1].isnumeric()]
-        
+
         # Select edges that have the atLoc predicate set to [1,1]
         red_position_edges = [edge for edge in red_relevant_edges if self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')]==pr.interval.closed(1,1)]
         blue_position_edges = [edge for edge in blue_relevant_edges if self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')]==pr.interval.closed(1,1)]
@@ -72,9 +74,26 @@ class PyReasonGridWorld:
         for i in range(1, self.num_agents_per_team+1):
             red_pos = int(red_position_edges[i-1][1])
             blue_pos = int(blue_position_edges[i-1][1])
+            red_pos_coords = [red_pos%self.grid_size, red_pos//self.grid_size]
+            blue_pos_coords = [blue_pos%self.grid_size, blue_pos//self.grid_size]
             red_health = self.interpretation.interpretations_node[f'red-soldier-{i}'].world[pr.label.Label('health')].lower
             blue_health = self.interpretation.interpretations_node[f'blue-soldier-{i}'].world[pr.label.Label('health')].lower
 
-            observation['red_team'].append({'pos': red_pos, 'health': np.array([red_health], dtype=np.float32)})
-            observation['blue_team'].append({'pos': blue_pos, 'health': np.array([blue_health], dtype=np.float32)})
+            observation['red_team'].append({'pos': np.array(red_pos_coords, dtype=np.int32), 'health': np.array([red_health], dtype=np.float32)})
+            observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32)})
         return observation
+    
+    def get_obstacle_locations(self):
+        # Return the coordinates of all the mountains in the grid to be able to draw them
+        relevant_edges = [edge for edge in self.interpretation.edges if edge[1]=='mountain']
+        obstacle_positions = [int(edge[0]) for edge in relevant_edges]
+        obstacle_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in obstacle_positions])
+        return obstacle_positions_coords
+    
+    def get_base_locations(self):
+        # Return the locations of the two bases
+        relevant_edges = [edge for edge in self.interpretation.edges if 'base' in edge[0]]
+        sorted_relevant_edges = [relevant_edges[0], relevant_edges[1]] if relevant_edges[0][0]=='red-base' else [relevant_edges[1], relevant_edges[0]]
+        base_positions = [int(edge[1]) for edge in sorted_relevant_edges]
+        base_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in base_positions])
+        return base_positions_coords
