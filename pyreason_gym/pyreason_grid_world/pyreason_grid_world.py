@@ -1,6 +1,7 @@
 import os
 import pyreason as pr
 import numpy as np
+import time
 
 
 class PyReasonGridWorld:
@@ -28,6 +29,8 @@ class PyReasonGridWorld:
 
     def reset(self):
         # Reason for 1 timestep to initialize everything
+        # Certain internal variables need to be reset otherwise memory blows up
+        pr.reset()
         self.interpretation = pr.reason(0, again=False)
 
     def move(self, action):
