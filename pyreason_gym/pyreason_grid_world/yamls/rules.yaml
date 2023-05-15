@@ -12,7 +12,7 @@ obstacle_rule:
 
 # Moving rules
 # Move UP
-move_up_rule:
+move_up_rule_1:
     target:
     target_criteria:
         - [moveUp, 1, 1]
@@ -26,7 +26,21 @@ move_up_rule:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_up_change_prev_rule:
+move_up_rule_2:
+    target:
+    target_criteria:
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_up_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -39,8 +53,21 @@ move_up_change_prev_rule:
 
     ann_fn: [0,0]
 
+move_up_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveUp, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
 # Move DOWN
-move_down_rule:
+move_down_rule_1:
     target:
     target_criteria:
         - [moveDown, 1, 1]
@@ -54,7 +81,21 @@ move_down_rule:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_down_change_prev_rule:
+move_down_rule_2:
+    target:
+    target_criteria:
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_down_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -67,8 +108,21 @@ move_down_change_prev_rule:
 
     ann_fn: [0,0]
 
+move_down_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveDown, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
 # Move LEFT
-move_left_rule:
+move_left_rule_1:
     target:
     target_criteria:
         - [moveLeft, 1, 1]
@@ -82,7 +136,21 @@ move_left_rule:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_left_change_prev_rule:
+move_left_rule_2:
+    target:
+    target_criteria:
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_left_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -95,8 +163,21 @@ move_left_change_prev_rule:
 
     ann_fn: [0,0]
 
+move_left_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveLeft, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
 # Move RIGHT
-move_right_rule:
+move_right_rule_1:
     target:
     target_criteria:
         - [moveRight, 1, 1]
@@ -110,7 +191,21 @@ move_right_rule:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_right_change_prev_rule:
+move_right_rule_2:
+    target:
+    target_criteria:
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_right_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -122,3 +217,609 @@ move_right_change_prev_rule:
         - [node, [newLoc], blocked, [0,0]]
 
     ann_fn: [0,0]
+
+move_right_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveRight, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+
+# SHOOT UP
+# RED
+shoot_up_red_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootUpRed, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.2, 0.2]
+
+shoot_up_blue_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootUpBlue, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.2, 0.2]
+
+
+# SHOOT DOWN
+shoot_down_red_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootDownRed, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.6, 0.6]
+
+shoot_down_blue_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootDownBlue, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.6, 0.6]
+
+
+# SHOOT LEFT
+shoot_left_red_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootLeftRed, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.4, 0.4]
+
+shoot_left_blue_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootLeftBlue, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.4, 0.4]
+
+
+# SHOOT RIGHT
+shoot_right_red_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootRightRed, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.8, 0.8]
+
+shoot_right_blue_setup_new_bullet_rule:
+    target:
+    target_criteria:
+        - [shootRightBlue, 1, 1]
+        - [health, 1, 1]
+    delta_t: 0
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [target, bullet], bullet, [1,1]]
+
+    edges: [loc, bullet, newBullet]
+    ann_fn: [0.8, 0.8]
+
+
+# BULLET Rules
+# BULLET HITS SOMEONE
+# BLUE DIES
+bullet_hit_just_died_blue_rule:
+    target: justDied
+    target_criteria:
+        - [health, 1, 1]
+        - [teamBlue, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamRed, [1,1]]
+    ann_fn: [1, 1]
+
+bullet_hit_just_died_red_rule:
+    target: justDied
+    target_criteria:
+        - [health, 1, 1]
+        - [teamRed, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamBlue, [1,1]]
+    ann_fn: [1, 1]
+
+bullet_hit_just_died_off_blue_rule:
+    target: justDied
+    target_criteria:
+        - [health, 1, 1]
+        - [teamBlue, 1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamRed, [1,1]]
+    ann_fn: [0, 0]
+
+bullet_hit_just_died_off_red_rule:
+    target: justDied
+    target_criteria:
+        - [health, 1, 1]
+        - [teamRed, 1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamBlue, [1,1]]
+    ann_fn: [0, 0]
+
+bullet_hit_rule:
+    target: health
+    target_criteria:
+        - [health, 1, 1]
+        - [justDied, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+    ann_fn: [0, 0]
+
+remove_bullet_after_hit_blue_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamRed, [1,1]]
+        - [node, [player], teamBlue, [1,1]]
+
+    ann_fn: [0, 0]
+
+remove_bullet_after_hit_red_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamBlue, [1,1]]
+        - [node, [player], teamRed, [1,1]]
+
+    ann_fn: [0, 0]
+
+
+# COMMON RULES FOR SETUP
+# Initial Location
+shoot_setup_loc_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.2, 0.8]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, atLoc]
+    ann_fn: [1,1]
+
+# Initial Life
+shoot_setup_life_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.2, 0.8]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, life]
+    ann_fn: [1, 1]
+
+# Bullet Directions
+shoot_up_setup_direction_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.2, 0.2]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, direction]
+    ann_fn: [0.2, 0.2]
+
+shoot_down_setup_direction_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.6, 0.6]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, direction]
+    ann_fn: [0.6, 0.6]
+
+shoot_left_setup_direction_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.4, 0.4]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, direction]
+    ann_fn: [0.4, 0.4]
+
+shoot_right_setup_direction_rule:
+    target:
+    target_criteria:
+        - [newBullet, 0.8, 0.8]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    edges: [source, target, direction]
+    ann_fn: [0.8, 0.8]
+
+# Turn off New Bullet mode
+shoot_new_bullet_off_rule:
+    target: newBullet
+    target_criteria:
+        - [newBullet, 0.2, 0.8]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+    ann_fn: [0, 0]
+
+# BULLET DYNAMICS
+# UP
+bullet_move_up_setup_pos_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.2, 0.2]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1, 1]
+
+bullet_move_up_change_prev_loc_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.2, 0.2]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+bullet_move_up_setup_life_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.2, 0.2]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, life]
+    ann_fn: [1, 1]
+
+bullet_move_up_setup_direction_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.2, 0.2]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, direction]
+    ann_fn: [0.2, 0.2]
+
+# Out of grid
+bullet_move_up_out_of_grid_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.2, 0.2]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [1,1]]
+
+    ann_fn: [0, 0]
+
+# DOWN
+bullet_move_down_setup_pos_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.6, 0.6]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1, 1]
+
+bullet_move_down_change_prev_loc_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.6, 0.6]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+bullet_move_down_setup_life_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.6, 0.6]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, life]
+    ann_fn: [1, 1]
+
+bullet_move_down_setup_direction_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.6, 0.6]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, direction]
+    ann_fn: [0.6, 0.6]
+
+# Out of grid
+bullet_move_down_out_of_grid_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.6, 0.6]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [1,1]]
+
+    ann_fn: [0, 0]
+
+# LEFT
+bullet_move_left_setup_pos_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.4, 0.4]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1, 1]
+
+bullet_move_left_change_prev_loc_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.4, 0.4]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+bullet_move_left_setup_life_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.4, 0.4]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, life]
+    ann_fn: [1, 1]
+
+bullet_move_left_setup_direction_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.4, 0.4]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, direction]
+    ann_fn: [0.4, 0.4]
+
+# Out of grid
+bullet_move_left_out_of_grid_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.4, 0.4]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [1,1]]
+
+    ann_fn: [0, 0]
+
+# RIGHT
+bullet_move_right_setup_pos_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.8, 0.8]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1, 1]
+
+bullet_move_right_change_prev_loc_rule:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.8, 0.8]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+bullet_move_right_setup_life_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.8, 0.8]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, life]
+    ann_fn: [1, 1]
+
+bullet_move_right_setup_direction_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.8, 0.8]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, direction]
+    ann_fn: [0.8, 0.8]
+
+# Out of grid
+bullet_move_right_out_of_grid_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 1, 1]
+        - [direction, 0.8, 0.8]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [1,1]]
+
+    ann_fn: [0, 0]

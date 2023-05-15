@@ -40,16 +40,17 @@ class PyReasonGridWorld:
         blue_team_actions = action['blue_team']
 
         facts = []
-        actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight'}
+        red_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpRed', 5:'shootDownRed', 6:'shootLeftRed', 7:'shootRightRed'}
+        blue_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpBlue', 5:'shootDownBlue', 6:'shootLeftBlue', 7:'shootRightBlue'}
         for i, a in enumerate(red_team_actions):
-            fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(1,1), 0, 0)
-            fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(0,0), 1, 1)
+            fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(1,1), 0, 0)
+            fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), 1, 1)
             facts.append(fact_on)
             facts.append(fact_off)
     
         for i, a in enumerate(blue_team_actions):
-            fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(1,1), 0, 0)
-            fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(0,0), 1, 1)
+            fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), 0, 0)
+            fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), 1, 1)
             facts.append(fact_on)
             facts.append(fact_off)
         
@@ -100,3 +101,14 @@ class PyReasonGridWorld:
         base_positions = [int(edge[1]) for edge in sorted_relevant_edges]
         base_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in base_positions])
         return base_positions_coords
+
+    def get_bullet_locations(self):
+        # Return the location of red and blue bullets to be displayed on the grid
+        relavant_edges = [edge for edge in self.interpretation.edges if 'bullet' in edge[1] and edge[0].isdigit()]
+        filtered_edges = [edge for edge in relavant_edges if self.interpretation.interpretations_edge[edge].world[pr.label.Label('life')] == pr.interval.closed(1,1)]
+        red_bullet_positions = [int(edge[0]) for edge in filtered_edges if 'red' in edge[1]]
+        blue_bullet_positions = [int(edge[0]) for edge in filtered_edges if 'blue' in edge[1]]
+        red_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in red_bullet_positions])
+        blue_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in blue_bullet_positions])
+        positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
+        return positions

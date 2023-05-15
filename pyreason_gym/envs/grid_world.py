@@ -37,15 +37,14 @@ class GridWorldEnv(gym.Env):
             }
         )
 
-        # We have 4 actions, corresponding to "up", "down", "left", "right".
-        # TODO: Add shoot later
+        # We have 8 actions, corresponding to "up", "down", "left", "right", "shootUp", "shootDown", "shootLeft", "shootRight"
         self.action_space = spaces.Dict(
             {
-                'red_team': spaces.MultiDiscrete([4]*num_agents_per_team),
-                'blue_team': spaces.MultiDiscrete([4]*num_agents_per_team)
+                'red_team': spaces.MultiDiscrete([8]*num_agents_per_team),
+                'blue_team': spaces.MultiDiscrete([8]*num_agents_per_team)
             }
         )
-        self.actions = {0:'up', 1:'down', 2:'left', 3:'right'}
+        self.actions = {0:'up', 1:'down', 2:'left', 3:'right', 4:'shootUp', 5:'shootDown', 6:'shootLeft', 7:'shootRight'}
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
 
@@ -189,6 +188,30 @@ class GridWorldEnv(gym.Env):
                 pix_square_size/3,
                 5
             )
+
+        # TODO: fix, does not work
+        # # Add active bullets to the grid (currently we don't display direction)
+        # red_bullet_positions, blue_bullet_positions = self.pyreason_grid_world.get_bullet_locations()
+        # for red_pos in red_bullet_positions:
+        #     start_pos = self.to_pygame_coords(red_pos) * pix_square_size + pix_square_size/3
+        #     end_pos = self.to_pygame_coords(red_pos) * pix_square_size - pix_square_size/3
+        #     pygame.draw.line(
+        #         canvas,
+        #         (124, 252, 0),
+        #         start_pos,
+        #         end_pos,
+        #         5
+        #     )
+        # for blue_pos in blue_bullet_positions:
+        #     start_pos = self.to_pygame_coords(blue_pos) * pix_square_size + pix_square_size/3
+        #     end_pos = self.to_pygame_coords(blue_pos) * pix_square_size - pix_square_size/3
+        #     pygame.draw.line(
+        #         canvas,
+        #         (124, 252, 0),
+        #         start_pos,
+        #         end_pos,
+        #         5
+        #     )
 
         # Finally, add some gridlines
         for x in range(self.grid_size + 1):
