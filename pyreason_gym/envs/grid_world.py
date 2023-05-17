@@ -25,8 +25,8 @@ class GridWorldEnv(gym.Env):
         self.pyreason_grid_world = PyReasonGridWorld(grid_size, num_agents_per_team)
 
         # Get the position of obstacles for the render function
-        self.obstacle_positions = self.pyreason_grid_world.get_obstacle_locations()
-        self.base_positions = self.pyreason_grid_world.get_base_locations()
+        self.obstacle_positions = None
+        self.base_positions = None
 
         # Currently the observation space consists of the positions of the agents as well as their state (health etc.)
         # Length of the sequence = num_agents_per_team
@@ -47,7 +47,6 @@ class GridWorldEnv(gym.Env):
         self.actions = {0:'up', 1:'down', 2:'left', 3:'right', 4:'shootUp', 5:'shootDown', 6:'shootLeft', 7:'shootRight'}
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
-
 
         # If human-rendering is used, `self.window` will be a reference
         # to the window that we draw to. `self.clock` will be a clock that is used
@@ -76,6 +75,10 @@ class GridWorldEnv(gym.Env):
         super().reset(seed=seed)
 
         self.pyreason_grid_world.reset()
+
+        # Get the position of obstacles for the render function
+        self.obstacle_positions = self.pyreason_grid_world.get_obstacle_locations()
+        self.base_positions = self.pyreason_grid_world.get_base_locations()
 
         observation = self._get_obs()
         info = self._get_info()
@@ -138,7 +141,6 @@ class GridWorldEnv(gym.Env):
             ),
         )
 
-
         # Draw the obstacles
         for i in self.obstacle_positions:
             triangle_coords = [pix_square_size * self.to_pygame_coords(i), pix_square_size * self.to_pygame_coords(i), pix_square_size * self.to_pygame_coords(i)]
@@ -189,29 +191,92 @@ class GridWorldEnv(gym.Env):
                 5
             )
 
-        # TODO: fix, does not work
-        # # Add active bullets to the grid (currently we don't display direction)
-        # red_bullet_positions, blue_bullet_positions = self.pyreason_grid_world.get_bullet_locations()
-        # for red_pos in red_bullet_positions:
-        #     start_pos = self.to_pygame_coords(red_pos) * pix_square_size + pix_square_size/3
-        #     end_pos = self.to_pygame_coords(red_pos) * pix_square_size - pix_square_size/3
-        #     pygame.draw.line(
-        #         canvas,
-        #         (124, 252, 0),
-        #         start_pos,
-        #         end_pos,
-        #         5
-        #     )
-        # for blue_pos in blue_bullet_positions:
-        #     start_pos = self.to_pygame_coords(blue_pos) * pix_square_size + pix_square_size/3
-        #     end_pos = self.to_pygame_coords(blue_pos) * pix_square_size - pix_square_size/3
-        #     pygame.draw.line(
-        #         canvas,
-        #         (124, 252, 0),
-        #         start_pos,
-        #         end_pos,
-        #         5
-        #     )
+        # Add active bullets to the grid (currently we don't display direction)
+        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions) = self.pyreason_grid_world.get_bullet_locations()
+        for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
+            # Which dir the bullet should point
+            if red_dir == 'up' or red_dir == 'down':
+                idx = 1
+            elif red_dir == 'left' or red_dir == 'right':
+                idx = 0
+            start_pos = self.to_pygame_coords(red_pos) * pix_square_size + int(pix_square_size/2)
+            end_pos = self.to_pygame_coords(red_pos) * pix_square_size + int(pix_square_size/2)
+            start_pos[idx] -= pix_square_size/5
+            end_pos[idx] += pix_square_size/5
+            pygame.draw.line(
+                canvas,
+                (255, 0, 0),
+                start_pos,
+                end_pos,
+                10
+            )
+
+            # Draw triangles at the end of each bullet
+            if red_dir == 'up':
+                tri_1 = [start_pos[0], start_pos[1] - pix_square_size / 8]
+                tri_2 = [start_pos[0] + pix_square_size / 8, start_pos[1]]
+                tri_3 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
+            elif red_dir == 'down':
+                tri_1 = [end_pos[0], end_pos[1] + pix_square_size / 8]
+                tri_2 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
+                tri_3 = [end_pos[0] - pix_square_size / 8, end_pos[1]]
+            elif red_dir == 'left':
+                tri_1 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
+                tri_2 = [start_pos[0], start_pos[1] + pix_square_size / 8]
+                tri_3 = [start_pos[0], start_pos[1] - pix_square_size / 8]
+            elif red_dir == 'right':
+                tri_1 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
+                tri_2 = [end_pos[0], end_pos[1] + pix_square_size / 8]
+                tri_3 = [end_pos[0], end_pos[1] - pix_square_size / 8]
+
+            pygame.draw.polygon(
+                canvas,
+                (255, 0, 0),
+                (tri_1, tri_2, tri_3),
+            )
+
+
+        for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
+            # Which dir the bullet should point
+            if blue_dir == 'up' or blue_dir == 'down':
+                idx = 1
+            elif blue_dir == 'left' or blue_dir == 'right':
+                idx = 0
+            start_pos = self.to_pygame_coords(blue_pos) * pix_square_size + int(pix_square_size/2)
+            end_pos = self.to_pygame_coords(blue_pos) * pix_square_size + int(pix_square_size/2)
+            start_pos[idx] -= pix_square_size / 5
+            end_pos[idx] += pix_square_size / 5
+            pygame.draw.line(
+                canvas,
+                (0, 0, 255),
+                start_pos,
+                end_pos,
+                10
+            )
+
+            # Draw triangles at the end of each bullet
+            if blue_dir == 'up':
+                tri_1 = [start_pos[0], start_pos[1] - pix_square_size / 8]
+                tri_2 = [start_pos[0] + pix_square_size / 8, start_pos[1]]
+                tri_3 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
+            elif blue_dir == 'down':
+                tri_1 = [end_pos[0], end_pos[1] + pix_square_size / 8]
+                tri_2 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
+                tri_3 = [end_pos[0] - pix_square_size / 8, end_pos[1]]
+            elif blue_dir == 'left':
+                tri_1 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
+                tri_2 = [start_pos[0], start_pos[1] + pix_square_size / 8]
+                tri_3 = [start_pos[0], start_pos[1] - pix_square_size / 8]
+            elif blue_dir == 'right':
+                tri_1 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
+                tri_2 = [end_pos[0], end_pos[1] + pix_square_size / 8]
+                tri_3 = [end_pos[0], end_pos[1] - pix_square_size / 8]
+
+            pygame.draw.polygon(
+                canvas,
+                (0, 0, 255),
+                (tri_1, tri_2, tri_3),
+            )
 
         # Finally, add some gridlines
         for x in range(self.grid_size + 1):
