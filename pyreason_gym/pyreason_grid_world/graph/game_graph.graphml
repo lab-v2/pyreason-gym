@@ -1,16 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="bullet" for="edge" attr.name="bullet" attr.type="long" />
   <key id="team" for="edge" attr.name="team" attr.type="long" />
   <key id="atLoc" for="edge" attr.name="atLoc" attr.type="long" />
-  <key id="down" for="edge" attr.name="down" attr.type="long" />
   <key id="left" for="edge" attr.name="left" attr.type="long" />
+  <key id="down" for="edge" attr.name="down" attr.type="long" />
   <key id="up" for="edge" attr.name="up" attr.type="long" />
   <key id="right" for="edge" attr.name="right" attr.type="long" />
+  <key id="bullet" for="node" attr.name="bullet" attr.type="long" />
   <key id="teamBlue" for="node" attr.name="teamBlue" attr.type="long" />
   <key id="shootRightBlue" for="node" attr.name="shootRightBlue" attr.type="long" />
   <key id="shootLeftBlue" for="node" attr.name="shootLeftBlue" attr.type="long" />
   <key id="shootDownBlue" for="node" attr.name="shootDownBlue" attr.type="long" />
   <key id="shootUpBlue" for="node" attr.name="shootUpBlue" attr.type="long" />
+  <key id="justDied" for="node" attr.name="justDied" attr.type="string" />
   <key id="teamRed" for="node" attr.name="teamRed" attr.type="long" />
   <key id="shootRightRed" for="node" attr.name="shootRightRed" attr.type="long" />
   <key id="shootLeftRed" for="node" attr.name="shootLeftRed" attr.type="long" />
@@ -22,6 +25,7 @@
   <key id="moveUp" for="node" attr.name="moveUp" attr.type="long" />
   <key id="health" for="node" attr.name="health" attr.type="long" />
   <key id="isMountain" for="node" attr.name="isMountain" attr.type="long" />
+  <key id="blocked" for="node" attr.name="blocked" attr.type="long" />
   <key id="blocked" for="node" attr.name="blocked" attr.type="string" />
   <graph edgedefault="directed">
     <node id="0">
@@ -216,6 +220,9 @@
     <node id="63">
       <data key="blocked">0,0</data>
     </node>
+    <node id="end">
+      <data key="blocked">1</data>
+    </node>
     <node id="red-base" />
     <node id="blue-base" />
     <node id="mountain">
@@ -232,6 +239,7 @@
       <data key="shootLeftRed">0</data>
       <data key="shootRightRed">0</data>
       <data key="teamRed">1</data>
+      <data key="justDied">0,0</data>
     </node>
     <node id="blue-soldier-1">
       <data key="health">1</data>
@@ -244,12 +252,25 @@
       <data key="shootLeftBlue">0</data>
       <data key="shootRightBlue">0</data>
       <data key="teamBlue">1</data>
+      <data key="justDied">0,0</data>
+    </node>
+    <node id="red-bullet-1">
+      <data key="teamRed">1</data>
+      <data key="bullet">1</data>
+    </node>
+    <node id="blue-bullet-1">
+      <data key="teamBlue">1</data>
+      <data key="bullet">1</data>
     </node>
     <edge source="0" target="1">
       <data key="right">1</data>
     </edge>
     <edge source="0" target="8">
       <data key="up">1</data>
+    </edge>
+    <edge source="0" target="end">
+      <data key="down">1</data>
+      <data key="left">1</data>
     </edge>
     <edge source="1" target="2">
       <data key="right">1</data>
@@ -260,6 +281,9 @@
     <edge source="1" target="9">
       <data key="up">1</data>
     </edge>
+    <edge source="1" target="end">
+      <data key="down">1</data>
+    </edge>
     <edge source="2" target="3">
       <data key="right">1</data>
     </edge>
@@ -268,6 +292,9 @@
     </edge>
     <edge source="2" target="10">
       <data key="up">1</data>
+    </edge>
+    <edge source="2" target="end">
+      <data key="down">1</data>
     </edge>
     <edge source="3" target="4">
       <data key="right">1</data>
@@ -278,6 +305,9 @@
     <edge source="3" target="11">
       <data key="up">1</data>
     </edge>
+    <edge source="3" target="end">
+      <data key="down">1</data>
+    </edge>
     <edge source="4" target="5">
       <data key="right">1</data>
     </edge>
@@ -286,6 +316,9 @@
     </edge>
     <edge source="4" target="12">
       <data key="up">1</data>
+    </edge>
+    <edge source="4" target="end">
+      <data key="down">1</data>
     </edge>
     <edge source="5" target="6">
       <data key="right">1</data>
@@ -296,6 +329,9 @@
     <edge source="5" target="13">
       <data key="up">1</data>
     </edge>
+    <edge source="5" target="end">
+      <data key="down">1</data>
+    </edge>
     <edge source="6" target="7">
       <data key="right">1</data>
     </edge>
@@ -305,11 +341,21 @@
     <edge source="6" target="14">
       <data key="up">1</data>
     </edge>
+    <edge source="6" target="end">
+      <data key="down">1</data>
+    </edge>
     <edge source="7" target="6">
       <data key="left">1</data>
     </edge>
     <edge source="7" target="15">
       <data key="up">1</data>
+    </edge>
+    <edge source="7" target="end">
+      <data key="down">1</data>
+      <data key="right">1</data>
+    </edge>
+    <edge source="7" target="red-soldier-1">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="8" target="9">
       <data key="right">1</data>
@@ -319,6 +365,9 @@
     </edge>
     <edge source="8" target="0">
       <data key="down">1</data>
+    </edge>
+    <edge source="8" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="9" target="10">
       <data key="right">1</data>
@@ -401,6 +450,9 @@
     <edge source="15" target="7">
       <data key="down">1</data>
     </edge>
+    <edge source="15" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="16" target="17">
       <data key="right">1</data>
     </edge>
@@ -409,6 +461,9 @@
     </edge>
     <edge source="16" target="8">
       <data key="down">1</data>
+    </edge>
+    <edge source="16" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="17" target="18">
       <data key="right">1</data>
@@ -491,6 +546,9 @@
     <edge source="23" target="15">
       <data key="down">1</data>
     </edge>
+    <edge source="23" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="24" target="25">
       <data key="right">1</data>
     </edge>
@@ -499,6 +557,9 @@
     </edge>
     <edge source="24" target="16">
       <data key="down">1</data>
+    </edge>
+    <edge source="24" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="25" target="26">
       <data key="right">1</data>
@@ -587,6 +648,9 @@
     <edge source="31" target="23">
       <data key="down">1</data>
     </edge>
+    <edge source="31" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="32" target="33">
       <data key="right">1</data>
     </edge>
@@ -595,6 +659,9 @@
     </edge>
     <edge source="32" target="24">
       <data key="down">1</data>
+    </edge>
+    <edge source="32" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="33" target="34">
       <data key="right">1</data>
@@ -686,6 +753,9 @@
     <edge source="39" target="31">
       <data key="down">1</data>
     </edge>
+    <edge source="39" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="40" target="41">
       <data key="right">1</data>
     </edge>
@@ -694,6 +764,9 @@
     </edge>
     <edge source="40" target="32">
       <data key="down">1</data>
+    </edge>
+    <edge source="40" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="41" target="42">
       <data key="right">1</data>
@@ -779,6 +852,9 @@
     <edge source="47" target="39">
       <data key="down">1</data>
     </edge>
+    <edge source="47" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="48" target="49">
       <data key="right">1</data>
     </edge>
@@ -787,6 +863,9 @@
     </edge>
     <edge source="48" target="40">
       <data key="down">1</data>
+    </edge>
+    <edge source="48" target="end">
+      <data key="left">1</data>
     </edge>
     <edge source="49" target="50">
       <data key="right">1</data>
@@ -869,11 +948,21 @@
     <edge source="55" target="47">
       <data key="down">1</data>
     </edge>
+    <edge source="55" target="end">
+      <data key="right">1</data>
+    </edge>
     <edge source="56" target="57">
       <data key="right">1</data>
     </edge>
     <edge source="56" target="48">
       <data key="down">1</data>
+    </edge>
+    <edge source="56" target="end">
+      <data key="up">1</data>
+      <data key="left">1</data>
+    </edge>
+    <edge source="56" target="blue-soldier-1">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="57" target="58">
       <data key="right">1</data>
@@ -884,6 +973,9 @@
     <edge source="57" target="49">
       <data key="down">1</data>
     </edge>
+    <edge source="57" target="end">
+      <data key="up">1</data>
+    </edge>
     <edge source="58" target="59">
       <data key="right">1</data>
     </edge>
@@ -892,6 +984,9 @@
     </edge>
     <edge source="58" target="50">
       <data key="down">1</data>
+    </edge>
+    <edge source="58" target="end">
+      <data key="up">1</data>
     </edge>
     <edge source="59" target="60">
       <data key="right">1</data>
@@ -902,6 +997,9 @@
     <edge source="59" target="51">
       <data key="down">1</data>
     </edge>
+    <edge source="59" target="end">
+      <data key="up">1</data>
+    </edge>
     <edge source="60" target="61">
       <data key="right">1</data>
     </edge>
@@ -910,6 +1008,9 @@
     </edge>
     <edge source="60" target="52">
       <data key="down">1</data>
+    </edge>
+    <edge source="60" target="end">
+      <data key="up">1</data>
     </edge>
     <edge source="61" target="62">
       <data key="right">1</data>
@@ -920,6 +1021,9 @@
     <edge source="61" target="53">
       <data key="down">1</data>
     </edge>
+    <edge source="61" target="end">
+      <data key="up">1</data>
+    </edge>
     <edge source="62" target="63">
       <data key="right">1</data>
     </edge>
@@ -929,11 +1033,18 @@
     <edge source="62" target="54">
       <data key="down">1</data>
     </edge>
+    <edge source="62" target="end">
+      <data key="up">1</data>
+    </edge>
     <edge source="63" target="62">
       <data key="left">1</data>
     </edge>
     <edge source="63" target="55">
       <data key="down">1</data>
+    </edge>
+    <edge source="63" target="end">
+      <data key="up">1</data>
+      <data key="right">1</data>
     </edge>
     <edge source="red-base" target="7">
       <data key="atLoc">1</data>
@@ -947,11 +1058,17 @@
     <edge source="red-soldier-1" target="7">
       <data key="atLoc">1</data>
     </edge>
+    <edge source="red-soldier-1" target="red-bullet-1">
+      <data key="bullet">1</data>
+    </edge>
     <edge source="blue-soldier-1" target="blue-base">
       <data key="team">1</data>
     </edge>
     <edge source="blue-soldier-1" target="56">
       <data key="atLoc">1</data>
+    </edge>
+    <edge source="blue-soldier-1" target="blue-bullet-1">
+      <data key="bullet">1</data>
     </edge>
   </graph>
 </graphml>

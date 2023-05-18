@@ -1,10 +1,8 @@
 import pyreason_gym
 import gym
-import time
 
 env = gym.make('PyReasonGridWorld-v0', render_mode='human')
 obs = env.reset()
-time.sleep(10)
 
 # Sample actions:
 # action = {
@@ -23,6 +21,5 @@ for i in range(50):
     action = env.action_space.sample()
     print(action)
     env.step(action)
-    time.sleep(1)
 
 env.close()

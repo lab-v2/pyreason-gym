@@ -32,22 +32,25 @@ This is an OpenAI Gym environment for reinforcement learning in a grid world set
 3. There are a certain number of agents in each team
 
 ### The Actions
-There are 5 actions an agent can take:
+There are 8 actions an agent can take:
 
 1. Move Up
 2. Move Down
 3. Move Left
 4. Move Right
-5. Shoot a bullet (not implemented yet)
+5. Shoot Up
+6. Shoot Down
+7. Shoot Left
+8. Shoot Right
 
 ### The Objective
-The objecive of the game is to kill all enemy agents or make their `health=0`. The game will terminate (or signal `done=True` when this happens)
+The objecive of the game is to kill all enemy agents or make their `health=0`. The game will terminate (or signal `done=True` when this happens). This objective can be changed in the `is_done()` function in [`grid_world.py`](./pyreason_gym/envs/grid_world.py) to determine when the game should be over.
 
 ### Rewards
-**The reward function is currently not defined** A Reward of `0` is given at each step. TODO: Create a reward function.
+**The reward function is currently not defined** A Reward of `0` is given at each step. You can modify this in the `_get_rew` function in [`grid_world.py`](./pyreason_gym/envs/grid_world.py)
 
 ## Installation
-Make sure `pyreason>=1.3.0` has been installed using the instructions found [here](https://github.com/lab-v2/pyreason#21-install-as-a-python-library)
+Make sure `pyreason>=1.5.1` has been installed using the instructions found [here](https://github.com/lab-v2/pyreason#21-install-as-a-python-library)
 
 Clone the repository, and install:
 ```bash
@@ -104,7 +107,10 @@ The action space is currently a list for each team with discrete numbers represe
 2. Move Down is represented by `1`
 3. Move Left is represented by `2`
 4. Move Right is represented by `3`
-5. Shoot is represented by `4` (**Not implemented yet**)
+5. Shoot Up is represented by `4`
+6. Shoot Down is represented by `5`
+7. Shoot Left is represented by `6`
+8. Shoot Right is represented by `7`
 
 A sample action with `1` agent per team is of the form:
 ```python

@@ -1,6 +1,7 @@
 import os
 import pyreason as pr
 import numpy as np
+import time
 
 
 class PyReasonGridWorld:
@@ -8,6 +9,9 @@ class PyReasonGridWorld:
         self.grid_size = grid_size
         self.num_agents_per_team = num_agents_per_team
         self.interpretation = None
+
+        # Keep track of the next timestep to start
+        self.next_time = 0
         
         # Pyreason settings
         pr.settings.verbose = False
@@ -23,12 +27,12 @@ class PyReasonGridWorld:
         # Load rules
         pr.load_rules(f'{current_path}/yamls/rules.yaml')
 
-        # Reset to get started
-        self.reset()
-
     def reset(self):
         # Reason for 1 timestep to initialize everything
+        # Certain internal variables need to be reset otherwise memory blows up
+        pr.reset()
         self.interpretation = pr.reason(0, again=False)
+        self.next_time = self.interpretation.time + 1
 
     def move(self, action):
         # Define facts, then run pyreason
@@ -37,21 +41,23 @@ class PyReasonGridWorld:
         blue_team_actions = action['blue_team']
 
         facts = []
-        actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight'}
+        red_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpRed', 5:'shootDownRed', 6:'shootLeftRed', 7:'shootRightRed'}
+        blue_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpBlue', 5:'shootDownBlue', 6:'shootLeftBlue', 7:'shootRightBlue'}
         for i, a in enumerate(red_team_actions):
-            fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(1,1), 0, 0)
-            fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(0,0), 1, 1)
+            fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
+            fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
             facts.append(fact_on)
             facts.append(fact_off)
     
         for i, a in enumerate(blue_team_actions):
-            fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(1,1), 0, 0)
-            fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(actions[a]), pr.interval.closed(0,0), 1, 1)
+            fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
+            fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
             facts.append(fact_on)
             facts.append(fact_off)
         
-        self.interpretation = pr.reason(1, again=True, node_facts=facts, include_graph_facts=False)
-    
+        self.interpretation = pr.reason(2, again=True, node_facts=facts, include_graph_facts=False)
+        self.next_time = self.interpretation.time + 1
+
     def get_obs(self):
         observation = {'red_team': [], 'blue_team': []}
 
@@ -97,3 +103,26 @@ class PyReasonGridWorld:
         base_positions = [int(edge[1]) for edge in sorted_relevant_edges]
         base_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in base_positions])
         return base_positions_coords
+
+    def get_bullet_locations(self):
+        # Return the location of red and blue bullets to be displayed on the grid
+        relevant_edges = [edge for edge in self.interpretation.edges if 'bullet' in edge[1] and edge[0].isdigit()]
+        filtered_edges = [edge for edge in relevant_edges if self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')] == pr.interval.closed(1,1)
+                          and self.interpretation.interpretations_edge[edge].world[pr.label.Label('life')] == pr.interval.closed(1,1)]
+        red_bullet_positions = [int(edge[0]) for edge in filtered_edges if 'red' in edge[1]]
+        blue_bullet_positions = [int(edge[0]) for edge in filtered_edges if 'blue' in edge[1]]
+        red_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in red_bullet_positions])
+        blue_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in blue_bullet_positions])
+        positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
+
+        # Bullet direction of movement
+        direction_map = {0.2: 'up', 0.4: 'left', 0.6: 'down', 0.8: 'right'}
+        red_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'red' in edge[1]]
+        blue_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'blue' in edge[1]]
+        directions = (red_bullet_directions, blue_bullet_directions)
+
+        # Make sure the length of positions is the same as directions
+        assert len(red_bullet_positions) == len(red_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
+        assert len(blue_bullet_positions) == len(blue_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
+
+        return positions, directions
