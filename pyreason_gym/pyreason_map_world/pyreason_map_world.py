@@ -76,6 +76,8 @@ class PyReasonMapWorld:
 
     def _get_lat_long(self, node):
         world = self.interpretation.interpretations_node[node].world
+        lat = None
+        long = None
         for label, interval in world.items():
             # Represented internally by lat-x and long-y
             if 'lat' in label._value:
@@ -84,3 +86,12 @@ class PyReasonMapWorld:
                 long = float(label._value[5:])
 
         return lat, long
+
+    def get_map(self):
+        nodes = [node for node in self.interpretation.nodes if node != 'agent']
+        edges = [edge for edge in self.interpretation.edges if edge[0] != 'agent']
+
+        # Return list of nodes (landmarks/stops) and list of edges connecting these points
+        nodes_lat_long = [(self._get_lat_long(node)) for node in nodes]
+        edges_lat_long = [((self._get_lat_long(edge[0])), (self._get_lat_long(edge[1]))) for edge in edges]
+        return nodes_lat_long, edges_lat_long
