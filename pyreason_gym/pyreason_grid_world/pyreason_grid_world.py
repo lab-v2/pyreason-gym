@@ -55,7 +55,7 @@ class PyReasonGridWorld:
             facts.append(fact_on)
             facts.append(fact_off)
         
-        self.interpretation = pr.reason(2, again=True, node_facts=facts, include_graph_facts=False)
+        self.interpretation = pr.reason(2, again=True, node_facts=facts)
         self.next_time = self.interpretation.time + 1
 
     def get_obs(self):

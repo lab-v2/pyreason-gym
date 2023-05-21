@@ -1,0 +1,161 @@
+---
+move_rule_0:
+    target:
+    target_criteria:
+        - [move_0, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-0, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_0:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_0, [1,1]]
+        - [edge, [target, newLoc], path-0, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_1:
+    target:
+    target_criteria:
+        - [move_1, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-1, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_1, [1,1]]
+        - [edge, [target, newLoc], path-1, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_2:
+    target:
+    target_criteria:
+        - [move_2, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-2, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_2, [1,1]]
+        - [edge, [target, newLoc], path-2, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_3:
+    target:
+    target_criteria:
+        - [move_3, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-3, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_3:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_3, [1,1]]
+        - [edge, [target, newLoc], path-3, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_4:
+    target:
+    target_criteria:
+        - [move_4, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-4, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_4:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_4, [1,1]]
+        - [edge, [target, newLoc], path-4, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_5:
+    target:
+    target_criteria:
+        - [move_5, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-5, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_5:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_5, [1,1]]
+        - [edge, [target, newLoc], path-5, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_6:
+    target:
+    target_criteria:
+        - [move_6, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-6, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_6:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_6, [1,1]]
+        - [edge, [target, newLoc], path-6, [1,1]]
+
+    ann_fn: [0,0]

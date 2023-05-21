@@ -13,7 +13,9 @@ class GridWorldEnv(gym.Env):
         """Initialize grid world
 
         :param render_mode: whether to render in human viewable format or not, defaults to None
-        :param size: size of the grid world square, defaults to 8
+        :param grid_size: size of the grid world square, defaults to 8
+        :param num_agents_per_team: number of agents in each team, defaults to 1
+        :param render_mode: how to render the environment, defaults to None
         """
         super(GridWorldEnv, self).__init__()
 
