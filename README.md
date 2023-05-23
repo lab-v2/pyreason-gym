@@ -57,6 +57,7 @@ Clone the repository, and install:
 git clone https://github.com/lab-v2/pyreason-gym
 pip install -e pyreason-gym
 ```
+**NOTE:** Do not install this package using `setup.py`--this will not work. Use the instructions above to install.
 
 ## Usage
 To run the environment and get a feel for things you can run the [`test.py`](./test.py) file which will perform random actions in the grid world for 50 steps.
