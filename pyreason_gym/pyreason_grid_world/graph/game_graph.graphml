@@ -296,6 +296,9 @@
     <edge source="2" target="end">
       <data key="down">1</data>
     </edge>
+    <edge source="2" target="red-soldier-1">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="3" target="4">
       <data key="right">1</data>
     </edge>
@@ -332,6 +335,9 @@
     <edge source="5" target="end">
       <data key="down">1</data>
     </edge>
+    <edge source="5" target="blue-soldier-1">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="6" target="7">
       <data key="right">1</data>
     </edge>
@@ -353,9 +359,6 @@
     <edge source="7" target="end">
       <data key="down">1</data>
       <data key="right">1</data>
-    </edge>
-    <edge source="7" target="red-soldier-1">
-      <data key="atLoc">1</data>
     </edge>
     <edge source="8" target="9">
       <data key="right">1</data>
@@ -585,9 +588,6 @@
     <edge source="26" target="18">
       <data key="down">1</data>
     </edge>
-    <edge source="26" target="mountain">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="27" target="28">
       <data key="right">1</data>
     </edge>
@@ -599,9 +599,6 @@
     </edge>
     <edge source="27" target="19">
       <data key="down">1</data>
-    </edge>
-    <edge source="27" target="mountain">
-      <data key="atLoc">1</data>
     </edge>
     <edge source="28" target="29">
       <data key="right">1</data>
@@ -687,9 +684,6 @@
     <edge source="34" target="26">
       <data key="down">1</data>
     </edge>
-    <edge source="34" target="mountain">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="35" target="36">
       <data key="right">1</data>
     </edge>
@@ -702,9 +696,6 @@
     <edge source="35" target="27">
       <data key="down">1</data>
     </edge>
-    <edge source="35" target="mountain">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="36" target="37">
       <data key="right">1</data>
     </edge>
@@ -716,9 +707,6 @@
     </edge>
     <edge source="36" target="28">
       <data key="down">1</data>
-    </edge>
-    <edge source="36" target="mountain">
-      <data key="atLoc">1</data>
     </edge>
     <edge source="37" target="38">
       <data key="right">1</data>
@@ -815,9 +803,6 @@
     </edge>
     <edge source="44" target="36">
       <data key="down">1</data>
-    </edge>
-    <edge source="44" target="mountain">
-      <data key="atLoc">1</data>
     </edge>
     <edge source="45" target="46">
       <data key="right">1</data>
@@ -961,9 +946,6 @@
       <data key="up">1</data>
       <data key="left">1</data>
     </edge>
-    <edge source="56" target="blue-soldier-1">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="57" target="58">
       <data key="right">1</data>
     </edge>
@@ -1055,7 +1037,7 @@
     <edge source="red-soldier-1" target="red-base">
       <data key="team">1</data>
     </edge>
-    <edge source="red-soldier-1" target="7">
+    <edge source="red-soldier-1" target="2">
       <data key="atLoc">1</data>
     </edge>
     <edge source="red-soldier-1" target="red-bullet-1">
@@ -1064,7 +1046,7 @@
     <edge source="blue-soldier-1" target="blue-base">
       <data key="team">1</data>
     </edge>
-    <edge source="blue-soldier-1" target="56">
+    <edge source="blue-soldier-1" target="5">
       <data key="atLoc">1</data>
     </edge>
     <edge source="blue-soldier-1" target="blue-bullet-1">
