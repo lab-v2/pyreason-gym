@@ -2,7 +2,7 @@ import pyreason_gym
 import gym
 import time
 
-env = gym.make('PyReasonGridWorld-v0', render_mode=None)
+env = gym.make('PyReasonGridWorld-v0', render_mode='human', grid_size=30)
 obs = env.reset()
 steps = 0
 # Sample actions:
