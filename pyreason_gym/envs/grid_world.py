@@ -109,6 +109,10 @@ class GridWorldEnv(gym.Env):
 
         return observation, rew, done, False, info
     
+    def render(self):
+        if self.render_mode == "rgb_array":
+            return self._render_frame()
+    
     def _render_frame(self, observation):
         if self.window is None and self.render_mode=="human":
             pygame.init()
