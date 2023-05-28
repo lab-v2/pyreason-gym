@@ -588,6 +588,9 @@
     <edge source="26" target="18">
       <data key="down">1</data>
     </edge>
+    <edge source="26" target="mountain">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="27" target="28">
       <data key="right">1</data>
     </edge>
@@ -599,6 +602,9 @@
     </edge>
     <edge source="27" target="19">
       <data key="down">1</data>
+    </edge>
+    <edge source="27" target="mountain">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="28" target="29">
       <data key="right">1</data>
@@ -684,6 +690,9 @@
     <edge source="34" target="26">
       <data key="down">1</data>
     </edge>
+    <edge source="34" target="mountain">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="35" target="36">
       <data key="right">1</data>
     </edge>
@@ -696,6 +705,9 @@
     <edge source="35" target="27">
       <data key="down">1</data>
     </edge>
+    <edge source="35" target="mountain">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="36" target="37">
       <data key="right">1</data>
     </edge>
@@ -707,6 +719,9 @@
     </edge>
     <edge source="36" target="28">
       <data key="down">1</data>
+    </edge>
+    <edge source="36" target="mountain">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="37" target="38">
       <data key="right">1</data>
@@ -803,6 +818,9 @@
     </edge>
     <edge source="44" target="36">
       <data key="down">1</data>
+    </edge>
+    <edge source="44" target="mountain">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="45" target="46">
       <data key="right">1</data>
