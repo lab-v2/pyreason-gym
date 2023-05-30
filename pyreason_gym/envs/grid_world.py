@@ -50,6 +50,7 @@ class GridWorldEnv(gym.Env):
             }
         )
         self.actions = {0: 'up', 1: 'down', 2: 'left', 3: 'right', 4: 'shootUp', 5: 'shootDown', 6: 'shootLeft', 7: 'shootRight'}
+        self.current_observation = None
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
 
@@ -62,7 +63,8 @@ class GridWorldEnv(gym.Env):
         self.clock = None
         
     def _get_obs(self):
-        return self.pyreason_grid_world.get_obs()
+        self.current_observation = self.pyreason_grid_world.get_obs()
+        return self.current_observation
 
     def _get_info(self):
         return {}
@@ -114,7 +116,7 @@ class GridWorldEnv(gym.Env):
     
     def render(self):
         if self.render_mode == "rgb_array":
-            return self._render_frame()
+            return self._render_frame(self.current_observation)
     
     def _render_frame(self, observation):
         if self.window is None and self.render_mode=="human":
