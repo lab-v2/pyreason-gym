@@ -59,7 +59,7 @@ class PyReasonGridWorld:
         self.next_time = self.interpretation.time + 1
 
     def get_obs(self):
-        observation = {'red_team': [], 'blue_team': []}
+        observation = {'red_team': [], 'blue_team': [], 'red_bullets': [], 'blue_bullets': []}
 
         # Filter edges that are of the form (red-soldier-x, y) where x and y are ints
         red_relevant_edges = [edge for edge in self.interpretation.edges if 'red-soldier' in edge[0] and edge[1].isnumeric()]
@@ -87,6 +87,15 @@ class PyReasonGridWorld:
 
             observation['red_team'].append({'pos': np.array(red_pos_coords, dtype=np.int32), 'health': np.array([red_health], dtype=np.float32)})
             observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32)})
+
+        # Gather bullet info for red and blue bullets
+        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions) = self._get_bullet_info()
+        for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
+            observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir})
+
+        for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
+            observation['red_bullets'].append({'pos': blue_pos, 'dir': blue_dir})
+
         return observation
     
     def get_obstacle_locations(self):
@@ -104,7 +113,7 @@ class PyReasonGridWorld:
         base_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in base_positions])
         return base_positions_coords
 
-    def get_bullet_locations(self):
+    def _get_bullet_info(self):
         # Return the location of red and blue bullets to be displayed on the grid
         relevant_edges = [edge for edge in self.interpretation.edges if 'bullet' in edge[1] and edge[0].isdigit()]
         filtered_edges = [edge for edge in relevant_edges if self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')] == pr.interval.closed(1,1)
@@ -116,7 +125,7 @@ class PyReasonGridWorld:
         positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
 
         # Bullet direction of movement
-        direction_map = {0.2: 'up', 0.4: 'left', 0.6: 'down', 0.8: 'right'}
+        direction_map = {0.2: 0, 0.4: 1, 0.6: 2, 0.8: 3}
         red_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'red' in edge[1]]
         blue_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'blue' in edge[1]]
         directions = (red_bullet_directions, blue_bullet_directions)
