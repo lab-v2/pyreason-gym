@@ -30,12 +30,15 @@ class GridWorldEnv(gym.Env):
         self.obstacle_positions = None
         self.base_positions = None
 
-        # Currently the observation space consists of the positions of the agents as well as their state (health etc.)
+        # The observation space consists of the positions of the agents as well as their state (health etc.)
+        # It also contains information about bullet positions as well as direction
         # Length of the sequence = num_agents_per_team
         self.observation_space = spaces.Dict(
             {
-                'red_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0,1, dtype=np.float32)})),
-                'blue_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0,1, dtype=np.float32)}))
+                'red_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0, 1, dtype=np.float32)})),
+                'blue_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0, 1, dtype=np.float32)})),
+                'red_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4)})),
+                'blue_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4)}))
             }
         )
 
@@ -46,7 +49,7 @@ class GridWorldEnv(gym.Env):
                 'blue_team': spaces.MultiDiscrete([8]*num_agents_per_team)
             }
         )
-        self.actions = {0:'up', 1:'down', 2:'left', 3:'right', 4:'shootUp', 5:'shootDown', 6:'shootLeft', 7:'shootRight'}
+        self.actions = {0: 'up', 1: 'down', 2: 'left', 3: 'right', 4: 'shootUp', 5: 'shootDown', 6: 'shootLeft', 7: 'shootRight'}
 
         assert render_mode is None or render_mode in self.metadata["render_modes"]
 
@@ -198,12 +201,14 @@ class GridWorldEnv(gym.Env):
             )
 
         # Add active bullets to the grid (currently we don't display direction)
-        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions) = self.pyreason_grid_world.get_bullet_locations()
-        for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
+        direction_map = {0: 'up', 1: 'down', 2: 'left', 3: 'right'}
+        for bullet in observation['red_bullets']:
+            red_pos = bullet['pos']
+            red_dir = bullet['dir']
             # Which dir the bullet should point
-            if red_dir == 'up' or red_dir == 'down':
+            if direction_map[red_dir] == 'up' or direction_map[red_dir] == 'down':
                 idx = 1
-            elif red_dir == 'left' or red_dir == 'right':
+            elif direction_map[red_dir] == 'left' or direction_map[red_dir] == 'right':
                 idx = 0
             start_pos = self.to_pygame_coords(red_pos) * pix_square_size + int(pix_square_size/2)
             end_pos = self.to_pygame_coords(red_pos) * pix_square_size + int(pix_square_size/2)
@@ -218,19 +223,19 @@ class GridWorldEnv(gym.Env):
             )
 
             # Draw triangles at the end of each bullet
-            if red_dir == 'up':
+            if direction_map[red_dir] == 'up':
                 tri_1 = [start_pos[0], start_pos[1] - pix_square_size / 8]
                 tri_2 = [start_pos[0] + pix_square_size / 8, start_pos[1]]
                 tri_3 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
-            elif red_dir == 'down':
+            elif direction_map[red_dir] == 'down':
                 tri_1 = [end_pos[0], end_pos[1] + pix_square_size / 8]
                 tri_2 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
                 tri_3 = [end_pos[0] - pix_square_size / 8, end_pos[1]]
-            elif red_dir == 'left':
+            elif direction_map[red_dir] == 'left':
                 tri_1 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
                 tri_2 = [start_pos[0], start_pos[1] + pix_square_size / 8]
                 tri_3 = [start_pos[0], start_pos[1] - pix_square_size / 8]
-            elif red_dir == 'right':
+            elif direction_map[red_dir] == 'right':
                 tri_1 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
                 tri_2 = [end_pos[0], end_pos[1] + pix_square_size / 8]
                 tri_3 = [end_pos[0], end_pos[1] - pix_square_size / 8]
@@ -241,12 +246,13 @@ class GridWorldEnv(gym.Env):
                 (tri_1, tri_2, tri_3),
             )
 
-
-        for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
+        for bullet in observation['blue_bullets']:
+            blue_pos = bullet['pos']
+            blue_dir = bullet['dir']
             # Which dir the bullet should point
-            if blue_dir == 'up' or blue_dir == 'down':
+            if direction_map[blue_dir] == 'up' or direction_map[blue_dir] == 'down':
                 idx = 1
-            elif blue_dir == 'left' or blue_dir == 'right':
+            elif direction_map[blue_dir] == 'left' or direction_map[blue_dir] == 'right':
                 idx = 0
             start_pos = self.to_pygame_coords(blue_pos) * pix_square_size + int(pix_square_size/2)
             end_pos = self.to_pygame_coords(blue_pos) * pix_square_size + int(pix_square_size/2)
@@ -261,19 +267,19 @@ class GridWorldEnv(gym.Env):
             )
 
             # Draw triangles at the end of each bullet
-            if blue_dir == 'up':
+            if direction_map[blue_dir] == 'up':
                 tri_1 = [start_pos[0], start_pos[1] - pix_square_size / 8]
                 tri_2 = [start_pos[0] + pix_square_size / 8, start_pos[1]]
                 tri_3 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
-            elif blue_dir == 'down':
+            elif direction_map[blue_dir] == 'down':
                 tri_1 = [end_pos[0], end_pos[1] + pix_square_size / 8]
                 tri_2 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
                 tri_3 = [end_pos[0] - pix_square_size / 8, end_pos[1]]
-            elif blue_dir == 'left':
+            elif direction_map[blue_dir] == 'left':
                 tri_1 = [start_pos[0] - pix_square_size / 8, start_pos[1]]
                 tri_2 = [start_pos[0], start_pos[1] + pix_square_size / 8]
                 tri_3 = [start_pos[0], start_pos[1] - pix_square_size / 8]
-            elif blue_dir == 'right':
+            elif direction_map[blue_dir] == 'right':
                 tri_1 = [end_pos[0] + pix_square_size / 8, end_pos[1]]
                 tri_2 = [end_pos[0], end_pos[1] + pix_square_size / 8]
                 tri_3 = [end_pos[0], end_pos[1] - pix_square_size / 8]
@@ -301,7 +307,7 @@ class GridWorldEnv(gym.Env):
                 width=3,
             )
 
-        if self.render_mode=="human":
+        if self.render_mode == "human":
             # The following line copies our drawings from `canvas` to the visible window
             self.window.blit(canvas, canvas.get_rect())
             pygame.event.pump()
@@ -310,7 +316,7 @@ class GridWorldEnv(gym.Env):
             # We need to ensure that human-rendering occurs at the predefined framerate.
             # The following line will automatically add a delay to keep the framerate stable.
             self.clock.tick(self.metadata["render_fps"])
-        elif self.render_mode=='rgb_array':
+        elif self.render_mode == 'rgb_array':
             return np.transpose(np.array(pygame.surfarray.pixels3d(canvas)), axes=(1, 0, 2))
     
     def close(self):
@@ -323,11 +329,11 @@ class GridWorldEnv(gym.Env):
         red_end = True
         blue_end = True
         for i in observation['red_team']:
-            if i['health']!=0:
+            if i['health'] != 0:
                 red_end = False
 
         for i in observation['blue_team']:
-            if i['health']!=0:
+            if i['health'] != 0:
                 blue_end = False
 
         return red_end or blue_end
