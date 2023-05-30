@@ -154,6 +154,8 @@ env = gym.make('PyReasonGridWorld-v0', render_mode=None)
 # Or
 env = gym.make('PyReasonGridWorld-v0', render_mode='rgb_array')
 ```
+If you're using `render_mode='rgb_array` you have to call `env.render(observation)` after `observation = env.step()` to get the rgb data.
+
 
 ### Other Options
 If you've generated the graph using the `generate_graph.py` script with a custom `grid size` and custom `number of agents per team`, you can pass these parameters to the grid world while creating the environment:
