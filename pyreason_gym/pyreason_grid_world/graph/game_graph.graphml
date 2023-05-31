@@ -311,9 +311,6 @@
     <edge source="3" target="end">
       <data key="down">1</data>
     </edge>
-    <edge source="3" target="blue-soldier-1">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="4" target="5">
       <data key="right">1</data>
     </edge>
@@ -337,6 +334,9 @@
     </edge>
     <edge source="5" target="end">
       <data key="down">1</data>
+    </edge>
+    <edge source="5" target="blue-soldier-1">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="6" target="7">
       <data key="right">1</data>
@@ -1064,7 +1064,7 @@
     <edge source="blue-soldier-1" target="blue-base">
       <data key="team">1</data>
     </edge>
-    <edge source="blue-soldier-1" target="3">
+    <edge source="blue-soldier-1" target="5">
       <data key="atLoc">1</data>
     </edge>
     <edge source="blue-soldier-1" target="blue-bullet-1">
