@@ -26,7 +26,7 @@ class PyReasonMapWorld:
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
-        pr.load_graph(f'{current_path}/graph/map_graph.graphml')
+        pr.load_graph(f'{current_path}/graph/map_graph_clustering.graphml')
 
         # Load rules
         pr.load_rules(f'{current_path}/yamls/rules.yaml')
@@ -57,6 +57,7 @@ class PyReasonMapWorld:
     def get_obs(self):
         # Calculate current and end point lat longs
         relevant_edges = [edge for edge in self.interpretation.edges if edge[0] == 'agent' and self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')] == pr.interval.closed(1,1)]
+        print(relevant_edges)
         assert len(relevant_edges) == 1, 'Agent cannot be in multiple places at once--mistake in the interpretation data'
         current_edge = relevant_edges[0]
         loc = current_edge[1]
