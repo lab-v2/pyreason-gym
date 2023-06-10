@@ -32,7 +32,7 @@ This is an OpenAI Gym environment for reinforcement learning in a grid world set
 3. There are a certain number of agents in each team
 
 ### The Actions
-There are 8 actions an agent can take:
+There are 9 actions an agent can take:
 
 1. Move Up
 2. Move Down
@@ -42,6 +42,7 @@ There are 8 actions an agent can take:
 6. Shoot Down
 7. Shoot Left
 8. Shoot Right
+9. Do Nothing
 
 ### The Objective
 The objecive of the game is to kill all enemy agents or make their `health=0`. The game will terminate (or signal `done=True` when this happens). This objective can be changed in the `is_done()` function in [`grid_world.py`](./pyreason_gym/envs/grid_world.py) to determine when the game should be over.
@@ -112,6 +113,7 @@ The action space is currently a list for each team with discrete numbers represe
 6. Shoot Down is represented by `5`
 7. Shoot Left is represented by `6`
 8. Shoot Right is represented by `7`
+9. Do Nothing is represented by `8`
 
 A sample action with `1` agent per team is of the form:
 ```python

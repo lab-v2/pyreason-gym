@@ -42,11 +42,11 @@ class GridWorldEnv(gym.Env):
             }
         )
 
-        # We have 8 actions, corresponding to "up", "down", "left", "right", "shootUp", "shootDown", "shootLeft", "shootRight"
+        # We have 9 actions, corresponding to "up", "down", "left", "right", "shootUp", "shootDown", "shootLeft", "shootRight", "doNothing"
         self.action_space = spaces.Dict(
             {
-                'red_team': spaces.MultiDiscrete([8]*num_agents_per_team),
-                'blue_team': spaces.MultiDiscrete([8]*num_agents_per_team)
+                'red_team': spaces.MultiDiscrete([9]*num_agents_per_team),
+                'blue_team': spaces.MultiDiscrete([9]*num_agents_per_team)
             }
         )
         self.actions = {0: 'up', 1: 'down', 2: 'left', 3: 'right', 4: 'shootUp', 5: 'shootDown', 6: 'shootLeft', 7: 'shootRight'}

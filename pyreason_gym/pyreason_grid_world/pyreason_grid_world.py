@@ -44,16 +44,18 @@ class PyReasonGridWorld:
         red_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpRed', 5:'shootDownRed', 6:'shootLeftRed', 7:'shootRightRed'}
         blue_available_actions = {0:'moveUp', 1:'moveDown', 2:'moveLeft', 3:'moveRight', 4:'shootUpBlue', 5:'shootDownBlue', 6:'shootLeftBlue', 7:'shootRightBlue'}
         for i, a in enumerate(red_team_actions):
-            fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
-            fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
-            facts.append(fact_on)
-            facts.append(fact_off)
+            if a != 8:
+                fact_on = pr.fact_node.Fact(f'red_action_{i+1}', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
+                fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
+                facts.append(fact_on)
+                facts.append(fact_off)
     
         for i, a in enumerate(blue_team_actions):
-            fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
-            fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
-            facts.append(fact_on)
-            facts.append(fact_off)
+            if a != 8:
+                fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
+                fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
+                facts.append(fact_on)
+                facts.append(fact_off)
         
         self.interpretation = pr.reason(2, again=True, node_facts=facts)
         self.next_time = self.interpretation.time + 1
