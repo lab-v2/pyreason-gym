@@ -8,7 +8,7 @@ obs = env.reset()
 
 # print("Reset:", obs)
 exp_start = time.time()
-for _ in range(10000):
+for i in range(10000):
     # time.sleep(1)
     # action = env.action_space.sample()
     # print(action)
@@ -18,8 +18,7 @@ for _ in range(10000):
         }
     start = time.time()
     obs, _, terminated, truncated, _ = env.step(action)
-    print("Time for single step:", time.time() - start)
-    # print(obs)
+    print(f"Time for single step {i}:", time.time() - start)
     done = terminated or truncated
     if done:
         obs = env.reset()
