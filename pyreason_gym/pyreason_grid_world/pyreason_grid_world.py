@@ -1,7 +1,6 @@
 import os
 import pyreason as pr
 import numpy as np
-import time
 
 
 class PyReasonGridWorld:
@@ -15,10 +14,11 @@ class PyReasonGridWorld:
         
         # Pyreason settings
         pr.settings.verbose = False
-        pr.settings.atom_trace = True
+        pr.settings.atom_trace = False
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
+        pr.settings.store_interpretation_changes = False
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph

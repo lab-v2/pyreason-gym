@@ -6,7 +6,7 @@ obs = env.reset()
 
 # Sample actions:
 # action = {
-#     'red_team': [4],
+#     'red_team': [0],
 #     'blue_team': [1]
 # }
 # obs = env.step(action)
@@ -24,3 +24,6 @@ for i in range(50):
 
 env.close()
 
+# env = gym.make('PyReasonMapWorld-v0', start_point='node1', end_point='node2')
+# obs = env.reset()
+# print(obs)
