@@ -8,9 +8,10 @@ from pyreason_gym.pyreason_map_world.pyreason_map_world import PyReasonMapWorld
 
 np.set_printoptions(precision=20)
 
+# Odd order is due to orientation on canvas while displaying
 LAT_LONG_SCALE = int(10e14)
-LAT_MIN = int(35.64402770996094 * 10e14)
-LAT_MAX = int(36.58740997314453 * 10e14)
+LAT_MAX = int(35.64402770996094 * 10e14)
+LAT_MIN = int(36.58740997314453 * 10e14)
 LONG_MIN = int(-84.71105957031250 * 10e14)
 LONG_MAX = int(-83.68660736083984 * 10e14)
 PYGAME_MIN = 0
@@ -26,19 +27,7 @@ def map_lat_long_to_pygame_coords(lat, long):
     pygame_range = PYGAME_MAX - PYGAME_MIN
     new_lat = (((lat - LAT_MIN) * pygame_range) / lat_range) + PYGAME_MIN
     new_long = (((long - LONG_MIN) * pygame_range) / long_range) + PYGAME_MIN
-    coord = np.array([new_lat, new_long])
-
-    # Scale to zoom in
-    # zoom = 2
-    # half_x = PYGAME_MAX / 2
-    # half_y = PYGAME_MAX / 2
-    # delta_x = coord[0] - half_x
-    # delta_y = coord[1] - half_y
-    # x = half_x + delta_x * zoom
-    # y = half_y + delta_y * zoom
-    # coord[0] = x
-    # coord[1] = y
-    # print(coord)
+    coord = np.array([new_long, new_lat])
 
     return coord
 
@@ -177,6 +166,7 @@ class MapWorldEnv(gym.Env):
         # We need to ensure that human-rendering occurs at the predefined framerate.
         # The following line will automatically add a delay to keep the framerate stable.
         self.clock.tick(self.metadata["render_fps"])
+        time.sleep(10)
 
     def _render_frame(self, observation):
         if self.canvas is None:

@@ -159,3 +159,95 @@ move_change_prev_rule_6:
         - [edge, [target, newLoc], path-6, [1,1]]
 
     ann_fn: [0,0]
+
+move_rule_7:
+    target:
+    target_criteria:
+        - [move_7, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-7, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_7:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_7, [1,1]]
+        - [edge, [target, newLoc], path-7, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_8:
+    target:
+    target_criteria:
+        - [move_8, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-8, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_8:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_8, [1,1]]
+        - [edge, [target, newLoc], path-8, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_9:
+    target:
+    target_criteria:
+        - [move_9, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-9, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_9:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_9, [1,1]]
+        - [edge, [target, newLoc], path-9, [1,1]]
+
+    ann_fn: [0,0]
+
+move_rule_10:
+    target:
+    target_criteria:
+        - [move_10, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], path-10, [1,1]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_change_prev_rule_10:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], move_10, [1,1]]
+        - [edge, [target, newLoc], path-10, [1,1]]
+
+    ann_fn: [0,0]

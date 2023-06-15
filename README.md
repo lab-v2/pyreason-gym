@@ -51,7 +51,7 @@ The objecive of the game is to kill all enemy agents or make their `health=0`. T
 **The reward function is currently not defined** A Reward of `0` is given at each step. You can modify this in the `_get_rew` function in [`grid_world.py`](./pyreason_gym/envs/grid_world.py)
 
 ## Installation
-Make sure `pyreason>=1.5.1` has been installed using the instructions found [here](https://github.com/lab-v2/pyreason#21-install-as-a-python-library)
+Make sure `pyreason==1.5.1` has been installed using the instructions found [here](https://github.com/lab-v2/pyreason#21-install-as-a-python-library)
 
 Clone the repository, and install:
 ```bash
@@ -128,15 +128,18 @@ obs, rew, done, _, _ = env.step(action)
 ```
 
 ### Observations
-Observations contain information about each player's position in the grid (`[x,y]`) as well as their `health`. A sample observation with `1` agent per team is a dictionary of the form:
+Observations contain information about each player's position in the grid (`[x,y]`), their `health` as well as blue and red `bullet` information including the position of the bullet in the grid (`[x,y]`) and its direction.
+A sample observation with `1` agent per team is a dictionary of the form:
 
 ```python
 observation = {
     'red_team': [{'pos': [1,3], 'health': [1]}],
-    'blue_team': [{'pos': [7,2], 'health': [1]}]
+    'blue_team': [{'pos': [7,2], 'health': [1]}],
+    'red_bullets': [{'pos': [2,3], 'dir': 1}, {'pos': [5,3], 'dir': 3}],
+    'blue_bullets': [{'pos': [7,1], 'dir': 2}]
 }
 ```
-Information about positions and health can be extracted from this observation space.
+Information about agent positions, health, bullet positions and direction can be extracted from this observation space.
 
 ### Render Modes
 There are a few render modes supported:
@@ -153,6 +156,8 @@ env = gym.make('PyReasonGridWorld-v0', render_mode=None)
 # Or
 env = gym.make('PyReasonGridWorld-v0', render_mode='rgb_array')
 ```
+If you're using `render_mode='rgb_array` you have to call `env.render(observation)` after `observation = env.step()` to get the rgb data.
+
 
 ### Other Options
 If you've generated the graph using the `generate_graph.py` script with a custom `grid size` and custom `number of agents per team`, you can pass these parameters to the grid world while creating the environment:
