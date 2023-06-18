@@ -96,7 +96,7 @@ class PyReasonGridWorld:
             observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir})
 
         for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
-            observation['red_bullets'].append({'pos': blue_pos, 'dir': blue_dir})
+            observation['blue_bullets'].append({'pos': blue_pos, 'dir': blue_dir})
 
         return observation
     
@@ -127,7 +127,7 @@ class PyReasonGridWorld:
         positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
 
         # Bullet direction of movement
-        direction_map = {0.2: 0, 0.4: 1, 0.6: 2, 0.8: 3}
+        direction_map = {0.2: 0, 0.6: 1, 0.4: 2, 0.8: 3}
         red_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'red' in edge[1]]
         blue_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'blue' in edge[1]]
         directions = (red_bullet_directions, blue_bullet_directions)
