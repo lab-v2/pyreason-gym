@@ -167,40 +167,42 @@ class GridWorldEnv(gym.Env):
 
         # Draw the agents according to the observation
         for i in observation['red_team']:
-            pos = self.to_pygame_coords(i['pos']) * pix_square_size
-            pos += int(pix_square_size/2)
-            # Draw circle and border
-            pygame.draw.circle(
-                canvas,
-                (255, 0, 0),
-                pos,
-                pix_square_size/3,
-            )
-            pygame.draw.circle(
-                canvas,
-                (0, 0, 0),
-                pos,
-                pix_square_size/3,
-                5
-            )
+            if i['health'][0] != 0:
+                pos = self.to_pygame_coords(i['pos']) * pix_square_size
+                pos += int(pix_square_size/2)
+                # Draw circle and border
+                pygame.draw.circle(
+                    canvas,
+                    (255, 0, 0),
+                    pos,
+                    pix_square_size/3,
+                )
+                pygame.draw.circle(
+                    canvas,
+                    (0, 0, 0),
+                    pos,
+                    pix_square_size/3,
+                    5
+                )
         
         for i in observation['blue_team']:
-            pos = self.to_pygame_coords(i['pos']) * pix_square_size
-            pos += int(pix_square_size/2)
-            # Draw circle and border
-            pygame.draw.circle(
-                canvas,
-                (0, 0, 255),
-                pos,
-                pix_square_size/3,
-            )
-            pygame.draw.circle(
-                canvas,
-                (0, 0, 0),
-                pos,
-                pix_square_size/3,
-                5
-            )
+            if i['health'][0] != 0:
+                pos = self.to_pygame_coords(i['pos']) * pix_square_size
+                pos += int(pix_square_size/2)
+                # Draw circle and border
+                pygame.draw.circle(
+                    canvas,
+                    (0, 0, 255),
+                    pos,
+                    pix_square_size/3,
+                )
+                pygame.draw.circle(
+                    canvas,
+                    (0, 0, 0),
+                    pos,
+                    pix_square_size/3,
+                    5
+                )
 
         # Add active bullets to the grid (currently we don't display direction)
         direction_map = {0: 'up', 1: 'down', 2: 'left', 3: 'right'}
