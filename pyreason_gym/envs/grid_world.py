@@ -137,7 +137,7 @@ class GridWorldEnv(gym.Env):
         # First draw both bases
         pygame.draw.rect(
             canvas,
-            (255, 0, 0),
+            (100, 0, 0),
             pygame.Rect(
                 pix_square_size * self.to_pygame_coords(self.base_positions[0]),
                 (pix_square_size, pix_square_size),
@@ -145,7 +145,7 @@ class GridWorldEnv(gym.Env):
         )
         pygame.draw.rect(
             canvas,
-            (0, 0, 255),
+            (0, 0, 100),
             pygame.Rect(
                 pix_square_size * self.to_pygame_coords(self.base_positions[1]),
                 (pix_square_size, pix_square_size),
@@ -177,13 +177,6 @@ class GridWorldEnv(gym.Env):
                     pos,
                     pix_square_size/3,
                 )
-                pygame.draw.circle(
-                    canvas,
-                    (0, 0, 0),
-                    pos,
-                    pix_square_size/3,
-                    5
-                )
         
         for i in observation['blue_team']:
             if i['health'][0] != 0:
@@ -195,13 +188,6 @@ class GridWorldEnv(gym.Env):
                     (0, 0, 255),
                     pos,
                     pix_square_size/3,
-                )
-                pygame.draw.circle(
-                    canvas,
-                    (0, 0, 0),
-                    pos,
-                    pix_square_size/3,
-                    5
                 )
 
         # Add active bullets to the grid (currently we don't display direction)
