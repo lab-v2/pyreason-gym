@@ -7,8 +7,15 @@ obs = env.reset()
 
 # Sample actions:
 action = {
-    'red_team': [5],
-    'blue_team': [4]
+    'red_team': [7],
+    'blue_team': [1]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [7],
+    'blue_team': [1]
 }
 obs = env.step(action)
 print(obs)
