@@ -23,3 +23,7 @@ git checkout haystac-map-world
 cd ..
 pip install -e pyreason-gym
 ```
+
+### Place the graph inside pyreason-gym
+Download the graph from [this link]()
+Then copy it into the directory `pyreason-gym/pyreason_gym/pyreason_map_world/graph/`
