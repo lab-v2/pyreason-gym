@@ -72,7 +72,7 @@ class PyReasonMapWorld:
     def get_obs(self):
         # Calculate current and end point lat longs
         relevant_edges = [edge for edge in self.interpretation.edges if edge[0] == 'agent' and self.interpretation.interpretations_edge[edge].world[pr.label.Label('atLoc')] == pr.interval.closed(1,1)]
-        # assert len(relevant_edges) == 1, 'Agent cannot be in multiple places at once--mistake in the interpretation data'
+        assert len(relevant_edges) == 1, 'Agent cannot be in multiple places at once--mistake in the interpretation data'
         current_edge = relevant_edges[0]
         loc = current_edge[1]
 
