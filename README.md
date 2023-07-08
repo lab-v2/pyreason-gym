@@ -25,5 +25,5 @@ pip install -e pyreason-gym
 ```
 
 ### Place the graph inside pyreason-gym
-Download the graph from [this link]()
+Download the graph from [this link](https://drive.google.com/file/d/1SyMiVpaWePKgoQfyxQ6IhpAyy37e1WtE/view?usp=drive_link)
 Then copy it into the directory `pyreason-gym/pyreason_gym/pyreason_map_world/graph/`
