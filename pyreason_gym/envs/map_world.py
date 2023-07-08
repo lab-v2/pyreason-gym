@@ -59,7 +59,7 @@ class MapWorldEnv(gym.Env):
         self.end_point_lat_long = None
 
         # Initialize the PyReason map-world
-        self.pyreason_map_world = PyReasonMapWorld(end_point)
+        self.pyreason_map_world = PyReasonMapWorld(start_point, end_point)
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
@@ -86,7 +86,10 @@ class MapWorldEnv(gym.Env):
         return {}
 
     def _get_rew(self):
-        return 0
+        normal_bnd = self.pyreason_map_world.interpretation.interpretations_node['agent'].world[self.pyreason_map_world.interpretation.label.Label('normal')]
+        abnormal_bnd = self.pyreason_map_world.interpretation.interpretations_node['agent'].world[self.pyreason_map_world.interpretation.label.Label('abnormal')]
+        reward = (normal_bnd.lower / normal_bnd.upper) - (abnormal_bnd.lower / abnormal_bnd.upper)
+        return reward
 
     def reset(self, seed=None, options=None):
         """Resets the environment to the initial conditions
@@ -113,6 +116,7 @@ class MapWorldEnv(gym.Env):
         return observation, info
 
     def step(self, action):
+        assert action in self.action_space, f'The selected action ({action}) is not in the current action space ({self.action_space})'
         self.pyreason_map_world.move(action)
 
         observation = self._get_obs()
@@ -223,5 +227,9 @@ class MapWorldEnv(gym.Env):
 
     def is_done(self, observation):
         # End the game when the agent reaches the end point
+        if observation[0] == self.end_point:
+            done = True
+        else:
+            done = False
 
-        return
+        return done

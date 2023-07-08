@@ -1,0 +1,104 @@
+## Dummy rules using new syntax and attribute symbols from KG
+## Note: work_place can be grounded based on agent's occupation and industry attribute and visited place's matching building type
+
+### A trajectory is acceptable for an agent A if the agent starts from home and visits cafe and then work
+normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), household(y), timestep(y, t1), passed_by(a, z), occ_cls-Commercial(z), timestep(z, t2), lessthan(t1, t2), passed_by(a, w), work_place(w), timestep(w, t3), lessthan(t2, t3)
+
+### A trajectory is acceptable for an agent A if the agent starts from its home and end back at its home
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), timestep(y, t1), passed_by(a, z), household(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajectory is not so normal if the agent pauses at intersections where its not allowed to pause
+normal(a) : [0.5, 0.7] <- agent(a), passed_by(a, y), ps__category_level0-administrative(y), ps__category_level1-military(y)
+
+### A trajectory is normal if agent is part of an household and starts from that household then goes to school and returns back home (extension using UrbanPop data)
+normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), household(y), emp_stat-not.in.force(y), sch(y), timestep(y, t1), passed_by(a, z), occ_cls-Education(z), prim_occ-Pre-K-12-Schools(z), timestep(z, t2), lessthan(t1, t2), passed_by(a, w), household(w), timestep(w, t3), lessthan(t2, t3)
+### A trajectory is normal if agent has a vehicle and prefers using that vehicle to work and encounters a highway enroute
+normal(a) : [0.8, 0.9] <- agent(a), passed_by(a, y), household(y), emp_stat-employed(y), travel-car_truck_van(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajectory is normal if agent has an age bracket above 65 and visits hospital
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a65_66(y), timestep(y, t1), passed_by(a, z), prim_occ-Hospital(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajecotry is abnormal if agent is school going but then visits hospital after school
+normal(a) : [0.1, 0.3] <- agent(a), passed_by(a, y), household(y), emp_stat-not.in.force(y), sch(y), timestep(y, t1), passed_by(a, z), occ_cls-Education(z), prim_occ-Pre-K-12-Schools(z), timestep(z, t2), lessthan(t1, t2), passed_by(a, w), prim_occ-Hospital(w), timestep(w, t3), lessthan(t2, t3)
+# can use this head too abnormal(x) : [0.7, 0.9]
+
+### A trajecotry is abnormal if agent works as a business owner and visits military compound
+normal(a) : [0.2, 0.0] <- agent(a), passed_by(a, y), household(y), occ-mgmt(y), timestep(y, t1), passed_by(a, z), prim_occ-Non-Civilian-Structures(z), timestep(z, t2), lessthan(t1, t2)
+abnormal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), occ-mgmt(y), timestep(y, t1), passed_by(a, z), prim_occ-Non-Civilian-Structures(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajectory is normal if agent has an age bracket above 18 and below 65 and works in construction industry and visits Construction sites
+### NOTE: we need a new symbol that is populated for age brackets based on "age" attribute value
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a18_19(y), age-a65_66(y), timestep(y, t1), passed_by(a, z), prim_occ-Construction(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajectory is a bit abnormal if agent has no vehicle and walk then having traverse through highway
+normal(a) : [0.5, 0.7] <- agent(a), passed_by(a, y), household(y), pov-no_vehicle(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
+abnormal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y), household(y), pov-no_vehicle(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
+
+### A trajectory is abnormal if agent has visited work_place and again visits it
+abnormal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y), work_place(y), timestep(y, t1), passed_by(a, z), work_place(z), timestep(z, t2), lessthan(t1, t2)
+
+### Agent is likely to visit university since agent has occupation of being in education sector
+next_stop(x) : [0.8, 1] <- prim_occ-Colleges-Universities(x), agent(a), passed_by(a, y), household(y), occ-edu(y)
+
+### Agent is likely to visit hospital since agent has occupation of being in healthcare
+towards(x) : [0.8, 1] <- prim_occ-Hospital(x), agent(a), passed_by(a, y), household(y), occ-med(y)
+
+### Agent is likely to visit bus stop since agent does not own a private vehicle and is emp_stat_employed and goes to work
+towards(x) : [0.7, 1] <- highway-bus_stop(x), agent(a), passed_by(a, y), household(y), emp_stat-employed(y), pov-no_vehicle(y)
+
+### Agent is likely to visit bus stop since agent is sch going and in 4th grade and household
+towards(x) : [1, 1] <- highway-bus_stop(x), agent(a), passed_by(a, y), household(y), emp_stat-not.in.force(y), sch(y), grade-4th(y)
+
+### A trajectory is abnormal if agent is married and visits a Temporary Lodging
+abnormal(x) : [0.8, 0.8] <- agent(a), passed_by(a, y), household(y), hht-married(y), timestep(y, t1), passed_by(a, z), prim_occ-Temporary_Lodging(z), timestep(z, t2), lessthan(t1, t2)
+
+### Agent is likely to visit restaurant since he started from home and is now at work and is single
+towards(x) : [1, 1] <- prim_occ-Food-Drugs-Chemicals(x), agent(a), passed_by(a, y), household(y), hht-alone(y), timestep(y, t1), passed_by(a, z), work_place(z), timestep(z, t2), lessthan(t1, t2)
+
+### Agent is part of household and has gone to work from home and is likely to head towards home again since married
+towards(x) : [1, 1] <- household(x), agent(a), passed_by(a, y), household(y), hht-married(y), timestep(y, t1), passed_by(a, z), work_place(z), timestep(z, t2), lessthan(t1, t2)
+
+### Agent is part of agricultural production company and is currently at a farm and so next destination is likely a farm
+next_stop(x) : [0.8, 1] <- prim_occ-Agriculture(x), ps__osm_category-farm(x), agent(a), passed_by(a, y), work_place(y), ind-agr_ext(y)
+
+### Agent is less likely to visit a Recreation spot after going to hospital
+next_stop(x) : [0.2, 0.3] <- prim_occ-Entertainment-and-Recreation(x), agent(a), passed_by(a, y), prim_occ-Hospital(y)
+
+### Agent is less likely to visit theater after starting from an airport
+next_stop(x) : [0.2, 0.3] <- prim_occ-Theaters(x), agent(a), passed_by(a, y), prim_occ-Aviation(y)
+
+##### Dummy Rules from the new merged KG and sampled trajectories
+
+## node(202927092) -> Man age a60_61 employed goes to a local bar for a drink and food
+## node(1833473102) -> Kurts Retail - Food/Bar
+
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a60_61(y), timestep(y, t1), passed_by(a, z), prim_occ-Retail_Trade(z), occ_cls-Commercial(z), ps__osm_category-amenity_bar;building_retail(z), timestep(z, t2), lessthan(t1, t2)
+
+## node(202811335) -> female age a50_54 employed as Med.Tech goes to work as Veterinary by car_truck_van and
+## node(706179379) -> passes by motorway junction to reach
+## node(472254560) -> Westside Kennels - Local Veterinary Place
+
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), passed_by(a,w), highway-motorway_junction(w), timestep(w, t2), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t3), lessthan(t1, t2), lessthan(t2, t3)
+
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), age-a60_61(y), timestep(y, t1), passed_by(a, z), OCC_CLS-Commercial(z), timestep(z, t2), lessthan(t1, t2)
+
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), passed_by(a,w), highway-motorway_junction(w), timestep(w, t2), passed_by(a, z),PRIM_OCC-Veterinary/Pet(z),  timestep(z, t3), lessthan(t1, t2), lessthan(t2, t3)
+
+
+# Movement rules
+atLoc(a, newLoc) <-1 agent(a), move_0(a), atLoc(a, oldLoc), path-0(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_1(a), atLoc(a, oldLoc), path-1(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_2(a), atLoc(a, oldLoc), path-2(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_3(a), atLoc(a, oldLoc), path-3(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_4(a), atLoc(a, oldLoc), path-4(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_5(a), atLoc(a, oldLoc), path-5(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_6(a), atLoc(a, oldLoc), path-6(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_7(a), atLoc(a, oldLoc), path-7(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_8(a), atLoc(a, oldLoc), path-8(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_9(a), atLoc(a, oldLoc), path-9(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_10(a), atLoc(a, oldLoc), path-10(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_11(a), atLoc(a, oldLoc), path-11(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_12(a), atLoc(a, oldLoc), path-12(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_13(a), atLoc(a, oldLoc), path-13(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_14(a), atLoc(a, oldLoc), path-14(oldLoc, newLoc)
+atLoc(a, newLoc) <-1 agent(a), move_15(a), atLoc(a, oldLoc), path-15(ol3dLoc, newLoc)
