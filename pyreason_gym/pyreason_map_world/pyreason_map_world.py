@@ -30,7 +30,7 @@ class PyReasonMapWorld:
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
-        pr.load_graph(f'{current_path}/graph/map_graph.graphml')
+        pr.load_graphml(f'{current_path}/graph/map_graph.graphml')
 
         # Load rules
         # pr.load_rules(f'{current_path}/yamls/rules.yaml')
