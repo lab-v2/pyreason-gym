@@ -86,8 +86,7 @@ class MapWorldEnv(gym.Env):
         return {}
 
     def _get_rew(self):
-        normal_bnd = self.pyreason_map_world.interpretation.interpretations_node['agent'].world[self.pyreason_map_world.interpretation.label.Label('normal')]
-        abnormal_bnd = self.pyreason_map_world.interpretation.interpretations_node['agent'].world[self.pyreason_map_world.interpretation.label.Label('abnormal')]
+        normal_bnd, abnormal_bnd = self.pyreason_map_world.get_normal_abnormal()
         reward = (normal_bnd.lower / normal_bnd.upper) - (abnormal_bnd.lower / abnormal_bnd.upper)
         return reward
 
@@ -106,8 +105,7 @@ class MapWorldEnv(gym.Env):
         info = self._get_info()
 
         # Save new action space
-        _, _, _, new_action_space = observation
-        self.action_space = spaces.Discrete(new_action_space)
+        self.set_action_space(observation)
 
         # Render if necessary
         if self.render_mode == "human":
@@ -126,13 +124,21 @@ class MapWorldEnv(gym.Env):
         rew = self._get_rew()
 
         # End of game
-        done = self.is_done(observation)
+        done, truncated = self.is_done(observation)
+        rew = -10 if truncated else rew
+
+        # Save new action space
+        self.set_action_space(observation)
 
         # Render if necessary
         if self.render_mode == "human":
             self._render_frame(observation)
 
-        return observation, rew, done, False, info
+        return observation, rew, done, truncated, info
+
+    def set_action_space(self, observation):
+        _, _, _, new_action_space = observation
+        self.action_space = spaces.Discrete(new_action_space+1)
 
     def _render_init(self):
         pygame.init()
@@ -229,7 +235,12 @@ class MapWorldEnv(gym.Env):
         # End the game when the agent reaches the end point
         if observation[0] == self.end_point:
             done = True
+            if self.pyreason_map_world.next_time > 200:
+                truncated = True
+            else:
+                truncated = False
         else:
             done = False
+            truncated = False
 
-        return done
+        return done, truncated
