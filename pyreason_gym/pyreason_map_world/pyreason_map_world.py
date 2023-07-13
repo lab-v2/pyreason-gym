@@ -23,7 +23,7 @@ class PyReasonMapWorld:
 
         # Pyreason settings
         pr.settings.verbose = False
-        pr.settings.atom_trace = True
+        pr.settings.atom_trace = False
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
