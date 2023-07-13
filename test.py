@@ -1,29 +1,17 @@
 import pyreason_gym
 import gym
 
-env = gym.make('PyReasonGridWorld-v0', render_mode='human')
+env = gym.make('PyReasonMapWorld-v0', start_point='201873272', end_point='202973047')
 obs = env.reset()
-
-# Sample actions:
-# action = {
-#     'red_team': [0],
-#     'blue_team': [1]
-# }
-# obs = env.step(action)
-# action = {
-#     'red_team': [2],
-#     'blue_team': [3]
-# }
-# obs = env.step(action)
+print(obs)
 
 # Randomly sample actions from the action space
-for i in range(50):
+for i in range(10):
     action = env.action_space.sample()
-    print(action)
-    env.step(action)
+    print('action',action)
+    obs, rew, done, truncated, info = env.step(action)
+    print(obs)
+    print(rew)
+    print()
 
 env.close()
-
-# env = gym.make('PyReasonMapWorld-v0', start_point='node1', end_point='node2')
-# obs = env.reset()
-# print(obs)
