@@ -30,7 +30,7 @@ The `import pyreason` is to initialize all caches and will take a few minutes to
 ### Place the graph inside pyreason-gym
 Download the full graph from [this link](https://drive.google.com/file/d/1SyMiVpaWePKgoQfyxQ6IhpAyy37e1WtE/view?usp=drive_link).
 
-Download the sub-graph from [this link](). (If you use the subgraph, you'll have to change the name of the graph being loaded in [pyreason_map_world.py](https://github.com/lab-v2/pyreason-gym/blob/haystac-map-world/pyreason_gym/pyreason_map_world/pyreason_map_world.py#L33))
+Download the sub-graph from [this link](https://drive.google.com/file/d/19ZSxXkoZzXxNzOhEwyD62_SKBlRtSo4p/view?usp=drive_link). (If you use the subgraph, you'll have to change the name of the graph being loaded in [pyreason_map_world.py](https://github.com/lab-v2/pyreason-gym/blob/haystac-map-world/pyreason_gym/pyreason_map_world/pyreason_map_world.py#L33))
 
 Then copy it into the directory `pyreason-gym/pyreason_gym/pyreason_map_world/graph/`
 
