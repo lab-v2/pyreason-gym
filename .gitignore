@@ -131,3 +131,4 @@ dmypy.json
 .idea/
 
 ./pyreason_gym/pyreason_map_world/graph/map_graph.graphml
+.DS_Store
