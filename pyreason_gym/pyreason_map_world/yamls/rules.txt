@@ -1,44 +1,33 @@
-## Dummy rules using new syntax and attribute symbols from KG
-## Note: work_place can be grounded based on agent's occupation and industry attribute and visited place's matching building type
 
-### A trajectory is acceptable for an agent A if the agent starts from home and visits cafe and then work
-# normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), household(y), timestep(y, t1), passed_by(a, z), occ_cls-Commercial(z), timestep(z, t2), lessthan(t1, t2), passed_by(a, w), work_place(w), timestep(w, t3), lessthan(t2, t3)
-
-### A trajectory is acceptable for an agent A if the agent starts from its home and end back at its home
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), timestep(y, t1), passed_by(a, z), household(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is not so normal if the agent pauses at intersections where its not allowed to pause
-normal(a) : [0.5, 0.7] <- agent(a), passed_by(a, y), ps__category_level0-administrative(y), ps__category_level1-military(y)
-
-### A trajectory is normal if agent has a vehicle and prefers using that vehicle to work and encounters a highway enroute
-normal(a) : [0.8, 0.9] <- agent(a), passed_by(a, y), household(y), emp_stat-employed(y), travel-car_truck_van(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is normal if agent has an age bracket above 65 and visits hospital
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a65_66(y), timestep(y, t1), passed_by(a, z), prim_occ-Hospital(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajecotry is abnormal if agent works as a business owner and visits military compound
-## normal(a) : [0.2, 0.0] <- agent(a), passed_by(a, y), household(y), occ-mgmt(y), timestep(y, t1), passed_by(a, z), prim_occ-Non-Civilian-Structures(z), timestep(z, t2), lessthan(t1, t2),
-abnormal(a) : [0.0, 0.2] <- agent(a), passed_by(a, y), household(y), occ-mgmt(y), timestep(y, t1), passed_by(a, z), prim_occ-Non-Civilian-Structures(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is normal if agent has an age bracket above 18 and below 65 and works in construction industry and visits Construction sites
-### NOTE: we need a new symbol that is populated for age brackets based on "age" attribute value
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a18_19(y), age-a65_66(y), timestep(y, t1), passed_by(a, z), prim_occ-Construction(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is a bit abnormal if agent has no vehicle and walk then having traverse through highway
-## normal(a) : [0.7, 0.9]  <- agent(a), passed_by(a, y), household(y), pov-no_vehicle(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
-abnormal(a) : [0.5, 0.7] <- agent(a), passed_by(a, y), household(y), pov-no_vehicle(y), timestep(y, t1), passed_by(a, z), highway(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is abnormal if agent has visited work_place and again visits it
-# abnormal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y), work_place(y), timestep(y, t1), passed_by(a, z), work_place(z), timestep(z, t2), lessthan(t1, t2)
-
-### A trajectory is abnormal if agent is married and visits a Temporary Lodging
-abnormal(a) : [0.8, 0.8] <- agent(a), passed_by(a, y), household(y), hht-married(y), timestep(y, t1), passed_by(a, z), prim_occ-Temporary-Lodging(z), timestep(z, t2), lessthan(t1, t2)
-
-### Dummy Rules from the new merged KG and sampled trajectories
+### Dummy Rules from the new merged KG and sampled trajectory2
 
 normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a60_61(y), timestep(y, t1), passed_by(a, z), prim_occ-Retail_Trade(z), occ_cls-Commercial(z), ps__osm_category-amenity_bar;building_retail(z), timestep(z, t2), lessthan(t1, t2)
 
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), passed_by(a,w), highway-motorway_junction(w), timestep(w, t2), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t3), lessthan(t1, t2), lessthan(t2, t3)
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), lessthan(t1, t2)
+
+normal(a) : [0.8, 1] <- agent(a), passed_by(a, w), highway-motorway_junction(w), timestep(w, t1), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t2), lessthan(t1, t2)
+
+### 638747455,472366868
+normal(a) : [0.5, 1] <- agent(a), passed_by(a, y), occ-cmp(y),  timestep(y, t1),  passed_by(a, z), highway-motorway_junction(z),  timestep(z, t2), lessthan(t1, t2)
+
+###202804416 , 2554504692
+normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), hht-married(y),  timestep(y, t1),  passed_by(a, z), prim_occ-Single_Family_Dwelling(z),  timestep(z, t2), lessthan(t1, t2)
+
+### 1833473135, 472254532
+normal(a) : [0.4, 0.7] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), emp_stat-not.in.force(z),  timestep(z, t2), lessthan(t1, t2)
+
+###4602673649 202784307,706179379
+normal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y),prim_occ-Retail_Trade(y),  timestep(y, t1),  passed_by(a, z), pov-02_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
+
+### 202796792, 202815097
+abnormal(a) : [0.0, 0.3] <- agent(a), passed_by(a, y), occ-cln(y),  timestep(y, t1),  passed_by(a, z), pov-GE05_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
+
+### 4626609681, 4602673649
+abnormal(a) : [0.0, 0.4] <- agent(a), passed_by(a, y), ps__category_level0-nonresidential(y),  timestep(y, t1),  passed_by(a, z), age-a05_09(z),  timestep(z, t2), lessthan(t1, t2)
+
+### 1833473135,  6965055758
+abnormal(a) : [0.0, 0.5] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), occ_cls-Agriculture(z),  timestep(z, t2), lessthan(t1, t2)
+
 
 # Movement rules
 # Create edge
