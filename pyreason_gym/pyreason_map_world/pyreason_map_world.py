@@ -60,6 +60,12 @@ class PyReasonMapWorld:
         # action input is a number corresponding to which path (edge from one node to another) the agent should take
         facts = []
 
+        # Reset normal and abnormal bounds at each timestep
+        reset_normal_fact = pr.fact_node.Fact(f'reset_normal_{self.steps}', 'agent', pr.label.Label('normal'), pr.interval.closed(0, 1), self.next_time, self.next_time)
+        reset_abnormal_fact = pr.fact_node.Fact(f'reset_normal_{self.steps}', 'agent', pr.label.Label('abnormal'), pr.interval.closed(0, 1), self.next_time, self.next_time)
+        facts.append(reset_normal_fact)
+        facts.append(reset_abnormal_fact)
+
         # Do nothing on action 0
         if action != 0:
             fact_on = pr.fact_node.Fact(f'move_{self.steps}', 'agent', pr.label.Label(f'move_{action-1}'), pr.interval.closed(1, 1), self.next_time, self.next_time)
