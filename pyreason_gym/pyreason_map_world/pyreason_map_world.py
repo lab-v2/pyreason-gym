@@ -164,7 +164,7 @@ class PyReasonMapWorld:
     def _reset_graph(self):
         # This function removes any trajectory that was added during step when reset is called
         for edge in self.edges_added:
-            print(edge)
+            # print(edge)
             self.interpretation.delete_edge(edge)
 
         self.edges_added.clear()
