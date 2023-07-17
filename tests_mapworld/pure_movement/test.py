@@ -3,7 +3,7 @@ import gym
 import time
 import sys
 
-env = gym.make('PyReasonMapWorld-v0', start_point='202927092', end_point='1833473102')
+env = gym.make('PyReasonMapWorld-v0', start_point='202811335', end_point='472254560' , render_mode='human')
 obs = env.reset()
 print(obs)
 print()
