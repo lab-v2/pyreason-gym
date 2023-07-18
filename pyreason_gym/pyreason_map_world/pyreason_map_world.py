@@ -131,8 +131,8 @@ class PyReasonMapWorld:
         return lat, long
 
     def get_map(self):
-        nodes = [node for node in self.interpretation.nodes if node != 'agent']
-        edges = [edge for edge in self.interpretation.edges if edge[0] != 'agent']
+        nodes = [node for node in self.interpretation.nodes if node != 'agent' and not (node[0] == 't' and node[1:].isdigit())]
+        edges = [edge for edge in self.interpretation.edges if edge[0] in nodes and edge[1] in nodes]
 
         # Return list of nodes (landmarks/stops) and list of edges connecting these points
         nodes_lat_long = [(self._get_lat_long(node)) for node in nodes]
@@ -164,7 +164,6 @@ class PyReasonMapWorld:
     def _reset_graph(self):
         # This function removes any trajectory that was added during step when reset is called
         for edge in self.edges_added:
-            # print(edge)
             self.interpretation.delete_edge(edge)
 
         self.edges_added.clear()
