@@ -26,13 +26,12 @@ class PyReasonMapWorld:
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
-        current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
-        pr.load_graphml(graph_path)
+        pr.load_graphml(os.path.abspath(graph_path))
 
         # Load rules
-        pr.add_rules_from_file(rules_path, infer_edges=True)
+        pr.add_rules_from_file(os.path.abspath(rules_path), infer_edges=True)
 
     def reset(self):
         # Reason for 1 timestep to initialize everything
