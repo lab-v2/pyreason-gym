@@ -10,11 +10,13 @@ obstacle_rule:
         - [edge, [target, x], atLoc, [1,1]]
     ann_fn: [1,1]
 
+# Blue-agent-1
 # Moving rules
 # Move UP
 move_up_rule_1:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveUp, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -29,6 +31,7 @@ move_up_rule_1:
 move_up_rule_2:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveUp, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -46,8 +49,9 @@ move_up_change_prev_rule_1:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
-        - [node, [source], moveUp, [1,1]]
         - [node, [source], health, [1,1]]
+        - [node, [source], moveUp, [1,1]]
+        - [node, [source], blue-soldier-1, [1,1]]
         - [edge, [target, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -61,6 +65,7 @@ move_up_change_prev_rule_2:
     neigh_criteria:
         - [node, [target], moveUp, [1,1]]
         - [node, [target], health, [1,1]]
+        - [node, [target], blue-soldier-1, [1,1]]
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -70,6 +75,7 @@ move_up_change_prev_rule_2:
 move_down_rule_1:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveDown, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -84,6 +90,7 @@ move_down_rule_1:
 move_down_rule_2:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveDown, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -101,6 +108,7 @@ move_down_change_prev_rule_1:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [source], blue-soldier-1, [1,1]]
         - [node, [source], moveDown, [1,1]]
         - [node, [source], health, [1,1]]
         - [edge, [target, newLoc], down, [1,1]]
@@ -114,6 +122,7 @@ move_down_change_prev_rule_2:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [target], blue-soldier-1, [1,1]]
         - [node, [target], moveDown, [1,1]]
         - [node, [target], health, [1,1]]
         - [edge, [source, newLoc], down, [1,1]]
@@ -125,6 +134,7 @@ move_down_change_prev_rule_2:
 move_left_rule_1:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -139,6 +149,7 @@ move_left_rule_1:
 move_left_rule_2:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -156,6 +167,7 @@ move_left_change_prev_rule_1:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [source], blue-soldier-1, [1,1]]
         - [node, [source], moveLeft, [1,1]]
         - [node, [source], health, [1,1]]
         - [edge, [target, newLoc], left, [1,1]]
@@ -169,6 +181,7 @@ move_left_change_prev_rule_2:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [target], blue-soldier-1, [1,1]]
         - [node, [target], moveLeft, [1,1]]
         - [node, [target], health, [1,1]]
         - [edge, [source, newLoc], left, [1,1]]
@@ -180,6 +193,7 @@ move_left_change_prev_rule_2:
 move_right_rule_1:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveRight, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -194,6 +208,7 @@ move_right_rule_1:
 move_right_rule_2:
     target:
     target_criteria:
+        - [blue-soldier-1, 1, 1]
         - [moveRight, 1, 1]
         - [health, 1, 1]
     delta_t: 1
@@ -211,6 +226,7 @@ move_right_change_prev_rule_1:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [source], blue-soldier-1, [1,1]]
         - [node, [source], moveRight, [1,1]]
         - [node, [source], health, [1,1]]
         - [edge, [target, newLoc], right, [1,1]]
@@ -224,12 +240,729 @@ move_right_change_prev_rule_2:
         - [atLoc, 1, 1]
     delta_t: 1
     neigh_criteria:
+        - [node, [target], blue-soldier-1, [1,1]]
         - [node, [target], moveRight, [1,1]]
         - [node, [target], health, [1,1]]
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
     ann_fn: [0,0]
+
+# Blue-agent-2
+# Moving rules
+# Move UP
+move_up_rule_1:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_up_rule_2:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_up_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], health, [1,1]]
+        - [node, [source], moveUp, [1,1]]
+        - [node, [source], blue-soldier-2, [1,1]]
+        - [edge, [target, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_up_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveUp, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [node, [target], blue-soldier-2, [1,1]]
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move DOWN
+move_down_rule_1:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_down_rule_2:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_down_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], blue-soldier-2, [1,1]]
+        - [node, [source], moveDown, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_down_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], blue-soldier-2, [1,1]]
+        - [node, [target], moveDown, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move LEFT
+move_left_rule_1:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_left_rule_2:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_left_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], blue-soldier-2, [1,1]]
+        - [node, [source], moveLeft, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_left_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], blue-soldier-2, [1,1]]
+        - [node, [target], moveLeft, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move RIGHT
+move_right_rule_1:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_right_rule_2:
+    target:
+    target_criteria:
+        - [blue-soldier-2, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_right_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], blue-soldier-2, [1,1]]
+        - [node, [source], moveRight, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_right_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], blue-soldier-2, [1,1]]
+        - [node, [target], moveRight, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# red-agent-1
+# Moving rules
+# Move UP
+move_up_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_up_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_up_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], health, [1,1]]
+        - [node, [source], moveUp, [1,1]]
+        - [node, [source], red-soldier-1, [1,1]]
+        - [edge, [target, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_up_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveUp, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [node, [target], red-soldier-1, [1,1]]
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move DOWN
+move_down_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_down_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_down_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-1, [1,1]]
+        - [node, [source], moveDown, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_down_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-1, [1,1]]
+        - [node, [target], moveDown, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move LEFT
+move_left_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_left_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_left_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-1, [1,1]]
+        - [node, [source], moveLeft, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_left_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-1, [1,1]]
+        - [node, [target], moveLeft, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move RIGHT
+move_right_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_right_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-1, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_right_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-1, [1,1]]
+        - [node, [source], moveRight, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_right_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-1, [1,1]]
+        - [node, [target], moveRight, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+
+# red-agent-2
+# Moving rules
+# Move UP
+move_up_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_up_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveUp, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_up_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], health, [1,1]]
+        - [node, [source], moveUp, [1,1]]
+        - [node, [source], red-soldier-2, [1,1]]
+        - [edge, [target, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_up_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], moveUp, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [node, [target], red-soldier-2, [1,1]]
+        - [edge, [source, newLoc], up, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move DOWN
+move_down_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_down_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveDown, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_down_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-2, [1,1]]
+        - [node, [source], moveDown, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_down_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-2, [1,1]]
+        - [node, [target], moveDown, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], down, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move LEFT
+move_left_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_left_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveLeft, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_left_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-2, [1,1]]
+        - [node, [source], moveLeft, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_left_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-2, [1,1]]
+        - [node, [target], moveLeft, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], left, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+# Move RIGHT
+move_right_rule_1:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [target, newLoc, atLoc]
+    ann_fn: [1,1]
+
+move_right_rule_2:
+    target:
+    target_criteria:
+        - [red-soldier-2, 1, 1]
+        - [moveRight, 1, 1]
+        - [health, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [edge, [target, oldLoc], atLoc, [1,1]]
+        - [edge, [oldLoc, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    edges: [newLoc, target, atLoc]
+    ann_fn: [1,1]
+
+move_right_change_prev_rule_1:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [source], red-soldier-2, [1,1]]
+        - [node, [source], moveRight, [1,1]]
+        - [node, [source], health, [1,1]]
+        - [edge, [target, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
+move_right_change_prev_rule_2:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 1, 1]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [target], red-soldier-2, [1,1]]
+        - [node, [target], moveRight, [1,1]]
+        - [node, [target], health, [1,1]]
+        - [edge, [source, newLoc], right, [1,1]]
+        - [node, [newLoc], blocked, [0,0]]
+
+    ann_fn: [0,0]
+
 
 
 # SHOOT UP
