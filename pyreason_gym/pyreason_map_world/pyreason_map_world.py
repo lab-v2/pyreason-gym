@@ -26,6 +26,7 @@ class PyReasonMapWorld:
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
+        pr.settings.parallel_computing = True
 
         # Load the graph
         pr.load_graphml(os.path.abspath(graph_path))
