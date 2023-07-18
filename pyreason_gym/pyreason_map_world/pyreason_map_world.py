@@ -3,9 +3,8 @@ import pyreason as pr
 import numpy as np
 
 
-
 class PyReasonMapWorld:
-    def __init__(self, start_point, end_point):
+    def __init__(self, start_point, end_point, graph_path, rules_path):
         self.interpretation = None
         self.start_point = start_point
         self.end_point = end_point
@@ -30,10 +29,10 @@ class PyReasonMapWorld:
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
-        pr.load_graphml(f'{current_path}/graph/map_graph.graphml')
+        pr.load_graphml(graph_path)
 
         # Load rules
-        pr.add_rules_from_file(f'{current_path}/yamls/rules.txt', infer_edges=True)
+        pr.add_rules_from_file(rules_path, infer_edges=True)
 
     def reset(self):
         # Reason for 1 timestep to initialize everything

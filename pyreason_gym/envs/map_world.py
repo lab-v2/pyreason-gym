@@ -35,7 +35,7 @@ def map_lat_long_to_pygame_coords(lat, long):
 class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
 
-    def __init__(self, start_point, end_point, render_mode=None):
+    def __init__(self, start_point, end_point, graph_path, rules_path, render_mode=None):
         """Initialize map world
 
         :param start_point: Point where agent will start
@@ -59,7 +59,7 @@ class MapWorldEnv(gym.Env):
         self.end_point_lat_long = None
 
         # Initialize the PyReason map-world
-        self.pyreason_map_world = PyReasonMapWorld(start_point, end_point)
+        self.pyreason_map_world = PyReasonMapWorld(start_point, end_point, graph_path, rules_path)
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
