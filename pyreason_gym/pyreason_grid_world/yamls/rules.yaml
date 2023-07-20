@@ -131,13 +131,13 @@ move_down_change_prev_rule_2:
     ann_fn: [0,0]
 
 # Move LEFT
-move_left_rule_1:
+move_left_rule_1_blue_1:
     target:
     target_criteria:
         - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 1, 1]
-    delta_t: 1
+    delta_t: 3
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
         - [edge, [oldLoc, newLoc], left, [1,1]]
@@ -146,13 +146,13 @@ move_left_rule_1:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_left_rule_2:
+move_left_rule_2_blue_1:
     target:
     target_criteria:
         - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 1, 1]
-    delta_t: 1
+    delta_t: 3
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
         - [edge, [oldLoc, newLoc], left, [1,1]]
@@ -161,11 +161,11 @@ move_left_rule_2:
     edges: [newLoc, target, atLoc]
     ann_fn: [1,1]
 
-move_left_change_prev_rule_1:
+move_left_change_prev_rule_1_blue_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
-    delta_t: 1
+    delta_t: 3
     neigh_criteria:
         - [node, [source], blue-soldier-1, [1,1]]
         - [node, [source], moveLeft, [1,1]]
@@ -175,11 +175,11 @@ move_left_change_prev_rule_1:
 
     ann_fn: [0,0]
 
-move_left_change_prev_rule_2:
+move_left_change_prev_rule_2_blue_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
-    delta_t: 1
+    delta_t: 3
     neigh_criteria:
         - [node, [target], blue-soldier-1, [1,1]]
         - [node, [target], moveLeft, [1,1]]
@@ -369,7 +369,7 @@ move_down_change_prev_rule_2:
     ann_fn: [0,0]
 
 # Move LEFT
-move_left_rule_1:
+move_left_rule_1_blue_2:
     target:
     target_criteria:
         - [blue-soldier-2, 1, 1]
@@ -384,7 +384,7 @@ move_left_rule_1:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_left_rule_2:
+move_left_rule_2_blue_2:
     target:
     target_criteria:
         - [blue-soldier-2, 1, 1]
@@ -399,7 +399,7 @@ move_left_rule_2:
     edges: [newLoc, target, atLoc]
     ann_fn: [1,1]
 
-move_left_change_prev_rule_1:
+move_left_change_prev_rule_1_blue_2:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -413,7 +413,7 @@ move_left_change_prev_rule_1:
 
     ann_fn: [0,0]
 
-move_left_change_prev_rule_2:
+move_left_change_prev_rule_2_blue_2:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -607,7 +607,7 @@ move_down_change_prev_rule_2:
     ann_fn: [0,0]
 
 # Move LEFT
-move_left_rule_1:
+move_left_rule_1_red_1:
     target:
     target_criteria:
         - [red-soldier-1, 1, 1]
@@ -622,7 +622,7 @@ move_left_rule_1:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_left_rule_2:
+move_left_rule_2_red_1:
     target:
     target_criteria:
         - [red-soldier-1, 1, 1]
@@ -637,7 +637,7 @@ move_left_rule_2:
     edges: [newLoc, target, atLoc]
     ann_fn: [1,1]
 
-move_left_change_prev_rule_1:
+move_left_change_prev_rule_1_red_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -651,7 +651,7 @@ move_left_change_prev_rule_1:
 
     ann_fn: [0,0]
 
-move_left_change_prev_rule_2:
+move_left_change_prev_rule_2_red_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -846,7 +846,7 @@ move_down_change_prev_rule_2:
     ann_fn: [0,0]
 
 # Move LEFT
-move_left_rule_1:
+move_left_rule_1_red_2:
     target:
     target_criteria:
         - [red-soldier-2, 1, 1]
@@ -861,7 +861,7 @@ move_left_rule_1:
     edges: [target, newLoc, atLoc]
     ann_fn: [1,1]
 
-move_left_rule_2:
+move_left_rule_2_red_2:
     target:
     target_criteria:
         - [red-soldier-2, 1, 1]
@@ -876,7 +876,7 @@ move_left_rule_2:
     edges: [newLoc, target, atLoc]
     ann_fn: [1,1]
 
-move_left_change_prev_rule_1:
+move_left_change_prev_rule_1_red_2:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
@@ -890,7 +890,7 @@ move_left_change_prev_rule_1:
 
     ann_fn: [0,0]
 
-move_left_change_prev_rule_2:
+move_left_change_prev_rule_2_red_2:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
