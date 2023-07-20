@@ -72,10 +72,12 @@ def generate_graph(grid_dim, num_agents_per_team, base_loc, start_loc, obstacle_
     # =======================================================================
     # Initialize players health, action choice and team
     for i in range(1, num_agents_per_team + 1):
+        dict1 = {f'red-soldier-{i}': 1}
+        dict2 = {f'blue-soldier-{i}': 1}
         g.add_node(f'red-soldier-{i}', health=1, moveUp=0, moveDown=0, moveLeft=0, moveRight=0, shootUpRed=0,
-                   shootDownRed=0, shootLeftRed=0, shootRightRed=0, teamRed=1, justDied='0,0')
+                   shootDownRed=0, shootLeftRed=0, shootRightRed=0, teamRed=1, justDied='0,0', **dict1)
         g.add_node(f'blue-soldier-{i}', health=1, moveUp=0, moveDown=0, moveLeft=0, moveRight=0, shootUpBlue=0,
-                   shootDownBlue=0, shootLeftBlue=0, shootRightBlue=0, teamBlue=1, justDied='0,0')
+                   shootDownBlue=0, shootLeftBlue=0, shootRightBlue=0, teamBlue=1, justDied='0,0', **dict2)
         # Teams
         g.add_edge(f'red-soldier-{i}', 'red-base', team=1)
         g.add_edge(f'blue-soldier-{i}', 'blue-base', team=1)
@@ -97,7 +99,7 @@ def generate_graph(grid_dim, num_agents_per_team, base_loc, start_loc, obstacle_
 
 def main():
     ## Red is first then Blue
-    generate_graph(grid_dim=8, num_agents_per_team=2, base_loc=[7, 56], start_loc=[[2,16], [5, 21]],
+    generate_graph(grid_dim=8, num_agents_per_team=2, base_loc=[7, 56], start_loc=[[6,15], [48, 57]],
                    obstacle_loc=[26, 27, 34, 35, 36, 44])
 
 
