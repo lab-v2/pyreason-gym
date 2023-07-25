@@ -16,7 +16,7 @@ move_up_rule_1:
     target:
     target_criteria:
         - [moveUp, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -30,7 +30,7 @@ move_up_rule_2:
     target:
     target_criteria:
         - [moveUp, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -47,7 +47,7 @@ move_up_change_prev_rule_1:
     delta_t: 1
     neigh_criteria:
         - [node, [source], moveUp, [1,1]]
-        - [node, [source], health, [1,1]]
+        - [node, [source], health, [0.1,1]]
         - [edge, [target, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -60,7 +60,7 @@ move_up_change_prev_rule_2:
     delta_t: 1
     neigh_criteria:
         - [node, [target], moveUp, [1,1]]
-        - [node, [target], health, [1,1]]
+        - [node, [target], health, [0.1,1]]
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -71,7 +71,7 @@ move_down_rule_1:
     target:
     target_criteria:
         - [moveDown, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -85,7 +85,7 @@ move_down_rule_2:
     target:
     target_criteria:
         - [moveDown, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -102,7 +102,7 @@ move_down_change_prev_rule_1:
     delta_t: 1
     neigh_criteria:
         - [node, [source], moveDown, [1,1]]
-        - [node, [source], health, [1,1]]
+        - [node, [source], health, [0.1,1]]
         - [edge, [target, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -115,7 +115,7 @@ move_down_change_prev_rule_2:
     delta_t: 1
     neigh_criteria:
         - [node, [target], moveDown, [1,1]]
-        - [node, [target], health, [1,1]]
+        - [node, [target], health, [0.1,1]]
         - [edge, [source, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -126,7 +126,7 @@ move_left_rule_1:
     target:
     target_criteria:
         - [moveLeft, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -140,7 +140,7 @@ move_left_rule_2:
     target:
     target_criteria:
         - [moveLeft, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -157,7 +157,7 @@ move_left_change_prev_rule_1:
     delta_t: 1
     neigh_criteria:
         - [node, [source], moveLeft, [1,1]]
-        - [node, [source], health, [1,1]]
+        - [node, [source], health, [0.1,1]]
         - [edge, [target, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -170,7 +170,7 @@ move_left_change_prev_rule_2:
     delta_t: 1
     neigh_criteria:
         - [node, [target], moveLeft, [1,1]]
-        - [node, [target], health, [1,1]]
+        - [node, [target], health, [0.1,1]]
         - [edge, [source, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -181,7 +181,7 @@ move_right_rule_1:
     target:
     target_criteria:
         - [moveRight, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -195,7 +195,7 @@ move_right_rule_2:
     target:
     target_criteria:
         - [moveRight, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -212,7 +212,7 @@ move_right_change_prev_rule_1:
     delta_t: 1
     neigh_criteria:
         - [node, [source], moveRight, [1,1]]
-        - [node, [source], health, [1,1]]
+        - [node, [source], health, [0.1,1]]
         - [edge, [target, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -225,7 +225,7 @@ move_right_change_prev_rule_2:
     delta_t: 1
     neigh_criteria:
         - [node, [target], moveRight, [1,1]]
-        - [node, [target], health, [1,1]]
+        - [node, [target], health, [0.1,1]]
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
 
@@ -238,7 +238,7 @@ shoot_up_red_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootUpRed, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -251,7 +251,7 @@ shoot_up_blue_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootUpBlue, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -266,7 +266,7 @@ shoot_down_red_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootDownRed, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -279,7 +279,7 @@ shoot_down_blue_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootDownBlue, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -294,7 +294,7 @@ shoot_left_red_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootLeftRed, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -307,7 +307,7 @@ shoot_left_blue_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootLeftBlue, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -322,7 +322,7 @@ shoot_right_red_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootRightRed, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -335,7 +335,7 @@ shoot_right_blue_setup_new_bullet_rule:
     target:
     target_criteria:
         - [shootRightBlue, 1, 1]
-        - [health, 1, 1]
+        - [health, 0.1, 1]
     delta_t: 0
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
@@ -351,7 +351,7 @@ shoot_right_blue_setup_new_bullet_rule:
 bullet_hit_just_died_blue_rule:
     target: justDied
     target_criteria:
-        - [health, 1, 1]
+        - [health, 0.1, 1]
         - [teamBlue, 1, 1]
     delta_t: 0
     immediate: true
@@ -365,7 +365,7 @@ bullet_hit_just_died_blue_rule:
 bullet_hit_just_died_red_rule:
     target: justDied
     target_criteria:
-        - [health, 1, 1]
+        - [health, 0.1, 1]
         - [teamRed, 1, 1]
     delta_t: 0
     immediate: true
@@ -379,7 +379,7 @@ bullet_hit_just_died_red_rule:
 bullet_hit_just_died_off_blue_rule:
     target: justDied
     target_criteria:
-        - [health, 1, 1]
+        - [health, 0.1, 1]
         - [teamBlue, 1, 1]
     delta_t: 1
     immediate: true
@@ -393,7 +393,7 @@ bullet_hit_just_died_off_blue_rule:
 bullet_hit_just_died_off_red_rule:
     target: justDied
     target_criteria:
-        - [health, 1, 1]
+        - [health, 0.1, 1]
         - [teamRed, 1, 1]
     delta_t: 1
     immediate: true
@@ -407,7 +407,7 @@ bullet_hit_just_died_off_red_rule:
 bullet_hit_rule:
     target: health
     target_criteria:
-        - [health, 1, 1]
+        - [health, 0.1, 1]
         - [justDied, 1, 1]
     delta_t: 0
     immediate: true
