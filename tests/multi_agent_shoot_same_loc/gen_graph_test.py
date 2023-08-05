@@ -97,7 +97,7 @@ def generate_graph(grid_dim, num_agents_per_team, base_loc, start_loc, obstacle_
 
 def main():
     ## Red is first then Blue
-    generate_graph(grid_dim=8, num_agents_per_team=2, base_loc=[7, 56], start_loc=[[2,16], [4, 21]],
+    generate_graph(grid_dim=8, num_agents_per_team=2, base_loc=[7, 56], start_loc=[[2,16], [4, 4]],
                    obstacle_loc=[26, 27, 34, 35, 36, 44])
 
 
