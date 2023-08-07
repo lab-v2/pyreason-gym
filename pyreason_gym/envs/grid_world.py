@@ -37,8 +37,8 @@ class GridWorldEnv(gym.Env):
             {
                 'red_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0, 1, dtype=np.float32)})),
                 'blue_team': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'health': spaces.Box(0, 1, dtype=np.float32)})),
-                'red_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4)})),
-                'blue_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4)}))
+                'red_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4), 'soldier': spaces.Discrete(num_agents_per_team+1)})),
+                'blue_bullets': spaces.Sequence(spaces.Dict({'pos': spaces.Box(0, grid_size-1, shape=(2,), dtype=int), 'dir': spaces.Discrete(4), 'soldier': spaces.Discrete(num_agents_per_team+1)}))
             }
         )
 
