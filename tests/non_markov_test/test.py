@@ -4,14 +4,28 @@ import time
 
 env = gym.make('PyReasonGridWorld-v0', render_mode='human', num_agents_per_team=2)
 obs = env.reset()
+print("\n")
+print("Starting Experiment with init obs:")
+print(obs)
+print("\n")
 time.sleep(1)
-for _ in range(4):
+for ss in range(4):
+    print("Step", ss)
+    # if ss % 2 == 0:
+    print("Taking both actions")
     action = {
-        'red_team': [2,2],
-        'blue_team': [2,2]
+        'red_team':  [2, 2],
+        'blue_team': [2, 2]
     }
+    # else:
+    #     print("Taking first agent actions")
+    #     action = {
+    #         'red_team':  [],
+    #         'blue_team': []
+    #     }
     obs = env.step(action)
     print(obs)
+    print("\n")
     time.sleep(1)
 
 env.close()
