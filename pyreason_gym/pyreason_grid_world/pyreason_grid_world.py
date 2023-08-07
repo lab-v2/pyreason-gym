@@ -11,7 +11,7 @@ class PyReasonGridWorld:
 
         # Keep track of the next timestep to start
         self.next_time = 0
-        
+
         # Pyreason settings
         pr.settings.verbose = False
         pr.settings.atom_trace = False
@@ -49,14 +49,14 @@ class PyReasonGridWorld:
                 fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
                 facts.append(fact_on)
                 facts.append(fact_off)
-    
+
         for i, a in enumerate(blue_team_actions):
             if a != 8:
                 fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
                 fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
                 facts.append(fact_on)
                 facts.append(fact_off)
-        
+
         self.interpretation = pr.reason(1, again=True, node_facts=facts)
         self.next_time = self.interpretation.time + 1
 
@@ -91,22 +91,22 @@ class PyReasonGridWorld:
             observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32)})
 
         # Gather bullet info for red and blue bullets
-        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions) = self._get_bullet_info()
-        for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
-            observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir})
+        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions), (red_soldier_ids, blue_soldier_ids) = self._get_bullet_info()
+        for red_pos, red_dir, soldier_id in zip(red_bullet_positions, red_bullet_directions, red_soldier_ids):
+            observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir, 'soldier': soldier_id})
 
-        for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
-            observation['blue_bullets'].append({'pos': blue_pos, 'dir': blue_dir})
+        for blue_pos, blue_dir, soldier_id in zip(blue_bullet_positions, blue_bullet_directions, blue_soldier_ids):
+            observation['blue_bullets'].append({'pos': blue_pos, 'dir': blue_dir, 'soldier': soldier_id})
 
         return observation
-    
+
     def get_obstacle_locations(self):
         # Return the coordinates of all the mountains in the grid to be able to draw them
         relevant_edges = [edge for edge in self.interpretation.edges if edge[1]=='mountain']
         obstacle_positions = [int(edge[0]) for edge in relevant_edges]
         obstacle_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in obstacle_positions])
         return obstacle_positions_coords
-    
+
     def get_base_locations(self):
         # Return the locations of the two bases
         relevant_edges = [edge for edge in self.interpretation.edges if 'base' in edge[0]]
@@ -126,6 +126,11 @@ class PyReasonGridWorld:
         blue_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in blue_bullet_positions])
         positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
 
+        # Get soldier ID who shot the bullet
+        red_soldier_ids = [int(edge[1][-1]) for edge in filtered_edges if 'red' in edge[1]]
+        blue_soldier_ids = [int(edge[1][-1]) for edge in filtered_edges if 'blue' in edge[1]]
+        soldier_ids = (red_soldier_ids, blue_soldier_ids)
+
         # Bullet direction of movement
         direction_map = {0.2: 0, 0.6: 1, 0.4: 2, 0.8: 3}
         red_bullet_directions = [direction_map[self.interpretation.interpretations_edge[edge].world[pr.label.Label('direction')].lower] for edge in filtered_edges if 'red' in edge[1]]
@@ -136,4 +141,4 @@ class PyReasonGridWorld:
         assert len(red_bullet_positions) == len(red_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
         assert len(blue_bullet_positions) == len(blue_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
 
-        return positions, directions
+        return positions, directions, soldier_ids
