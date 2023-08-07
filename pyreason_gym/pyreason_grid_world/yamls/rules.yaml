@@ -1265,7 +1265,7 @@ bullet_move_up_setup_pos_rule:
         - [life, 1, 1]
         - [direction, 0.2, 0.2]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1280,7 +1280,7 @@ bullet_move_up_change_prev_loc_rule:
         - [life, 1, 1]
         - [direction, 0.2, 0.2]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1294,7 +1294,7 @@ bullet_move_up_setup_life_rule:
         - [life, 1, 1]
         - [direction, 0.2, 0.2]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1309,7 +1309,7 @@ bullet_move_up_setup_direction_rule:
         - [life, 1, 1]
         - [direction, 0.2, 0.2]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], up, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1340,7 +1340,7 @@ bullet_move_down_setup_pos_rule:
         - [life, 1, 1]
         - [direction, 0.6, 0.6]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1355,7 +1355,7 @@ bullet_move_down_change_prev_loc_rule:
         - [life, 1, 1]
         - [direction, 0.6, 0.6]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1369,7 +1369,7 @@ bullet_move_down_setup_life_rule:
         - [life, 1, 1]
         - [direction, 0.6, 0.6]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1384,7 +1384,7 @@ bullet_move_down_setup_direction_rule:
         - [life, 1, 1]
         - [direction, 0.6, 0.6]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], down, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1415,7 +1415,7 @@ bullet_move_left_setup_pos_rule:
         - [life, 1, 1]
         - [direction, 0.4, 0.4]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1430,7 +1430,7 @@ bullet_move_left_change_prev_loc_rule:
         - [life, 1, 1]
         - [direction, 0.4, 0.4]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1444,7 +1444,7 @@ bullet_move_left_setup_life_rule:
         - [life, 1, 1]
         - [direction, 0.4, 0.4]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1459,7 +1459,7 @@ bullet_move_left_setup_direction_rule:
         - [life, 1, 1]
         - [direction, 0.4, 0.4]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], left, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1490,7 +1490,7 @@ bullet_move_right_setup_pos_rule:
         - [life, 1, 1]
         - [direction, 0.8, 0.8]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1505,7 +1505,7 @@ bullet_move_right_change_prev_loc_rule:
         - [life, 1, 1]
         - [direction, 0.8, 0.8]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1519,7 +1519,7 @@ bullet_move_right_setup_life_rule:
         - [life, 1, 1]
         - [direction, 0.8, 0.8]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
@@ -1534,7 +1534,7 @@ bullet_move_right_setup_direction_rule:
         - [life, 1, 1]
         - [direction, 0.8, 0.8]
     delta_t: 1
-    immediate: true
+    # immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], right, [1,1]]
         - [node, [newLoc], blocked, [0,0]]
