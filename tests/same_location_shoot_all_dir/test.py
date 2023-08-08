@@ -32,4 +32,18 @@ action = {
 obs = env.step(action)
 print(obs)
 time.sleep(1)
+action = {
+    'red_team': [3],
+    'blue_team': [1]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [2],
+    'blue_team': [1]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
 env.close()
