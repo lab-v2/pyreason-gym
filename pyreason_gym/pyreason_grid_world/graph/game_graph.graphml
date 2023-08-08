@@ -7,12 +7,16 @@
   <key id="down" for="edge" attr.name="down" attr.type="long" />
   <key id="up" for="edge" attr.name="up" attr.type="long" />
   <key id="right" for="edge" attr.name="right" attr.type="long" />
+  <key id="blue-soldier-2" for="node" attr.name="blue-soldier-2" attr.type="long" />
+  <key id="red-soldier-2" for="node" attr.name="red-soldier-2" attr.type="long" />
   <key id="bullet" for="node" attr.name="bullet" attr.type="long" />
+  <key id="blue-soldier-1" for="node" attr.name="blue-soldier-1" attr.type="long" />
   <key id="teamBlue" for="node" attr.name="teamBlue" attr.type="long" />
   <key id="shootRightBlue" for="node" attr.name="shootRightBlue" attr.type="long" />
   <key id="shootLeftBlue" for="node" attr.name="shootLeftBlue" attr.type="long" />
   <key id="shootDownBlue" for="node" attr.name="shootDownBlue" attr.type="long" />
   <key id="shootUpBlue" for="node" attr.name="shootUpBlue" attr.type="long" />
+  <key id="red-soldier-1" for="node" attr.name="red-soldier-1" attr.type="long" />
   <key id="justDied" for="node" attr.name="justDied" attr.type="string" />
   <key id="teamRed" for="node" attr.name="teamRed" attr.type="long" />
   <key id="shootRightRed" for="node" attr.name="shootRightRed" attr.type="long" />
@@ -240,6 +244,7 @@
       <data key="shootRightRed">0</data>
       <data key="teamRed">1</data>
       <data key="justDied">0,0</data>
+      <data key="red-soldier-1">1</data>
     </node>
     <node id="blue-soldier-1">
       <data key="health">1</data>
@@ -253,6 +258,7 @@
       <data key="shootRightBlue">0</data>
       <data key="teamBlue">1</data>
       <data key="justDied">0,0</data>
+      <data key="blue-soldier-1">1</data>
     </node>
     <node id="red-bullet-1">
       <data key="teamRed">1</data>
@@ -274,6 +280,7 @@
       <data key="shootRightRed">0</data>
       <data key="teamRed">1</data>
       <data key="justDied">0,0</data>
+      <data key="red-soldier-2">1</data>
     </node>
     <node id="blue-soldier-2">
       <data key="health">1</data>
@@ -287,6 +294,7 @@
       <data key="shootRightBlue">0</data>
       <data key="teamBlue">1</data>
       <data key="justDied">0,0</data>
+      <data key="blue-soldier-2">1</data>
     </node>
     <node id="red-bullet-2">
       <data key="teamRed">1</data>

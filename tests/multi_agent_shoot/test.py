@@ -13,7 +13,14 @@ obs = env.step(action)
 print(obs)
 time.sleep(1)
 action = {
-    'red_team': [1,2],
+    'red_team': [2,3],
+    'blue_team': [1,0]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [0,0],
     'blue_team': [1,0]
 }
 obs = env.step(action)
@@ -27,7 +34,28 @@ obs = env.step(action)
 print(obs)
 time.sleep(1)
 action = {
-    'red_team': [1,2],
+    'red_team': [2,2],
+    'blue_team': [1,0]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [2,2],
+    'blue_team': [1,0]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [2,2],
+    'blue_team': [1,0]
+}
+obs = env.step(action)
+print(obs)
+time.sleep(1)
+action = {
+    'red_team': [2,2],
     'blue_team': [1,0]
 }
 obs = env.step(action)
