@@ -27,7 +27,7 @@ action = {
 obs = env.step(action)
 print(obs)
 time.sleep(1)
-for _ in range(5):
+for _ in range(10):
     action = {
         'red_team': [1],
         'blue_team': [1]
