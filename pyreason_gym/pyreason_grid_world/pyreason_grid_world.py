@@ -63,6 +63,14 @@ class PyReasonGridWorld:
     def get_obs(self):
         observation = {'red_team': [], 'blue_team': [], 'red_bullets': [], 'blue_bullets': []}
 
+        # Gather bullet info for red and blue bullets
+        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions), (red_killed_who, blue_killed_who) = self._get_bullet_info()
+        for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
+            observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir})
+
+        for blue_pos, blue_dir in zip(blue_bullet_positions, blue_bullet_directions):
+            observation['blue_bullets'].append({'pos': blue_pos, 'dir': blue_dir})
+
         # Filter edges that are of the form (red-soldier-x, y) where x and y are ints
         red_relevant_edges = [edge for edge in self.interpretation.edges if 'red-soldier' in edge[0] and edge[1].isnumeric()]
         blue_relevant_edges = [edge for edge in self.interpretation.edges if 'blue-soldier' in edge[0] and edge[1].isnumeric()]
@@ -87,16 +95,8 @@ class PyReasonGridWorld:
             red_health = self.interpretation.interpretations_node[f'red-soldier-{i}'].world[pr.label.Label('health')].lower
             blue_health = self.interpretation.interpretations_node[f'blue-soldier-{i}'].world[pr.label.Label('health')].lower
 
-            observation['red_team'].append({'pos': np.array(red_pos_coords, dtype=np.int32), 'health': np.array([red_health], dtype=np.float32)})
-            observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32)})
-
-        # Gather bullet info for red and blue bullets
-        (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions), (red_soldier_ids, blue_soldier_ids) = self._get_bullet_info()
-        for red_pos, red_dir, soldier_id in zip(red_bullet_positions, red_bullet_directions, red_soldier_ids):
-            observation['red_bullets'].append({'pos': red_pos, 'dir': red_dir, 'soldier': soldier_id})
-
-        for blue_pos, blue_dir, soldier_id in zip(blue_bullet_positions, blue_bullet_directions, blue_soldier_ids):
-            observation['blue_bullets'].append({'pos': blue_pos, 'dir': blue_dir, 'soldier': soldier_id})
+            observation['red_team'].append({'pos': np.array(red_pos_coords, dtype=np.int32), 'health': np.array([red_health], dtype=np.float32), 'killed': list(red_killed_who[i-1])})
+            observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32), 'killed': list(blue_killed_who[i-1])})
 
         return observation
 
@@ -126,10 +126,21 @@ class PyReasonGridWorld:
         blue_bullet_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in blue_bullet_positions])
         positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
 
-        # Get soldier ID who shot the bullet
-        red_soldier_ids = [int(edge[1][-1]) for edge in filtered_edges if 'red' in edge[1]]
-        blue_soldier_ids = [int(edge[1][-1]) for edge in filtered_edges if 'blue' in edge[1]]
-        soldier_ids = (red_soldier_ids, blue_soldier_ids)
+        # Get info about who killed whom. Stored in the form a list for every agent: (red-killer: [blue-casualties]) or (blue-killer: [red-casualties])
+        kill_info_edges = [edge for edge in self.interpretation.edges if pr.label.Label('killed') in self.interpretation.interpretations_edge[edge].world
+                           and self.interpretation.interpretations_edge[edge].world[pr.label.Label('killed')] == pr.interval.closed(1, 1)]
+        kill_info_edges = sorted(kill_info_edges, key=lambda x: int(x[0][-1]))
+        red_killed_who_tuple = [(int(edge[0][-1]), int(edge[1][-1])) for edge in kill_info_edges if 'red' in edge[0]]
+        blue_killed_who_tuple = [(int(edge[0][-1]), int(edge[1][-1])) for edge in kill_info_edges if 'blue' in edge[0]]
+        red_killed_who = [[] for _ in range(self.num_agents_per_team)]
+        blue_killed_who = [[] for _ in range(self.num_agents_per_team)]
+
+        for shooter, casualty in red_killed_who_tuple:
+            red_killed_who[shooter-1].append(casualty)
+        for shooter, casualty in blue_killed_who_tuple:
+            blue_killed_who[shooter-1].append(casualty)
+
+        who_killed_who = (red_killed_who, blue_killed_who)
 
         # Bullet direction of movement
         direction_map = {0.2: 0, 0.6: 1, 0.4: 2, 0.8: 3}
@@ -141,4 +152,4 @@ class PyReasonGridWorld:
         assert len(red_bullet_positions) == len(red_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
         assert len(blue_bullet_positions) == len(blue_bullet_directions), 'Length of bullet positions does not math length of bullet directions'
 
-        return positions, directions, soldier_ids
+        return positions, directions, who_killed_who
