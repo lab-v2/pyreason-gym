@@ -236,7 +236,7 @@ move_left_rule_1_b1:
         - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 1
+    delta_t: 0
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -252,7 +252,7 @@ move_left_rule_2_b1:
         - [blue-soldier-1, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 1
+    delta_t: 0
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -356,7 +356,7 @@ move_up_rule_1_b2:
         - [blue-soldier-2, 1, 1]
         - [moveUp, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -372,7 +372,7 @@ move_up_rule_2_b2:
         - [blue-soldier-2, 1, 1]
         - [moveUp, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -415,7 +415,7 @@ move_down_rule_1_b2:
         - [blue-soldier-2, 1, 1]
         - [moveDown, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -431,7 +431,7 @@ move_down_rule_2_b2:
         - [blue-soldier-2, 1, 1]
         - [moveDown, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -474,7 +474,7 @@ move_left_rule_1_b2:
         - [blue-soldier-2, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -490,7 +490,7 @@ move_left_rule_2_b2:
         - [blue-soldier-2, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -533,7 +533,7 @@ move_right_rule_1_b2:
         - [blue-soldier-2, 1, 1]
         - [moveRight, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -549,7 +549,7 @@ move_right_rule_2_b2:
         - [blue-soldier-2, 1, 1]
         - [moveRight, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -833,7 +833,7 @@ move_up_rule_1_r2:
         - [red-soldier-2, 1, 1]
         - [moveUp, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -849,7 +849,7 @@ move_up_rule_2_r2:
         - [red-soldier-2, 1, 1]
         - [moveUp, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -892,7 +892,7 @@ move_down_rule_1_r2:
         - [red-soldier-2, 1, 1]
         - [moveDown, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -908,7 +908,7 @@ move_down_rule_2_r2:
         - [red-soldier-2, 1, 1]
         - [moveDown, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -951,7 +951,7 @@ move_left_rule_1_r2:
         - [red-soldier-2, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -967,7 +967,7 @@ move_left_rule_2_r2:
         - [red-soldier-2, 1, 1]
         - [moveLeft, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -1010,7 +1010,7 @@ move_right_rule_1_r2:
         - [red-soldier-2, 1, 1]
         - [moveRight, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
@@ -1026,7 +1026,7 @@ move_right_rule_2_r2:
         - [red-soldier-2, 1, 1]
         - [moveRight, 1, 1]
         - [health, 0.1, 1]
-    delta_t: 0
+    delta_t: 1
     immediate: true
     neigh_criteria:
         - [edge, [target, oldLoc], atLoc, [1,1]]
