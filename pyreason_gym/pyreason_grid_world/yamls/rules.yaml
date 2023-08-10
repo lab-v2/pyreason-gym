@@ -50,6 +50,7 @@ move_up_change_prev_rule_1_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-1, [1,1]]
         - [edge, [target, newLoc], up, [1,1]]
@@ -62,6 +63,7 @@ move_up_change_prev_rule_2_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-1, [1,1]]
         - [edge, [source, newLoc], up, [1,1]]
@@ -107,6 +109,7 @@ move_down_change_prev_rule_1_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-1, [1,1]]
         - [edge, [target, newLoc], down, [1,1]]
@@ -119,6 +122,7 @@ move_down_change_prev_rule_2_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-1, [1,1]]
         - [edge, [source, newLoc], down, [1,1]]
@@ -164,14 +168,20 @@ move_left_change_prev_rule_1_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-1, [1,1]]
         - [edge, [target, newLoc], left, [1,1]]
-        - [edge, [source, newLoc], atLoc, [change_prev_rule_2_b1:
+        - [edge, [source, newLoc], atLoc, [1,1]]
+
+    ann_fn: [0,0]
+
+move_left_change_prev_rule_2_b1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-1, [1,1]]
         - [edge, [source, newLoc], left, [1,1]]
@@ -217,6 +227,7 @@ move_right_change_prev_rule_1_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-1, [1,1]]
         - [edge, [target, newLoc], right, [1,1]]
@@ -229,6 +240,7 @@ move_right_change_prev_rule_2_b1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-1, [1,1]]
         - [edge, [source, newLoc], right, [1,1]]
@@ -276,6 +288,7 @@ move_up_change_prev_rule_1_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-2, [1,1]]
         - [edge, [target, newLoc], up, [1,1]]
@@ -288,6 +301,7 @@ move_up_change_prev_rule_2_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-2, [1,1]]
         - [edge, [source, newLoc], up, [1,1]]
@@ -333,6 +347,7 @@ move_down_change_prev_rule_1_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-2, [1,1]]
         - [edge, [target, newLoc], down, [1,1]]
@@ -345,6 +360,7 @@ move_down_change_prev_rule_2_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-2, [1,1]]
         - [edge, [source, newLoc], down, [1,1]]
@@ -390,6 +406,7 @@ move_left_change_prev_rule_1_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-2, [1,1]]
         - [edge, [target, newLoc], left, [1,1]]
@@ -402,6 +419,7 @@ move_left_change_prev_rule_2_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-2, [1,1]]
         - [edge, [source, newLoc], left, [1,1]]
@@ -447,6 +465,7 @@ move_right_change_prev_rule_1_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], blue-soldier-2, [1,1]]
         - [edge, [target, newLoc], right, [1,1]]
@@ -459,6 +478,7 @@ move_right_change_prev_rule_2_b2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], blue-soldier-2, [1,1]]
         - [edge, [source, newLoc], right, [1,1]]
@@ -506,6 +526,7 @@ move_up_change_prev_rule_1_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-1, [1,1]]
         - [edge, [target, newLoc], up, [1,1]]
@@ -518,6 +539,7 @@ move_up_change_prev_rule_2_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-1, [1,1]]
         - [edge, [source, newLoc], up, [1,1]]
@@ -563,6 +585,7 @@ move_down_change_prev_rule_1_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-1, [1,1]]
         - [edge, [target, newLoc], down, [1,1]]
@@ -575,6 +598,7 @@ move_down_change_prev_rule_2_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-1, [1,1]]
         - [edge, [source, newLoc], down, [1,1]]
@@ -620,6 +644,7 @@ move_left_change_prev_rule_1_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-1, [1,1]]
         - [edge, [target, newLoc], left, [1,1]]
@@ -632,6 +657,7 @@ move_left_change_prev_rule_2_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-1, [1,1]]
         - [edge, [source, newLoc], left, [1,1]]
@@ -677,6 +703,7 @@ move_right_change_prev_rule_1_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-1, [1,1]]
         - [edge, [target, newLoc], right, [1,1]]
@@ -689,6 +716,7 @@ move_right_change_prev_rule_2_r1:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-1, [1,1]]
         - [edge, [source, newLoc], right, [1,1]]
@@ -737,6 +765,7 @@ move_up_change_prev_rule_1_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-2, [1,1]]
         - [edge, [target, newLoc], up, [1,1]]
@@ -749,6 +778,7 @@ move_up_change_prev_rule_2_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-2, [1,1]]
         - [edge, [source, newLoc], up, [1,1]]
@@ -794,6 +824,7 @@ move_down_change_prev_rule_1_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-2, [1,1]]
         - [edge, [target, newLoc], down, [1,1]]
@@ -806,6 +837,7 @@ move_down_change_prev_rule_2_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-2, [1,1]]
         - [edge, [source, newLoc], down, [1,1]]
@@ -851,6 +883,7 @@ move_left_change_prev_rule_1_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-2, [1,1]]
         - [edge, [target, newLoc], left, [1,1]]
@@ -863,6 +896,7 @@ move_left_change_prev_rule_2_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-2, [1,1]]
         - [edge, [source, newLoc], left, [1,1]]
@@ -908,6 +942,7 @@ move_right_change_prev_rule_1_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [source], red-soldier-2, [1,1]]
         - [edge, [target, newLoc], right, [1,1]]
@@ -920,6 +955,7 @@ move_right_change_prev_rule_2_r2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [node, [target], red-soldier-2, [1,1]]
         - [edge, [source, newLoc], right, [1,1]]
