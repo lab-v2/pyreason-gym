@@ -10,6 +10,104 @@ obstacle_rule:
         - [edge, [target, x], atLoc, [1,1]]
     ann_fn: [1,1]
 
+# BULLET RULES GET CHECKED FIRST
+# BULLET Rules
+# BULLET HITS SOMEONE
+# BLUE DIES
+bullet_hit_just_died_blue_rule:
+    target: justDied
+    target_criteria:
+        - [health, 0.1, 1]
+        - [teamBlue, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamRed, [1,1]]
+    ann_fn: [1, 1]
+
+bullet_hit_just_died_red_rule:
+    target: justDied
+    target_criteria:
+        - [health, 0.1, 1]
+        - [teamRed, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamBlue, [1,1]]
+    ann_fn: [1, 1]
+
+bullet_hit_just_died_off_blue_rule:
+    target: justDied
+    target_criteria:
+        - [health, 0.1, 1]
+        - [teamBlue, 1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamRed, [1,1]]
+    ann_fn: [0, 0]
+
+bullet_hit_just_died_off_red_rule:
+    target: justDied
+    target_criteria:
+        - [health, 0.1, 1]
+        - [teamRed, 1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [edge, [target, loc], atLoc, [1,1]]
+        - [edge, [loc, bullet], atLoc, [1,1]]
+        - [edge, [loc, bullet], life, [0.1, 1]]
+        - [node, [bullet], teamBlue, [1,1]]
+    ann_fn: [0, 0]
+
+bullet_hit_rule:
+    target: health
+    target_criteria:
+        - [health, 0.1, 1]
+        - [justDied, 1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+    ann_fn: [0, 0]
+
+remove_bullet_after_hit_blue_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamRed, [1,1]]
+        - [node, [player], teamBlue, [1,1]]
+
+    ann_fn: [0, 0]
+
+remove_bullet_after_hit_red_rule:
+    target: life
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamBlue, [1,1]]
+        - [node, [player], teamRed, [1,1]]
+
+    ann_fn: [0, 0]
+
 # Moving rules
 # Move UP
 move_up_rule_1:
@@ -25,7 +123,7 @@ move_up_rule_1:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [target, newLoc, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_up_rule_2:
     target:
@@ -40,16 +138,17 @@ move_up_rule_2:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [newLoc, target, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_up_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [target, newLoc], up, [1,1]]
-        - [edge, [source, newLoc], atLoc, [1,1]]
+        - [edge, [source, newLoc], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -58,9 +157,10 @@ move_up_change_prev_rule_2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], up, [1,1]]
-        - [edge, [target, newLoc], atLoc, [1,1]]
+        - [edge, [newLoc, target], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -78,7 +178,7 @@ move_down_rule_1:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [target, newLoc, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_down_rule_2:
     target:
@@ -93,16 +193,17 @@ move_down_rule_2:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [newLoc, target, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_down_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [target, newLoc], down, [1,1]]
-        - [edge, [source, newLoc], atLoc, [1,1]]
+        - [edge, [source, newLoc], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -111,9 +212,10 @@ move_down_change_prev_rule_2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], down, [1,1]]
-        - [edge, [target, newLoc], atLoc, [1,1]]
+        - [edge, [newLoc, target], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -131,7 +233,7 @@ move_left_rule_1:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [target, newLoc, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_left_rule_2:
     target:
@@ -146,16 +248,17 @@ move_left_rule_2:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [newLoc, target, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_left_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [target, newLoc], left, [1,1]]
-        - [edge, [source, newLoc], atLoc, [1,1]]
+        - [edge, [source, newLoc], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -164,9 +267,10 @@ move_left_change_prev_rule_2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], left, [1,1]]
-        - [edge, [target, newLoc], atLoc, [1,1]]
+        - [edge, [newLoc, target], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -184,7 +288,7 @@ move_right_rule_1:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [target, newLoc, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_right_rule_2:
     target:
@@ -199,16 +303,17 @@ move_right_rule_2:
         - [node, [newLoc], blocked, [0,0]]
 
     edges: [newLoc, target, atLoc]
-    ann_fn: [1,1]
+    ann_fn: [0.5,0.5]
 
 move_right_change_prev_rule_1:
     target: atLoc
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [target, newLoc], right, [1,1]]
-        - [edge, [source, newLoc], atLoc, [1,1]]
+        - [edge, [source, newLoc], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
 
@@ -217,11 +322,22 @@ move_right_change_prev_rule_2:
     target_criteria:
         - [atLoc, 1, 1]
     delta_t: 0
+    immediate: true
     neigh_criteria:
         - [edge, [source, newLoc], right, [1,1]]
-        - [edge, [target, newLoc], atLoc, [1,1]]
+        - [edge, [newLoc, target], atLoc, [0.5,0.5]]
 
     ann_fn: [0,0]
+
+move_complete:
+    target: atLoc
+    target_criteria:
+        - [atLoc, 0.5, 0.5]
+    delta_t: 0
+    immediate: true
+    neigh_criteria:
+
+    ann_fn: [1,1]
 
 
 # SHOOT UP
@@ -335,104 +451,6 @@ shoot_right_blue_setup_new_bullet_rule:
 
     edges: [loc, bullet, newBullet]
     ann_fn: [0.8, 0.8]
-
-
-# BULLET Rules
-# BULLET HITS SOMEONE
-# BLUE DIES
-bullet_hit_just_died_blue_rule:
-    target: justDied
-    target_criteria:
-        - [health, 0.1, 1]
-        - [teamBlue, 1, 1]
-    delta_t: 0
-    immediate: true
-    neigh_criteria:
-        - [edge, [target, loc], atLoc, [1,1]]
-        - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
-        - [node, [bullet], teamRed, [1,1]]
-    ann_fn: [1, 1]
-
-bullet_hit_just_died_red_rule:
-    target: justDied
-    target_criteria:
-        - [health, 0.1, 1]
-        - [teamRed, 1, 1]
-    delta_t: 0
-    immediate: true
-    neigh_criteria:
-        - [edge, [target, loc], atLoc, [1,1]]
-        - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
-        - [node, [bullet], teamBlue, [1,1]]
-    ann_fn: [1, 1]
-
-bullet_hit_just_died_off_blue_rule:
-    target: justDied
-    target_criteria:
-        - [health, 0.1, 1]
-        - [teamBlue, 1, 1]
-    delta_t: 1
-    immediate: true
-    neigh_criteria:
-        - [edge, [target, loc], atLoc, [1,1]]
-        - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
-        - [node, [bullet], teamRed, [1,1]]
-    ann_fn: [0, 0]
-
-bullet_hit_just_died_off_red_rule:
-    target: justDied
-    target_criteria:
-        - [health, 0.1, 1]
-        - [teamRed, 1, 1]
-    delta_t: 1
-    immediate: true
-    neigh_criteria:
-        - [edge, [target, loc], atLoc, [1,1]]
-        - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
-        - [node, [bullet], teamBlue, [1,1]]
-    ann_fn: [0, 0]
-
-bullet_hit_rule:
-    target: health
-    target_criteria:
-        - [health, 0.1, 1]
-        - [justDied, 1, 1]
-    delta_t: 0
-    immediate: true
-    neigh_criteria:
-    ann_fn: [0, 0]
-
-remove_bullet_after_hit_blue_rule:
-    target: life
-    target_criteria:
-        - [atLoc, 1, 1]
-        - [life, 0.1, 1]
-    delta_t: 0
-    immediate: true
-    neigh_criteria:
-        - [node, [player], justDied, [1,1]]
-        - [node, [target], teamRed, [1,1]]
-        - [node, [player], teamBlue, [1,1]]
-
-    ann_fn: [0, 0]
-
-remove_bullet_after_hit_red_rule:
-    target: life
-    target_criteria:
-        - [atLoc, 1, 1]
-        - [life, 0.1, 1]
-    delta_t: 0
-    immediate: true
-    neigh_criteria:
-        - [node, [player], justDied, [1,1]]
-        - [node, [target], teamBlue, [1,1]]
-        - [node, [player], teamRed, [1,1]]
-
-    ann_fn: [0, 0]
 
 
 # COMMON RULES FOR SETUP
