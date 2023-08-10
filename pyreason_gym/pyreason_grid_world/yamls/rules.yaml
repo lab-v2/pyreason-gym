@@ -94,6 +94,20 @@ add_kill_blue_info_rule:
     edges: [target, player, killed]
     ann_fn: [1, 1]
 
+remove_kill_blue_info_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamRed, [1,1]]
+        - [node, [player], teamBlue, [1,1]]
+    edges: [target, player, killed]
+    ann_fn: [0, 0]
+
 add_kill_red_info_rule:
     target:
     target_criteria:
@@ -107,6 +121,20 @@ add_kill_red_info_rule:
         - [node, [player], teamRed, [1,1]]
     edges: [target, player, killed]
     ann_fn: [1, 1]
+
+remove_kill_red_info_rule:
+    target:
+    target_criteria:
+        - [atLoc, 1, 1]
+        - [life, 0.1, 1]
+    delta_t: 1
+    immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamBlue, [1,1]]
+        - [node, [player], teamRed, [1,1]]
+    edges: [target, player, killed]
+    ann_fn: [0, 0]
 
 remove_bullet_after_hit_blue_rule:
     target: life

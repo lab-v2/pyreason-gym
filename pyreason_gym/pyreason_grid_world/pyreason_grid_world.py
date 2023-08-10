@@ -127,7 +127,8 @@ class PyReasonGridWorld:
         positions = (red_bullet_positions_coords, blue_bullet_positions_coords)
 
         # Get info about who killed whom. Stored in the form a list for every agent: (red-killer: [blue-casualties]) or (blue-killer: [red-casualties])
-        kill_info_edges = [edge for edge in self.interpretation.edges if pr.label.Label('killed') in self.interpretation.interpretations_edge[edge].world]
+        kill_info_edges = [edge for edge in self.interpretation.edges if pr.label.Label('killed') in self.interpretation.interpretations_edge[edge].world
+                           and self.interpretation.interpretations_edge[edge].world[pr.label.Label('killed')] == pr.interval.closed(1, 1)]
         kill_info_edges = sorted(kill_info_edges, key=lambda x: int(x[0][-1]))
         red_killed_who_tuple = [(int(edge[0][-1]), int(edge[1][-1])) for edge in kill_info_edges if 'red' in edge[0]]
         blue_killed_who_tuple = [(int(edge[0][-1]), int(edge[1][-1])) for edge in kill_info_edges if 'blue' in edge[0]]
