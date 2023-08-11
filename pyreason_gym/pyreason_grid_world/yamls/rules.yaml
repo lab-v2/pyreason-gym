@@ -48,7 +48,6 @@ bullet_hit_just_died_off_blue_rule:
         - [health, 0.1, 1]
         - [teamBlue, 1, 1]
     delta_t: 1
-    immediate: true
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
         - [edge, [loc, bullet], atLoc, [1,1]]
@@ -62,7 +61,6 @@ bullet_hit_just_died_off_red_rule:
         - [health, 0.1, 1]
         - [teamRed, 1, 1]
     delta_t: 1
-    immediate: true
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
         - [edge, [loc, bullet], atLoc, [1,1]]
@@ -100,7 +98,6 @@ remove_kill_blue_info_rule:
         - [atLoc, 1, 1]
         - [life, 0.1, 1]
     delta_t: 1
-    immediate: true
     neigh_criteria:
         - [node, [player], justDied, [1,1]]
         - [node, [target], teamRed, [1,1]]
@@ -128,7 +125,6 @@ remove_kill_red_info_rule:
         - [atLoc, 1, 1]
         - [life, 0.1, 1]
     delta_t: 1
-    immediate: true
     neigh_criteria:
         - [node, [player], justDied, [1,1]]
         - [node, [target], teamBlue, [1,1]]
