@@ -7,12 +7,16 @@
   <key id="down" for="edge" attr.name="down" attr.type="long" />
   <key id="up" for="edge" attr.name="up" attr.type="long" />
   <key id="right" for="edge" attr.name="right" attr.type="long" />
+  <key id="blue-soldier-2" for="node" attr.name="blue-soldier-2" attr.type="long" />
+  <key id="red-soldier-2" for="node" attr.name="red-soldier-2" attr.type="long" />
   <key id="bullet" for="node" attr.name="bullet" attr.type="long" />
+  <key id="blue-soldier-1" for="node" attr.name="blue-soldier-1" attr.type="long" />
   <key id="teamBlue" for="node" attr.name="teamBlue" attr.type="long" />
   <key id="shootRightBlue" for="node" attr.name="shootRightBlue" attr.type="long" />
   <key id="shootLeftBlue" for="node" attr.name="shootLeftBlue" attr.type="long" />
   <key id="shootDownBlue" for="node" attr.name="shootDownBlue" attr.type="long" />
   <key id="shootUpBlue" for="node" attr.name="shootUpBlue" attr.type="long" />
+  <key id="red-soldier-1" for="node" attr.name="red-soldier-1" attr.type="long" />
   <key id="justDied" for="node" attr.name="justDied" attr.type="string" />
   <key id="teamRed" for="node" attr.name="teamRed" attr.type="long" />
   <key id="shootRightRed" for="node" attr.name="shootRightRed" attr.type="long" />
@@ -240,6 +244,7 @@
       <data key="shootRightRed">0</data>
       <data key="teamRed">1</data>
       <data key="justDied">0,0</data>
+      <data key="red-soldier-1">1</data>
     </node>
     <node id="blue-soldier-1">
       <data key="health">1</data>
@@ -253,12 +258,49 @@
       <data key="shootRightBlue">0</data>
       <data key="teamBlue">1</data>
       <data key="justDied">0,0</data>
+      <data key="blue-soldier-1">1</data>
     </node>
     <node id="red-bullet-1">
       <data key="teamRed">1</data>
       <data key="bullet">1</data>
     </node>
     <node id="blue-bullet-1">
+      <data key="teamBlue">1</data>
+      <data key="bullet">1</data>
+    </node>
+    <node id="red-soldier-2">
+      <data key="health">1</data>
+      <data key="moveUp">0</data>
+      <data key="moveDown">0</data>
+      <data key="moveLeft">0</data>
+      <data key="moveRight">0</data>
+      <data key="shootUpRed">0</data>
+      <data key="shootDownRed">0</data>
+      <data key="shootLeftRed">0</data>
+      <data key="shootRightRed">0</data>
+      <data key="teamRed">1</data>
+      <data key="justDied">0,0</data>
+      <data key="red-soldier-2">1</data>
+    </node>
+    <node id="blue-soldier-2">
+      <data key="health">1</data>
+      <data key="moveUp">0</data>
+      <data key="moveDown">0</data>
+      <data key="moveLeft">0</data>
+      <data key="moveRight">0</data>
+      <data key="shootUpBlue">0</data>
+      <data key="shootDownBlue">0</data>
+      <data key="shootLeftBlue">0</data>
+      <data key="shootRightBlue">0</data>
+      <data key="teamBlue">1</data>
+      <data key="justDied">0,0</data>
+      <data key="blue-soldier-2">1</data>
+    </node>
+    <node id="red-bullet-2">
+      <data key="teamRed">1</data>
+      <data key="bullet">1</data>
+    </node>
+    <node id="blue-bullet-2">
       <data key="teamBlue">1</data>
       <data key="bullet">1</data>
     </node>
@@ -296,6 +338,9 @@
     <edge source="2" target="end">
       <data key="down">1</data>
     </edge>
+    <edge source="2" target="red-soldier-1">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="3" target="4">
       <data key="right">1</data>
     </edge>
@@ -319,6 +364,9 @@
     </edge>
     <edge source="4" target="end">
       <data key="down">1</data>
+    </edge>
+    <edge source="4" target="blue-soldier-1">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="5" target="6">
       <data key="right">1</data>
@@ -353,9 +401,6 @@
     <edge source="7" target="end">
       <data key="down">1</data>
       <data key="right">1</data>
-    </edge>
-    <edge source="7" target="red-soldier-1">
-      <data key="atLoc">1</data>
     </edge>
     <edge source="8" target="9">
       <data key="right">1</data>
@@ -465,6 +510,9 @@
     <edge source="16" target="end">
       <data key="left">1</data>
     </edge>
+    <edge source="16" target="red-soldier-2">
+      <data key="atLoc">1</data>
+    </edge>
     <edge source="17" target="18">
       <data key="right">1</data>
     </edge>
@@ -524,6 +572,9 @@
     </edge>
     <edge source="21" target="13">
       <data key="down">1</data>
+    </edge>
+    <edge source="21" target="blue-soldier-2">
+      <data key="atLoc">1</data>
     </edge>
     <edge source="22" target="23">
       <data key="right">1</data>
@@ -961,9 +1012,6 @@
       <data key="up">1</data>
       <data key="left">1</data>
     </edge>
-    <edge source="56" target="blue-soldier-1">
-      <data key="atLoc">1</data>
-    </edge>
     <edge source="57" target="58">
       <data key="right">1</data>
     </edge>
@@ -1055,7 +1103,7 @@
     <edge source="red-soldier-1" target="red-base">
       <data key="team">1</data>
     </edge>
-    <edge source="red-soldier-1" target="7">
+    <edge source="red-soldier-1" target="2">
       <data key="atLoc">1</data>
     </edge>
     <edge source="red-soldier-1" target="red-bullet-1">
@@ -1064,10 +1112,28 @@
     <edge source="blue-soldier-1" target="blue-base">
       <data key="team">1</data>
     </edge>
-    <edge source="blue-soldier-1" target="56">
+    <edge source="blue-soldier-1" target="4">
       <data key="atLoc">1</data>
     </edge>
     <edge source="blue-soldier-1" target="blue-bullet-1">
+      <data key="bullet">1</data>
+    </edge>
+    <edge source="red-soldier-2" target="red-base">
+      <data key="team">1</data>
+    </edge>
+    <edge source="red-soldier-2" target="16">
+      <data key="atLoc">1</data>
+    </edge>
+    <edge source="red-soldier-2" target="red-bullet-2">
+      <data key="bullet">1</data>
+    </edge>
+    <edge source="blue-soldier-2" target="blue-base">
+      <data key="team">1</data>
+    </edge>
+    <edge source="blue-soldier-2" target="21">
+      <data key="atLoc">1</data>
+    </edge>
+    <edge source="blue-soldier-2" target="blue-bullet-2">
       <data key="bullet">1</data>
     </edge>
   </graph>

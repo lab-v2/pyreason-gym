@@ -11,7 +11,7 @@ class PyReasonGridWorld:
 
         # Keep track of the next timestep to start
         self.next_time = 0
-        
+
         # Pyreason settings
         pr.settings.verbose = False
         pr.settings.atom_trace = False
@@ -49,20 +49,20 @@ class PyReasonGridWorld:
                 fact_off = pr.fact_node.Fact(f'red_action_{i+1}_off', f'red-soldier-{i+1}', pr.label.Label(red_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
                 facts.append(fact_on)
                 facts.append(fact_off)
-    
+
         for i, a in enumerate(blue_team_actions):
             if a != 8:
                 fact_on = pr.fact_node.Fact(f'blue_action_{i+1}', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(1,1), self.next_time, self.next_time)
                 fact_off = pr.fact_node.Fact(f'blue_action_{i+1}_off', f'blue-soldier-{i+1}', pr.label.Label(blue_available_actions[a]), pr.interval.closed(0,0), self.next_time+1, self.next_time+1)
                 facts.append(fact_on)
                 facts.append(fact_off)
-        
+
         self.interpretation = pr.reason(1, again=True, node_facts=facts)
         self.next_time = self.interpretation.time + 1
 
     def get_obs(self):
         observation = {'red_team': [], 'blue_team': [], 'red_bullets': [], 'blue_bullets': []}
-        
+
         # Gather bullet info for red and blue bullets
         (red_bullet_positions, blue_bullet_positions), (red_bullet_directions, blue_bullet_directions), (red_killed_who, blue_killed_who) = self._get_bullet_info()
         for red_pos, red_dir in zip(red_bullet_positions, red_bullet_directions):
@@ -99,14 +99,14 @@ class PyReasonGridWorld:
             observation['blue_team'].append({'pos': np.array(blue_pos_coords, dtype=np.int32), 'health': np.array([blue_health], dtype=np.float32), 'killed': list(blue_killed_who[i-1])})
 
         return observation
-    
+
     def get_obstacle_locations(self):
         # Return the coordinates of all the mountains in the grid to be able to draw them
         relevant_edges = [edge for edge in self.interpretation.edges if edge[1]=='mountain']
         obstacle_positions = [int(edge[0]) for edge in relevant_edges]
         obstacle_positions_coords = np.array([[pos%self.grid_size, pos//self.grid_size] for pos in obstacle_positions])
         return obstacle_positions_coords
-    
+
     def get_base_locations(self):
         # Return the locations of the two bases
         relevant_edges = [edge for edge in self.interpretation.edges if 'base' in edge[0]]
