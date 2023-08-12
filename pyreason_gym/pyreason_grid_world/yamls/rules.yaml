@@ -45,26 +45,26 @@ bullet_hit_just_died_red_rule:
 bullet_hit_just_died_off_blue_rule:
     target: justDied
     target_criteria:
-        - [health, 0.1, 1]
+        - [health, 0, 0]
+        - [justDied, 1, 1]
         - [teamBlue, 1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
         - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
         - [node, [bullet], teamRed, [1,1]]
     ann_fn: [0, 0]
 
 bullet_hit_just_died_off_red_rule:
     target: justDied
     target_criteria:
-        - [health, 0.1, 1]
+        - [health, 0, 0]
+        - [justDied, 1, 1]
         - [teamRed, 1, 1]
     delta_t: 1
     neigh_criteria:
         - [edge, [target, loc], atLoc, [1,1]]
         - [edge, [loc, bullet], atLoc, [1,1]]
-        - [edge, [loc, bullet], life, [0.1, 1]]
         - [node, [bullet], teamBlue, [1,1]]
     ann_fn: [0, 0]
 
@@ -92,19 +92,6 @@ add_kill_blue_info_rule:
     edges: [target, player, killed]
     ann_fn: [1, 1]
 
-remove_kill_blue_info_rule:
-    target:
-    target_criteria:
-        - [atLoc, 1, 1]
-        - [life, 0.1, 1]
-    delta_t: 1
-    neigh_criteria:
-        - [node, [player], justDied, [1,1]]
-        - [node, [target], teamRed, [1,1]]
-        - [node, [player], teamBlue, [1,1]]
-    edges: [target, player, killed]
-    ann_fn: [0, 0]
-
 add_kill_red_info_rule:
     target:
     target_criteria:
@@ -119,17 +106,12 @@ add_kill_red_info_rule:
     edges: [target, player, killed]
     ann_fn: [1, 1]
 
-remove_kill_red_info_rule:
-    target:
+remove_kill_info_rule:
+    target: killed
     target_criteria:
-        - [atLoc, 1, 1]
-        - [life, 0.1, 1]
+        - [killed, 1, 1]
     delta_t: 1
     neigh_criteria:
-        - [node, [player], justDied, [1,1]]
-        - [node, [target], teamBlue, [1,1]]
-        - [node, [player], teamRed, [1,1]]
-    edges: [target, player, killed]
     ann_fn: [0, 0]
 
 remove_bullet_after_hit_blue_rule:
@@ -146,6 +128,20 @@ remove_bullet_after_hit_blue_rule:
 
     ann_fn: [0, 0]
 
+# Sometimes a bullet is scheduled to move to a location twice before it has actually moved
+# This prevents the bullet from re-appearing
+remove_bullet_after_hit_blue_rule_2:
+    target: life
+    target_criteria:
+        - [life, 0, 0]
+    delta_t: 1
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamRed, [1,1]]
+        - [node, [player], teamBlue, [1,1]]
+
+    ann_fn: [0, 0]
+
 remove_bullet_after_hit_red_rule:
     target: life
     target_criteria:
@@ -153,6 +149,20 @@ remove_bullet_after_hit_red_rule:
         - [life, 0.1, 1]
     delta_t: 0
     immediate: true
+    neigh_criteria:
+        - [node, [player], justDied, [1,1]]
+        - [node, [target], teamBlue, [1,1]]
+        - [node, [player], teamRed, [1,1]]
+
+    ann_fn: [0, 0]
+
+# Sometimes a bullet is scheduled to move to a location twice before it has actually moved
+# This prevents the bullet from re-appearing
+remove_bullet_after_hit_red_rule_2:
+    target: life
+    target_criteria:
+        - [life, 0, 0]
+    delta_t: 1
     neigh_criteria:
         - [node, [player], justDied, [1,1]]
         - [node, [target], teamBlue, [1,1]]
