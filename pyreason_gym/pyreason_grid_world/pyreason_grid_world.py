@@ -18,7 +18,7 @@ class PyReasonGridWorld:
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
-        pr.settings.store_interpretation_changes = False
+        # pr.settings.store_interpretation_changes = True
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
@@ -58,6 +58,7 @@ class PyReasonGridWorld:
                 facts.append(fact_off)
 
         self.interpretation = pr.reason(1, again=True, node_facts=facts)
+        # pr.save_rule_trace(self.interpretation)
         self.next_time = self.interpretation.time + 1
 
     def get_obs(self):
