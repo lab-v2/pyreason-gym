@@ -1,10 +1,12 @@
 import os
 import pyreason as pr
 import numpy as np
+import networkx as nx
 
 
 class PyReasonMapWorld:
     def __init__(self, start_point, end_point, graph_path, rules_path):
+        self.graph_path = os.path.abspath(graph_path)
         self.interpretation = None
         self.start_point = start_point
         self.end_point = end_point
@@ -29,7 +31,7 @@ class PyReasonMapWorld:
         pr.settings.parallel_computing = True
 
         # Load the graph
-        pr.load_graphml(os.path.abspath(graph_path))
+        pr.load_graphml(self.graph_path)
 
         # Load rules
         pr.add_rules_from_file(os.path.abspath(rules_path), infer_edges=True)
@@ -159,10 +161,31 @@ class PyReasonMapWorld:
         if edge2 not in self.edges_added:
             self.edges_added.append(edge2)
 
-
     def _reset_graph(self):
         # This function removes any trajectory that was added during step when reset is called
         for edge in self.edges_added:
             self.interpretation.delete_edge(edge)
 
         self.edges_added.clear()
+
+    def get_max_min_lat_long(self, lat_long_scale):
+        g = nx.read_graphml(self.graph_path)
+        max_lat = float('-inf')
+        max_long = float('-inf')
+        min_lat = float('inf')
+        min_long = float('inf')
+
+        for node in g.nodes(data=True):
+            if 'latitude' in node[1].keys():
+                max_lat = max(max_lat, float(node[1]['latitude']))
+                min_lat = min(min_lat, float(node[1]['latitude']))
+            if 'longitude' in node[1].keys():
+                max_long = max(max_long, float(node[1]['longitude']))
+                min_long = min(min_long, float(node[1]['longitude']))
+
+        max_lat = int(max_lat * lat_long_scale)
+        max_long = int(max_long * lat_long_scale)
+        min_lat = int(min_lat * lat_long_scale)
+        min_long = int(min_long * lat_long_scale)
+
+        return max_lat, max_long, min_lat, min_long

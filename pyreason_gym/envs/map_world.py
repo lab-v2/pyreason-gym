@@ -10,26 +10,8 @@ np.set_printoptions(precision=20)
 
 # Odd order is due to orientation on canvas while displaying
 LAT_LONG_SCALE = int(10e14)
-LAT_MAX = int(35.64402770996094 * 10e14)
-LAT_MIN = int(36.58740997314453 * 10e14)
-LONG_MIN = int(-84.71105957031250 * 10e14)
-LONG_MAX = int(-83.68660736083984 * 10e14)
 PYGAME_MIN = 0
 PYGAME_MAX = 1000
-
-
-def map_lat_long_to_pygame_coords(lat, long):
-    # Map from lat long range to pygame range
-    lat = int(lat * LAT_LONG_SCALE)
-    long = int(long * LAT_LONG_SCALE)
-    lat_range = LAT_MAX - LAT_MIN
-    long_range = LONG_MAX - LONG_MIN
-    pygame_range = PYGAME_MAX - PYGAME_MIN
-    new_lat = (((lat - LAT_MIN) * pygame_range) / lat_range) + PYGAME_MIN
-    new_long = (((long - LONG_MIN) * pygame_range) / long_range) + PYGAME_MIN
-    coord = np.array([new_long, new_lat])
-
-    return coord
 
 
 class MapWorldEnv(gym.Env):
@@ -60,6 +42,7 @@ class MapWorldEnv(gym.Env):
 
         # Initialize the PyReason map-world
         self.pyreason_map_world = PyReasonMapWorld(start_point, end_point, graph_path, rules_path)
+        self.max_lat, self.max_long, self.min_lat, self.min_long = self.pyreason_map_world.get_max_min_lat_long(LAT_LONG_SCALE)
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
@@ -156,7 +139,7 @@ class MapWorldEnv(gym.Env):
             pygame.draw.circle(
                 self.canvas,
                 (69, 69, 69),
-                map_lat_long_to_pygame_coords(*node),
+                self._map_lat_long_to_pygame_coords(*node),
                 2
             )
 
@@ -165,8 +148,8 @@ class MapWorldEnv(gym.Env):
             pygame.draw.aaline(
                 self.canvas,
                 (169, 169, 169),
-                map_lat_long_to_pygame_coords(*edge[0]),
-                map_lat_long_to_pygame_coords(*edge[1])
+                self._map_lat_long_to_pygame_coords(*edge[0]),
+                self._map_lat_long_to_pygame_coords(*edge[1])
             )
 
         self.window.blit(self.canvas, self.canvas.get_rect())
@@ -197,20 +180,20 @@ class MapWorldEnv(gym.Env):
         pygame.draw.circle(
             canvas,
             (0, 255, 0),
-            map_lat_long_to_pygame_coords(self.start_point_lat_long[0], self.start_point_lat_long[1]),
+            self._map_lat_long_to_pygame_coords(self.start_point_lat_long[0], self.start_point_lat_long[1]),
             5,
         )
 
         pygame.draw.circle(
             canvas,
             (0, 0, 255),
-            map_lat_long_to_pygame_coords(current_lat_long[0], current_lat_long[1]),
+            self._map_lat_long_to_pygame_coords(current_lat_long[0], current_lat_long[1]),
             5,
         )
         pygame.draw.circle(
             canvas,
             (255, 0, 0),
-            map_lat_long_to_pygame_coords(self.end_point_lat_long[0], self.end_point_lat_long[1]),
+            self._map_lat_long_to_pygame_coords(self.end_point_lat_long[0], self.end_point_lat_long[1]),
             5,
         )
 
@@ -225,6 +208,19 @@ class MapWorldEnv(gym.Env):
             self.clock.tick(self.metadata["render_fps"])
         elif self.render_mode == 'rgb_array':
             return np.transpose(np.array(pygame.surfarray.pixels3d(canvas)), axes=(1, 0, 2))
+        
+    def _map_lat_long_to_pygame_coords(self, lat, long):
+        # Map from lat long range to pygame range
+        lat = int(lat * LAT_LONG_SCALE)
+        long = int(long * LAT_LONG_SCALE)
+        lat_range = self.max_lat - self.min_lat
+        long_range = self.max_long - self.min_long
+        pygame_range = PYGAME_MAX - PYGAME_MIN
+        new_lat = (((lat - self.min_lat) * pygame_range) / lat_range) + PYGAME_MIN
+        new_long = (((long - self.min_long) * pygame_range) / long_range) + PYGAME_MIN
+        coord = np.array([new_long, new_lat])
+
+        return coord
 
     def close(self):
         if self.window is not None:
