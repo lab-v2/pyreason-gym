@@ -1,32 +1,32 @@
 
 ### Dummy Rules from the new merged KG and sampled trajectory2
 
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a60_61(y), timestep(y, t1), passed_by(a, z), prim_occ-Retail_Trade(z), occ_cls-Commercial(z), ps__osm_category-amenity_bar;building_retail(z), timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a60_61(y), timestep(y, t1), passed_by(a, z), prim_occ-Retail_Trade(z), occ_cls-Commercial(z), ps__osm_category-amenity_bar;building_retail(z), timestep(z, t2), lessthan(t1, t2)
 
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), lessthan(t1, t2)
+#normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), lessthan(t1, t2)
 
-normal(a) : [0.8, 1] <- agent(a), passed_by(a, w), highway-motorway_junction(w), timestep(w, t1), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.8, 1] <- agent(a), passed_by(a, w), highway-motorway_junction(w), timestep(w, t1), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t2), lessthan(t1, t2)
 
 ### 638747455,472366868
-normal(a) : [0.5, 1] <- agent(a), passed_by(a, y), occ-cmp(y),  timestep(y, t1),  passed_by(a, z), highway-motorway_junction(z),  timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.5, 1] <- agent(a), passed_by(a, y), occ-cmp(y),  timestep(y, t1),  passed_by(a, z), highway-motorway_junction(z),  timestep(z, t2), lessthan(t1, t2)
 
 ###202804416 , 2554504692
-normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), hht-married(y),  timestep(y, t1),  passed_by(a, z), prim_occ-Single_Family_Dwelling(z),  timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), hht-married(y),  timestep(y, t1),  passed_by(a, z), prim_occ-Single_Family_Dwelling(z),  timestep(z, t2), lessthan(t1, t2)
 
 ### 1833473135, 472254532
-normal(a) : [0.4, 0.7] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), emp_stat-not.in.force(z),  timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.4, 0.7] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), emp_stat-not.in.force(z),  timestep(z, t2), lessthan(t1, t2)
 
 ###4602673649 202784307,706179379
-normal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y),prim_occ-Retail_Trade(y),  timestep(y, t1),  passed_by(a, z), pov-02_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
+#normal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y),prim_occ-Retail_Trade(y),  timestep(y, t1),  passed_by(a, z), pov-02_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
 
 ### 202796792, 202815097
-abnormal(a) : [0.0, 0.3] <- agent(a), passed_by(a, y), occ-cln(y),  timestep(y, t1),  passed_by(a, z), pov-GE05_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
+#abnormal(a) : [0.0, 0.3] <- agent(a), passed_by(a, y), occ-cln(y),  timestep(y, t1),  passed_by(a, z), pov-GE05_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
 
 ### 4626609681, 4602673649
-abnormal(a) : [0.0, 0.4] <- agent(a), passed_by(a, y), ps__category_level0-nonresidential(y),  timestep(y, t1),  passed_by(a, z), age-a05_09(z),  timestep(z, t2), lessthan(t1, t2)
+#abnormal(a) : [0.0, 0.4] <- agent(a), passed_by(a, y), ps__category_level0-nonresidential(y),  timestep(y, t1),  passed_by(a, z), age-a05_09(z),  timestep(z, t2), lessthan(t1, t2)
 
 ### 1833473135,  6965055758
-abnormal(a) : [0.0, 0.5] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), occ_cls-Agriculture(z),  timestep(z, t2), lessthan(t1, t2)
+#abnormal(a) : [0.0, 0.5] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), occ_cls-Agriculture(z),  timestep(z, t2), lessthan(t1, t2)
 
 
 # Movement rules

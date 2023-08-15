@@ -96,12 +96,14 @@ class PyReasonMapWorld:
         num_outgoing_edges = len(outgoing_edges)
 
         # Add trajectory to graph based on the loc of observation. This is done everytime get_obs is called
-        self._add_trajectory_to_graph(loc)
+        # We are not using normal/abnormal rules yet so we comment this out
+        # self._add_trajectory_to_graph(loc)
 
         observation = (loc, current_lat_long, end_lat_long, num_outgoing_edges)
         return observation
 
     def _get_lat_long(self, node):
+        assert node in self.interpretation.interpretations_node, f'node: {node} is not in the graph, change start/end node accordingly'
         world = self.interpretation.interpretations_node[node].world
         lat = None
         long = None
