@@ -96,8 +96,7 @@ class PyReasonMapWorld:
         num_outgoing_edges = len(outgoing_edges)
 
         # Add trajectory to graph based on the loc of observation. This is done everytime get_obs is called
-        # We are not using normal/abnormal rules yet so we comment this out
-        # self._add_trajectory_to_graph(loc)
+        self._add_trajectory_to_graph(loc)
 
         observation = (loc, current_lat_long, end_lat_long, num_outgoing_edges)
         return observation
@@ -150,18 +149,14 @@ class PyReasonMapWorld:
     def _add_trajectory_to_graph(self, loc):
         # This comes from get_obs and adds a location to the trajectory
         time = 't' + str(self.interpretation.time)
-        edge1 = ('agent', loc)
-        edge2 = (loc, time)
+        edge = ('agent', loc)
 
-        # Add edges to location and timestep
-        self.interpretation.add_edge(edge1, pr.label.Label('passed_by'))
-        self.interpretation.add_edge(edge2, pr.label.Label('timestep'))
-        self.interpretation.interpretations_edge[edge1].world[pr.label.Label('passed_by')] = pr.interval.closed(1, 1)
-        self.interpretation.interpretations_edge[edge2].world[pr.label.Label('timestep')] = pr.interval.closed(1, 1)
-        if edge1 not in self.edges_added:
-            self.edges_added.append(edge1)
-        if edge2 not in self.edges_added:
-            self.edges_added.append(edge2)
+        # Add edges to location and add predicates
+        self.interpretation.add_edge(edge, pr.label.Label('passed_by'))
+        self.interpretation.interpretations_edge[edge].world[pr.label.Label('passed_by')] = pr.interval.closed(1, 1)
+        self.interpretation.interpretations_edge[edge].world[pr.label.Label(f'time-{time}')] = pr.interval.closed(1, 1)
+        if edge not in self.edges_added:
+            self.edges_added.append(edge)
 
     def _reset_graph(self):
         # This function removes any trajectory that was added during step when reset is called
