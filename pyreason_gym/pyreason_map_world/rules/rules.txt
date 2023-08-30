@@ -28,6 +28,8 @@
 ### 1833473135,  6965055758
 #abnormal(a) : [0.0, 0.5] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), occ_cls-Agriculture(z),  timestep(z, t2), lessthan(t1, t2)
 
+#normal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+
 
 # Movement rules
 # Create edge
