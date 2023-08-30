@@ -4,7 +4,7 @@ import numpy as np
 
 
 class PyReasonGridWorld:
-    def __init__(self, grid_size, num_agents_per_team, rules):
+    def __init__(self, grid_size, num_agents_per_team, graph, rules):
         self.grid_size = grid_size
         self.num_agents_per_team = num_agents_per_team
         self.interpretation = None
@@ -22,7 +22,10 @@ class PyReasonGridWorld:
         current_path = os.path.abspath(os.path.dirname(__file__))
 
         # Load the graph
-        pr.load_graph(f'{current_path}/graph/game_graph.graphml')
+        if graph is None:
+            pr.load_graph(f'{current_path}/graph/game_graph.graphml')
+        else:
+            pr.load_graph(graph)
 
         # Load rules
         if rules is None:

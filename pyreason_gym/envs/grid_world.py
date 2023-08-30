@@ -9,7 +9,7 @@ from pyreason_gym.pyreason_grid_world.pyreason_grid_world import PyReasonGridWor
 class GridWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
 
-    def __init__(self, grid_size=8, num_agents_per_team=1, render_mode=None, rules=None):
+    def __init__(self, grid_size=8, num_agents_per_team=1, render_mode=None, graph=None, rules=None):
         """Initialize grid world
 
         :param render_mode: whether to render in human viewable format or not, defaults to None
@@ -24,7 +24,7 @@ class GridWorldEnv(gym.Env):
         self.window_size = 512
 
         # Initialize the PyReason gridworld
-        self.pyreason_grid_world = PyReasonGridWorld(grid_size, num_agents_per_team, rules)
+        self.pyreason_grid_world = PyReasonGridWorld(grid_size, num_agents_per_team, graph, rules)
 
         # Get the position of obstacles for the render function
         self.obstacle_positions = None
