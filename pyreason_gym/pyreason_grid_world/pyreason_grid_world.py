@@ -4,7 +4,7 @@ import numpy as np
 
 
 class PyReasonGridWorld:
-    def __init__(self, grid_size, num_agents_per_team):
+    def __init__(self, grid_size, num_agents_per_team, rules):
         self.grid_size = grid_size
         self.num_agents_per_team = num_agents_per_team
         self.interpretation = None
@@ -25,7 +25,10 @@ class PyReasonGridWorld:
         pr.load_graph(f'{current_path}/graph/game_graph.graphml')
 
         # Load rules
-        pr.load_rules(f'{current_path}/yamls/rules.yaml')
+        if rules is None:
+            pr.load_rules(f'{current_path}/yamls/rules.yaml')
+        else:
+            pr.load_rules(rules)
 
     def reset(self):
         # Reason for 1 timestep to initialize everything
