@@ -62,10 +62,8 @@ class PyReasonMapWorld:
         facts = []
 
         # Reset normal and abnormal bounds at each timestep
-        reset_normal_fact = pr.fact_node.Fact(f'reset_normal_{self.steps}', 'agent', pr.label.Label('normal'), pr.interval.closed(0, 1), self.next_time, self.next_time)
-        reset_abnormal_fact = pr.fact_node.Fact(f'reset_normal_{self.steps}', 'agent', pr.label.Label('abnormal'), pr.interval.closed(0, 1), self.next_time, self.next_time)
-        facts.append(reset_normal_fact)
-        facts.append(reset_abnormal_fact)
+        self.interpretation.interpretations_node['agent'].world[pr.label.Label('normal')].set_lower_upper(0, 1)
+        self.interpretation.interpretations_node['agent'].world[pr.label.Label('abnormal')].set_lower_upper(0, 1)
 
         # Do nothing on action 0
         if action != 0:
@@ -148,7 +146,7 @@ class PyReasonMapWorld:
 
     def _add_trajectory_to_graph(self, loc):
         # This comes from get_obs and adds a location to the trajectory
-        time = 't' + str(self.interpretation.time)
+        time = str(self.interpretation.time)
         edge = ('agent', loc)
 
         # Add edges to location and add predicates

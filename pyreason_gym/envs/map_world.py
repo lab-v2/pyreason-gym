@@ -46,7 +46,7 @@ class MapWorldEnv(gym.Env):
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
-        self.observation_space = spaces.Tuple((spaces.Text(max_length=20), spaces.Box(-100, 100, shape=(2,), dtype=np.float128), spaces.Box(-100, 100, shape=(2,), dtype=np.float128), spaces.Discrete(100)))
+        self.observation_space = spaces.Tuple((spaces.Text(max_length=20), spaces.Box(-180, 180, shape=(2,), dtype=np.float128), spaces.Box(-180, 180, shape=(2,), dtype=np.float128), spaces.Discrete(100)))
 
         # The choice of action is limited to the number of outgoing edges from one node. The agent has to pick one edge to go on
         self.action_space = spaces.Discrete(1)
