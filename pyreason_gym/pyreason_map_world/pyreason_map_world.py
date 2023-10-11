@@ -2,10 +2,11 @@ import os
 import pyreason as pr
 import numpy as np
 import networkx as nx
+import neo4j
 
 
 class PyReasonMapWorld:
-    def __init__(self, start_point, end_point, graph_path, rules_path):
+    def __init__(self, start_point, end_point, graph_path, rules_path, graph_auth):
         self.graph_path = os.path.abspath(graph_path)
         self.interpretation = None
         self.start_point = start_point
@@ -15,12 +16,20 @@ class PyReasonMapWorld:
         self.end_point_lat = None
         self.end_point_long = None
 
+        # Keep track of max lat longs for rendering
+        self.max_lat = float('-inf')
+        self.max_long = float('-inf')
+        self.min_lat = float('inf')
+        self.min_long = float('inf')
+
         # Keep track of the next timestep to start
         self.next_time = 0
         self.steps = 0
 
         # Edges that we add to the graph to represent a trajectory
+        # Nodes that we added using graph queries
         self.edges_added = []
+        self.nodes_added = []
 
         # Pyreason settings
         pr.settings.verbose = False
@@ -28,10 +37,20 @@ class PyReasonMapWorld:
         pr.settings.canonical = True
         pr.settings.inconsistency_check = False
         pr.settings.static_graph_facts = False
-        pr.settings.parallel_computing = True
+        pr.settings.parallel_computing = False
+        # pr.settings.parallel_computing = True
 
+        # Set graph type local or remote (graphml or neo4j)
+        self.graph_type = 'local' if graph_auth is None else 'remote'
+
+        # Setup neo4j graph db connection or graphml
         # Load the graph
-        pr.load_graphml(self.graph_path)
+        if self.graph_type == 'remote':
+            self.graph_db = neo4j.GraphDatabase.driver(graph_path, auth=graph_auth)
+            initial_graph = self._make_initial_graph(self.start_point, self.end_point)
+            pr.load_graph(initial_graph)
+        else:
+            pr.load_graphml(graph_path)
 
         # Load rules
         pr.add_rules_from_file(os.path.abspath(rules_path), infer_edges=True)
@@ -55,6 +74,9 @@ class PyReasonMapWorld:
 
         # Store the lat/long of the end point
         self.end_point_lat, self.end_point_long = self._get_lat_long(self.end_point)
+
+        # Set the initial max min lat longs
+        self._set_initial_max_min_lat_long()
 
     def move(self, action):
         # Define facts, then run pyreason
@@ -85,6 +107,12 @@ class PyReasonMapWorld:
 
         lat, long = self._get_lat_long(loc)
 
+        # Update max min lat longs
+        self.max_lat = max(self.max_lat, lat)
+        self.max_long = max(self.max_long, long)
+        self.min_lat = min(self.min_lat, lat)
+        self.min_long = min(self.min_long, long)
+
         current_lat_long = np.array([lat, long], dtype=np.float128)
         end_lat_long = np.array([self.end_point_lat, self.end_point_long], dtype=np.float128)
 
@@ -96,8 +124,66 @@ class PyReasonMapWorld:
         # Add trajectory to graph based on the loc of observation. This is done everytime get_obs is called
         self._add_trajectory_to_graph(loc)
 
+        # Add new neighbors to graph when agent moves to a new location
+        if self.graph_type == 'remote':
+            self._add_neighbors_to_graph(loc)
+
         observation = (loc, current_lat_long, end_lat_long, num_outgoing_edges)
         return observation
+
+    def _make_initial_graph(self, start_node, end_node):
+        g = nx.DiGraph()
+
+        # Add agent node
+        attributes = {f'move_{i}': 0 for i in range(10)}
+        g.add_node('agent', **attributes, agent=1)
+
+        # Query for and add start node and end node
+        result_start, _, _ = self.graph_db.execute_query(f'MATCH (n) WHERE ID(n) = {start_node} RETURN n')
+        result_end, _, _ = self.graph_db.execute_query(f'MATCH (n) WHERE ID(n) = {end_node} RETURN n')
+        record_start = result_start[0].data()
+        record_end = result_end[0].data()
+        g.add_node(start_node, **record_start['n'])
+        g.add_node(end_node, **record_end['n'])
+        return g
+
+    def _add_neighbors_to_graph(self, node):
+        # Query for all in/out neighbor nodes
+        nodes_added = []
+        result, _, _ = self.graph_db.execute_query(f'MATCH (s)-[*1]-(t) WHERE ID(s) = {node} RETURN t, ID(t)')
+        for record in result:
+            neighbor_id = str(record['ID(t)'])
+            neighbor_attributes = record['t']
+            nodes_added.append(neighbor_id)
+
+            # Prepare attribute list
+            neighbor_attribute_list = []
+            for key, value in neighbor_attributes.items():
+                neighbor_attribute_list.append(f'{key}-{value}')
+
+            # Add nodes internally along with their attributes
+            self.interpretation.add_node(neighbor_id, neighbor_attribute_list)
+            for attrib in neighbor_attribute_list:
+                self.interpretation.interpretations_node[neighbor_id].world[pr.label.Label(attrib)] = pr.interval.closed(1, 1)
+
+        # Add path attribute and edges between neighbors and original node
+        for i, node_added in enumerate(nodes_added):
+            # Skip adding edge for a node added if it has an edge to the main node. This means we've already added path attributes to this edge
+            if node_added not in self.interpretation.neighbors[node]:
+                # Add bidirectional edge. The path attrib corresponds to how many neighbors the node has
+                edge1 = (node, node_added)
+                edge2 = (node_added, node)
+                path_num_1 = len(self.interpretation.neighbors[node])
+                path_num_2 = len(self.interpretation.neighbors[node_added])
+                label_1 = pr.label.Label(f'path-{path_num_1}')
+                label_2 = pr.label.Label(f'path-{path_num_2}')
+                self.interpretation.add_edge(edge1, label_1)
+                self.interpretation.add_edge(edge2, label_2)
+                self.interpretation.interpretations_edge[edge1].world[label_1] = pr.interval.closed(1, 1)
+                self.interpretation.interpretations_edge[edge2].world[label_2] = pr.interval.closed(1, 1)
+
+        # Update the list of all nodes added
+        self.nodes_added += nodes_added
 
     def _get_lat_long(self, node):
         assert node in self.interpretation.interpretations_node, f'node: {node} is not in the graph, change start/end node accordingly'
@@ -131,7 +217,7 @@ class PyReasonMapWorld:
         return lat, long
 
     def get_map(self):
-        nodes = [node for node in self.interpretation.nodes if node != 'agent' and not (node[0] == 't' and node[1:].isdigit())]
+        nodes = [node for node in self.interpretation.nodes if node != 'agent']
         edges = [edge for edge in self.interpretation.edges if edge[0] in nodes and edge[1] in nodes]
 
         # Return list of nodes (landmarks/stops) and list of edges connecting these points
@@ -158,29 +244,22 @@ class PyReasonMapWorld:
 
     def _reset_graph(self):
         # This function removes any trajectory that was added during step when reset is called
-        for edge in self.edges_added:
+        # This function will also reset the graph to its initial state during the use of a neo4j graph
+        for edge in set(self.edges_added):
             self.interpretation.delete_edge(edge)
 
+        for node in set(self.nodes_added):
+            self.interpretation.delete_node(node)
+
         self.edges_added.clear()
+        self.nodes_added.clear()
 
-    def get_max_min_lat_long(self, lat_long_scale):
-        g = nx.read_graphml(self.graph_path)
-        max_lat = float('-inf')
-        max_long = float('-inf')
-        min_lat = float('inf')
-        min_long = float('inf')
-
-        for node in g.nodes(data=True):
+    def _set_initial_max_min_lat_long(self):
+        # Loop through nodes in pyreason graph and find the max min lat long
+        for node in self.interpretation.graph.nodes(data=True):
             if 'latitude' in node[1].keys():
-                max_lat = max(max_lat, float(node[1]['latitude']))
-                min_lat = min(min_lat, float(node[1]['latitude']))
+                self.max_lat = max(self.max_lat, float(node[1]['latitude']))
+                self.min_lat = min(self.min_lat, float(node[1]['latitude']))
             if 'longitude' in node[1].keys():
-                max_long = max(max_long, float(node[1]['longitude']))
-                min_long = min(min_long, float(node[1]['longitude']))
-
-        max_lat = int(max_lat * lat_long_scale)
-        max_long = int(max_long * lat_long_scale)
-        min_lat = int(min_lat * lat_long_scale)
-        min_long = int(min_long * lat_long_scale)
-
-        return max_lat, max_long, min_lat, min_long
+                self.max_long = max(self.max_long, float(node[1]['longitude']))
+                self.min_long = min(self.min_long, float(node[1]['longitude']))

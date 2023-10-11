@@ -2,7 +2,6 @@ import gym
 from gym import spaces
 import numpy as np
 import pygame
-import time
 
 from pyreason_gym.pyreason_map_world.pyreason_map_world import PyReasonMapWorld
 
@@ -10,14 +9,15 @@ np.set_printoptions(precision=20)
 
 # Odd order is due to orientation on canvas while displaying
 LAT_LONG_SCALE = int(10e14)
-PYGAME_MIN = 0
-PYGAME_MAX = 1000
+PYGAME_MIN = 30
+PYGAME_MAX = 800
+RENDER_BUFFER = 50
 
 
 class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
 
-    def __init__(self, start_point, end_point, graph_path, rules_path, render_mode=None):
+    def __init__(self, start_point, end_point, graph_path, rules_path, render_mode=None, graph_auth=None):
         """Initialize map world
 
         :param start_point: Point where agent will start
@@ -26,23 +26,27 @@ class MapWorldEnv(gym.Env):
         :type end_point: str
         :param render_mode: how to render the environment, defaults to None
         :type render_mode: str or None
+        :param graph_auth: Authorization for graph database in the for of a tuple with username and password for neo4j
+        :type graph_auth: tuple[str, str]
         """
         super(MapWorldEnv, self).__init__()
 
         self.render_mode = render_mode
-        self.window_size = PYGAME_MAX
+        self.window_size = PYGAME_MAX + RENDER_BUFFER
 
         # Start End points are required for observations
-        self.start_point = start_point
-        self.end_point = end_point
+        self.start_point = str(start_point)
+        self.end_point = str(end_point)
 
         # Rendering info
         self.start_point_lat_long = None
         self.end_point_lat_long = None
 
+        # Set graph type local or remote (graphml or neo4j)
+        self.graph_type = 'local' if graph_auth is None else 'remote'
+
         # Initialize the PyReason map-world
-        self.pyreason_map_world = PyReasonMapWorld(start_point, end_point, graph_path, rules_path)
-        self.max_lat, self.max_long, self.min_lat, self.min_long = self.pyreason_map_world.get_max_min_lat_long(LAT_LONG_SCALE)
+        self.pyreason_map_world = PyReasonMapWorld(self.start_point, self.end_point, graph_path, rules_path, graph_auth)
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
@@ -93,6 +97,9 @@ class MapWorldEnv(gym.Env):
         # Render if necessary
         if self.render_mode == "human":
             self._render_frame(observation)
+
+        print(self.pyreason_map_world.interpretation.nodes)
+        print(self.pyreason_map_world.interpretation.edges)
 
         return observation, info
 
@@ -159,15 +166,43 @@ class MapWorldEnv(gym.Env):
         # We need to ensure that human-rendering occurs at the predefined framerate.
         # The following line will automatically add a delay to keep the framerate stable.
         self.clock.tick(self.metadata["render_fps"])
-        time.sleep(10)
 
     def _render_frame(self, observation):
-        if self.canvas is None:
+        # If it's a local graph we want to create a canvas that contains all the node/edge data. If remote we just want a blank canvas
+        if self.canvas is None and self.graph_type == 'local':
             self._render_init()
+        if self.canvas is None and self.graph_type == 'remote':
+            pygame.init()
+            pygame.display.init()
+            self.window = pygame.display.set_mode((self.window_size, self.window_size))
+            self.canvas = pygame.Surface((self.window_size, self.window_size))
+            self.canvas.fill((255, 255, 255))
         if self.clock is None and self.render_mode == "human":
             self.clock = pygame.time.Clock()
 
         canvas = self.canvas.copy()
+
+        # For neo4j graphs we have to re-render everytime
+        if self.graph_type == 'remote':
+            nodes_lat_long, edges_lat_long = self.pyreason_map_world.get_map()
+
+            # Draw points for nodes
+            for node in nodes_lat_long:
+                pygame.draw.circle(
+                    canvas,
+                    (69, 69, 69),
+                    self._map_lat_long_to_pygame_coords(*node),
+                    2
+                )
+
+            # Draw edges between points
+            for edge in edges_lat_long:
+                pygame.draw.aaline(
+                    canvas,
+                    (169, 169, 169),
+                    self._map_lat_long_to_pygame_coords(*edge[0]),
+                    self._map_lat_long_to_pygame_coords(*edge[1])
+                )
 
         current_node, current_lat_long, end_lat_long, new_action_space = observation
 
@@ -213,11 +248,20 @@ class MapWorldEnv(gym.Env):
         # Map from lat long range to pygame range
         lat = int(lat * LAT_LONG_SCALE)
         long = int(long * LAT_LONG_SCALE)
-        lat_range = self.max_lat - self.min_lat
-        long_range = self.max_long - self.min_long
-        pygame_range = PYGAME_MAX - PYGAME_MIN
-        new_lat = (((lat - self.min_lat) * pygame_range) / lat_range) + PYGAME_MIN
-        new_long = (((long - self.min_long) * pygame_range) / long_range) + PYGAME_MIN
+
+        max_lat = int(self.pyreason_map_world.max_lat * LAT_LONG_SCALE)
+        max_long = int(self.pyreason_map_world.max_long * LAT_LONG_SCALE)
+        min_lat = int(self.pyreason_map_world.min_lat * LAT_LONG_SCALE)
+        min_long = int(self.pyreason_map_world.min_long * LAT_LONG_SCALE)
+
+        # delta is so that the nodes don't appear on the borders
+        delta = RENDER_BUFFER - 20
+
+        lat_range = (max_lat - min_lat)
+        long_range = (max_long - min_long)
+        pygame_range = (PYGAME_MAX - PYGAME_MIN)
+        new_lat = (((lat - min_lat) * pygame_range) / lat_range) + PYGAME_MIN + delta
+        new_long = (((long - min_long) * pygame_range) / long_range) + PYGAME_MIN + delta
         coord = np.array([new_long, new_lat])
 
         return coord
@@ -226,6 +270,7 @@ class MapWorldEnv(gym.Env):
         if self.window is not None:
             pygame.display.quit()
             pygame.quit()
+        self.pyreason_map_world.graph_db.close()
 
     def is_done(self, observation):
         # End the game when the agent reaches the end point

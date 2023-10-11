@@ -4,5 +4,5 @@ setup(
     name="pyreason_gym",
     version="0.0.1",
     py_modules=[],
-    install_requires=["gym", "pygame", "networkx", "pyreason==1.8.12", "numpy"],
+    install_requires=["gym", "pygame", "networkx", "pyreason==2.0.1", "numpy", "neo4j"],
 )
