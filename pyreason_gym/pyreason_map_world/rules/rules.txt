@@ -1,38 +1,71 @@
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998139880952381,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998001598721024,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9969604863221885,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998139880952381,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9996279761904762,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9012875536480687,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998139880952381,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998139880952381,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9684252597921663,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9991783073130649,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9113924050632911,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9915611814345991,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9998001598721024,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Non-Profit(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9745275267050123,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9873417721518988,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9970023980815348,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Utility_and_Misc.(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9983566146261298,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9952830188679245,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Unclassified(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.8947368421052632,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.8947368421052632,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9802431610942249,1.0] <- agent(a), passed_by(a,X), occ_cls-Utility_and_Misc.(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9988009592326139,1.0] <- agent(a), passed_by(a,X), occ_cls-Residential(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.868421052631579,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9914163090128756,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.7857142857142857,1.0] <- agent(a), passed_by(a,X), occ_cls-Non-Profit(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
+abnormal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Non-Profit(X), passed_by(a,Y), occ_cls-Residential(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9992559523809523,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Non-Profit(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9957805907172996,1.0] <- agent(a), passed_by(a,X), occ_cls-Education(X), passed_by(a,Y), occ_cls-Assembly(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9991783073130649,1.0] <- agent(a), passed_by(a,X), occ_cls-Unclassified(X), passed_by(a,Y), occ_cls-Non-Profit(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9905660377358491,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9976415094339622,1.0] <- agent(a), passed_by(a,X), occ_cls-Assembly(X), passed_by(a,Y), occ_cls-Education(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9736842105263158,1.0] <- agent(a), passed_by(a,X), occ_cls-Industrial(X), passed_by(a,Y), occ_cls-Government(Y), time(a, X) < time(a, Y)
+abnormal(a):[0.9978540772532188,1.0] <- agent(a), passed_by(a,X), occ_cls-Government(X), passed_by(a,Y), occ_cls-Industrial(Y), time(a, X) < time(a, Y)
 
-### Dummy Rules from the new merged KG and sampled trajectory2
-
-#normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a60_61(y), timestep(y, t1), passed_by(a, z), prim_occ-Retail_Trade(z), occ_cls-Commercial(z), ps__osm_category-amenity_bar;building_retail(z), timestep(z, t2), lessthan(t1, t2)
-
-#normal(a) : [0.8, 1] <- agent(a), passed_by(a, y), household(y), age-a50_54(y), occ-med.tech(y), pov-02_vehicle(y), travel-car_truck_van(y), timestep(y, t1), lessthan(t1, t2)
-
-#normal(a) : [0.8, 1] <- agent(a), passed_by(a, w), highway-motorway_junction(w), timestep(w, t1), passed_by(a, z), prim_occ-Veterinary/Pet(z), timestep(z, t2), lessthan(t1, t2)
-
-### 638747455,472366868
-#normal(a) : [0.5, 1] <- agent(a), passed_by(a, y), occ-cmp(y),  timestep(y, t1),  passed_by(a, z), highway-motorway_junction(z),  timestep(z, t2), lessthan(t1, t2)
-
-###202804416 , 2554504692
-#normal(a) : [0.9, 1] <- agent(a), passed_by(a, y), hht-married(y),  timestep(y, t1),  passed_by(a, z), prim_occ-Single_Family_Dwelling(z),  timestep(z, t2), lessthan(t1, t2)
-
-### 1833473135, 472254532
-#normal(a) : [0.4, 0.7] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), emp_stat-not.in.force(z),  timestep(z, t2), lessthan(t1, t2)
-
-###4602673649 202784307,706179379
-#normal(a) : [0.7, 0.9] <- agent(a), passed_by(a, y),prim_occ-Retail_Trade(y),  timestep(y, t1),  passed_by(a, z), pov-02_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
-
-### 202796792, 202815097
-#abnormal(a) : [0.0, 0.3] <- agent(a), passed_by(a, y), occ-cln(y),  timestep(y, t1),  passed_by(a, z), pov-GE05_vehicle(z),  timestep(z, t2), lessthan(t1, t2)
-
-### 4626609681, 4602673649
-#abnormal(a) : [0.0, 0.4] <- agent(a), passed_by(a, y), ps__category_level0-nonresidential(y),  timestep(y, t1),  passed_by(a, z), age-a05_09(z),  timestep(z, t2), lessthan(t1, t2)
-
-### 1833473135,  6965055758
-#abnormal(a) : [0.0, 0.5] <- agent(a), passed_by(a, y), occ-sal(y),  timestep(y, t1),  passed_by(a, z), occ_cls-Agriculture(z),  timestep(z, t2), lessthan(t1, t2)
-
-#normal(a):[1.0,1.0] <- agent(a), passed_by(a,X), occ_cls-Commercial(X), passed_by(a,Y), occ_cls-Commercial(Y), time(a, X) < time(a, Y)
-
-
-# Movement rules
-# Create edge
 atLoc(a, newLoc) <-0 agent(a), move_0(a), atLoc(a, oldLoc), path-0(oldLoc, newLoc)
 atLoc(a, newLoc) <-0 agent(a), move_1(a), atLoc(a, oldLoc), path-1(oldLoc, newLoc)
 atLoc(a, newLoc) <-0 agent(a), move_2(a), atLoc(a, oldLoc), path-2(oldLoc, newLoc)
@@ -40,18 +73,7 @@ atLoc(a, newLoc) <-0 agent(a), move_3(a), atLoc(a, oldLoc), path-3(oldLoc, newLo
 atLoc(a, newLoc) <-0 agent(a), move_4(a), atLoc(a, oldLoc), path-4(oldLoc, newLoc)
 atLoc(a, newLoc) <-0 agent(a), move_5(a), atLoc(a, oldLoc), path-5(oldLoc, newLoc)
 atLoc(a, newLoc) <-0 agent(a), move_6(a), atLoc(a, oldLoc), path-6(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_7(a), atLoc(a, oldLoc), path-7(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_8(a), atLoc(a, oldLoc), path-8(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_9(a), atLoc(a, oldLoc), path-9(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_10(a), atLoc(a, oldLoc), path-10(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_11(a), atLoc(a, oldLoc), path-11(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_12(a), atLoc(a, oldLoc), path-12(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_13(a), atLoc(a, oldLoc), path-13(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_14(a), atLoc(a, oldLoc), path-14(oldLoc, newLoc)
-atLoc(a, newLoc) <-0 agent(a), move_15(a), atLoc(a, oldLoc), path-15(oldLoc, newLoc)
 
-
-# Change atLoc attribute
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_0(a), atLoc(a, oldLoc), path-0(oldLoc, newLoc)
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_1(a), atLoc(a, oldLoc), path-1(oldLoc, newLoc)
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_2(a), atLoc(a, oldLoc), path-2(oldLoc, newLoc)
@@ -59,12 +81,3 @@ atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_3(a), atLoc(a, oldLoc), path-3(oldLo
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_4(a), atLoc(a, oldLoc), path-4(oldLoc, newLoc)
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_5(a), atLoc(a, oldLoc), path-5(oldLoc, newLoc)
 atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_6(a), atLoc(a, oldLoc), path-6(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_7(a), atLoc(a, oldLoc), path-7(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_8(a), atLoc(a, oldLoc), path-8(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_9(a), atLoc(a, oldLoc), path-9(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_10(a), atLoc(a, oldLoc), path-10(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_11(a), atLoc(a, oldLoc), path-11(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_12(a), atLoc(a, oldLoc), path-12(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_13(a), atLoc(a, oldLoc), path-13(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_14(a), atLoc(a, oldLoc), path-14(oldLoc, newLoc)
-atLoc(a, oldLoc) : [0,0] <-0 agent(a), move_15(a), atLoc(a, oldLoc), path-15(oldLoc, newLoc)

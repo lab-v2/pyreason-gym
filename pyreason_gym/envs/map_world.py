@@ -55,6 +55,11 @@ class MapWorldEnv(gym.Env):
         # The choice of action is limited to the number of outgoing edges from one node. The agent has to pick one edge to go on
         self.action_space = spaces.Discrete(1)
 
+        # The total distance travelled by the agent
+        self.distance_travelled = 0
+        self.current_lat_long = None
+        self.end_lat_long = None
+
         assert render_mode is None or render_mode in self.metadata["render_modes"]
 
         # If human-rendering is used, `self.window` will be a reference
@@ -77,6 +82,18 @@ class MapWorldEnv(gym.Env):
         reward = (normal_bnd.lower / normal_bnd.upper) - (abnormal_bnd.lower / abnormal_bnd.upper)
         return reward
 
+    def _get_a_star_heuristic(self):
+        # normal_bnd, abnormal_bnd = self.pyreason_map_world.get_normal_abnormal()
+        # reward = (normal_bnd.lower / normal_bnd.upper) - (abnormal_bnd.lower / abnormal_bnd.upper)
+
+        # This function returns the reward for A* search f(n) = g(n) + h(n)
+        # Where g(n) is the distance from the start node to the current node and h(n) is the heuristic function
+        # For now h(n) will represent the manhattan distance from the current node to the end node.
+        g_n = self.distance_travelled
+        h_n = self._get_distance_in_between(self.current_lat_long, self.end_lat_long)
+        reward = g_n + h_n
+        return reward
+
     def reset(self, seed=None, options=None):
         """Resets the environment to the initial conditions
 
@@ -91,15 +108,16 @@ class MapWorldEnv(gym.Env):
         observation = self._get_obs()
         info = self._get_info()
 
+        self.distance_travelled = 0
+        self.current_lat_long = observation[1]
+        self.end_lat_long = observation[2]
+
         # Save new action space
         self.set_action_space(observation)
 
         # Render if necessary
         if self.render_mode == "human":
             self._render_frame(observation)
-
-        print(self.pyreason_map_world.interpretation.nodes)
-        print(self.pyreason_map_world.interpretation.edges)
 
         return observation, info
 
@@ -119,6 +137,11 @@ class MapWorldEnv(gym.Env):
 
         # Save new action space
         self.set_action_space(observation)
+
+        # Update distance travelled and current lat long
+        new_lat_long = observation[1]
+        self.distance_travelled += self._get_distance_in_between(self.current_lat_long, new_lat_long)
+        self.current_lat_long = new_lat_long
 
         # Render if necessary
         if self.render_mode == "human":
@@ -257,14 +280,19 @@ class MapWorldEnv(gym.Env):
         # delta is so that the nodes don't appear on the borders
         delta = RENDER_BUFFER - 20
 
-        lat_range = (max_lat - min_lat)
-        long_range = (max_long - min_long)
+        lat_range = (max_lat - min_lat) if max_lat != min_lat else RENDER_BUFFER
+        long_range = (max_long - min_long) if max_long != min_long else RENDER_BUFFER
         pygame_range = (PYGAME_MAX - PYGAME_MIN)
         new_lat = (((lat - min_lat) * pygame_range) / lat_range) + PYGAME_MIN + delta
         new_long = (((long - min_long) * pygame_range) / long_range) + PYGAME_MIN + delta
         coord = np.array([new_long, new_lat])
 
         return coord
+
+    @staticmethod
+    def _get_distance_in_between(lat_long_1, lat_long_2):
+        # This returns the distance in lat long units (we are not converting to metric here)
+        return abs(lat_long_1[0] - lat_long_2[0]) + abs(lat_long_1[1] - lat_long_2[1])
 
     def close(self):
         if self.window is not None:

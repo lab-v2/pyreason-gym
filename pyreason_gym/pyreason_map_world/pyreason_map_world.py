@@ -76,7 +76,7 @@ class PyReasonMapWorld:
         self.end_point_lat, self.end_point_long = self._get_lat_long(self.end_point)
 
         # Set the initial max min lat longs
-        self._set_initial_max_min_lat_long()
+        self._set_initial_max_min_lat_long(omit_end_point=False)
 
     def move(self, action):
         # Define facts, then run pyreason
@@ -254,9 +254,12 @@ class PyReasonMapWorld:
         self.edges_added.clear()
         self.nodes_added.clear()
 
-    def _set_initial_max_min_lat_long(self):
+    def _set_initial_max_min_lat_long(self, omit_end_point=False):
         # Loop through nodes in pyreason graph and find the max min lat long
         for node in self.interpretation.graph.nodes(data=True):
+            if omit_end_point and node[0] == self.end_point:
+                continue
+            print(node[0])
             if 'latitude' in node[1].keys():
                 self.max_lat = max(self.max_lat, float(node[1]['latitude']))
                 self.min_lat = min(self.min_lat, float(node[1]['latitude']))
