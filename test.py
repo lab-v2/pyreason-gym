@@ -3,9 +3,9 @@ import gym
 import time
 
 # Local graph
-env = gym.make('PyReasonMapWorld-v0', start_point='202811335', end_point='472254560', graph_path='./pyreason_gym/pyreason_map_world/graph/map_graph_sub.graphml', rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt')
+# env = gym.make('PyReasonMapWorld-v0', start_point='202811335', end_point='472254560', graph_path='./pyreason_gym/pyreason_map_world/graph/map_graph_sub.graphml', rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt')
 # Remote graph
-# env = gym.make('PyReasonMapWorld-v0', start_point='10', end_point='50', graph_path='bolt://ec2-54-242-206-65.compute-1.amazonaws.com:7687', graph_auth=('neo4j', 'N30n30j44'), rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt', render_mode=None)
+env = gym.make('PyReasonMapWorld-v0', start_point='113420', end_point='51230', graph_path='bolt://ec2-54-242-206-65.compute-1.amazonaws.com:7687', graph_auth=('neo4j', 'N30n30j44'), rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt', render_mode='human')
 obs = env.reset()
 print(obs)
 
