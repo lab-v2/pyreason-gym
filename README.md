@@ -184,6 +184,6 @@ This repository is licensed under [BSD-3-Clause](./LICENSE)
 ## Contact
 Dyuman Aditya - dyuman.aditya@asu.edu
 
-Kaustuv Mukherji - kmukher2@asu.edu
+Kaustuv Mukherji - kmukherji@asu.edu
 
 Paulo Shakarian - pshak02@asu.edu
