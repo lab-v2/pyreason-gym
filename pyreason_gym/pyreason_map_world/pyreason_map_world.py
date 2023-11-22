@@ -6,9 +6,10 @@ import neo4j
 
 
 class PyReasonMapWorld:
-    def __init__(self, start_point, end_point, graph_path, rules_path, graph_auth):
+    def __init__(self, start_point, end_point, graph_path, rules_path, graph_auth, city):
         self.graph_path = os.path.abspath(graph_path)
         self.interpretation = None
+        self.city = city
         self.start_point = start_point
         self.end_point = end_point
 
@@ -139,8 +140,8 @@ class PyReasonMapWorld:
         g.add_node('agent', **attributes, agent=1)
 
         # Query for and add start node and end node
-        result_start, _, _ = self.graph_db.execute_query(f'MATCH (n) WHERE ID(n) = {start_node} RETURN n')
-        result_end, _, _ = self.graph_db.execute_query(f'MATCH (n) WHERE ID(n) = {end_node} RETURN n')
+        result_start, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:{self.city}, full_attrib:TRUE}}) WHERE ID(n) = {start_node} RETURN n')
+        result_end, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:{self.city}, full_attrib:TRUE}}) WHERE ID(n) = {end_node} RETURN n')
         record_start = result_start[0].data()
         record_end = result_end[0].data()
         g.add_node(start_node, **record_start['n'])
@@ -150,7 +151,7 @@ class PyReasonMapWorld:
     def _add_neighbors_to_graph(self, node):
         # Query for all in/out neighbor nodes
         nodes_added = []
-        result, _, _ = self.graph_db.execute_query(f'MATCH (s)-[*1]-(t) WHERE ID(s) = {node} RETURN t, ID(t)')
+        result, _, _ = self.graph_db.execute_query(f'MATCH (s{{locale:{self.city}, full_attrib:TRUE}})-[*1]-(t{{locale:{self.city}, full_attrib:TRUE}}) WHERE ID(s) = {node} RETURN t, ID(t)')
         for record in result:
             neighbor_id = str(record['ID(t)'])
             neighbor_attributes = record['t']

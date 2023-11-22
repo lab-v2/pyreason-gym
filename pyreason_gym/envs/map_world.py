@@ -17,7 +17,7 @@ RENDER_BUFFER = 50
 class MapWorldEnv(gym.Env):
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
 
-    def __init__(self, start_point, end_point, graph_path, rules_path, render_mode=None, graph_auth=None):
+    def __init__(self, start_point, end_point, graph_path, rules_path, render_mode=None, graph_auth=None, city=None):
         """Initialize map world
 
         :param start_point: Point where agent will start
@@ -46,7 +46,7 @@ class MapWorldEnv(gym.Env):
         self.graph_type = 'local' if graph_auth is None else 'remote'
 
         # Initialize the PyReason map-world
-        self.pyreason_map_world = PyReasonMapWorld(self.start_point, self.end_point, graph_path, rules_path, graph_auth)
+        self.pyreason_map_world = PyReasonMapWorld(self.start_point, self.end_point, graph_path, rules_path, graph_auth, city)
 
         # Observation space is how close/far it is to the goal point. Coordinates from current point to end point
         # And how many valid actions there are in the state
