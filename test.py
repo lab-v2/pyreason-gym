@@ -5,7 +5,7 @@ import time
 # Local graph
 # env = gym.make('PyReasonMapWorld-v0', start_point='202811335', end_point='472254560', graph_path='./pyreason_gym/pyreason_map_world/graph/map_graph_sub.graphml', rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt')
 # Remote graph
-env = gym.make('PyReasonMapWorld-v0', start_point='1285494', end_point='1285522', graph_path='bolt://ec2-54-242-206-65.compute-1.amazonaws.com:7687', graph_auth=('neo4j', 'N30n30j44'), rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt', render_mode=None, city='LosAngeles')
+env = gym.make('PyReasonMapWorld-v0', start_point='3517581', end_point='3517665', graph_path='bolt://ec2-54-158-53-80.compute-1.amazonaws.com:7687', graph_auth=('neo4j', 'N30n30j44'), rules_path='pyreason_gym/pyreason_map_world/rules/rules.txt', render_mode=None, city='Knoxville')
 obs = env.reset()
 print(obs)
 
@@ -13,7 +13,7 @@ print(obs)
 # actions = [1, 2, 0]
 
 # Randomly sample actions from the action space
-for i in range(50):
+for i in range(1000):
     print(i)
 # for i in actions:
     action = env.action_space.sample()

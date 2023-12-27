@@ -60,7 +60,8 @@ class PyReasonMapWorld:
         # Reason for 1 timestep to initialize everything
         # Certain internal variables need to be reset otherwise memory blows up
         pr.reset()
-        self._reset_graph()
+        if self.graph_type == 'remote':
+            self._reset_graph()
 
         # Add facts for normal and abnormal to agent
         pr.add_fact(pr.Fact('normal-fact', 'agent', 'normal', [0, 1], 0, 0))
@@ -72,6 +73,9 @@ class PyReasonMapWorld:
         # Set initial position of agent
         self.interpretation.add_edge(('agent', self.start_point), pr.label.Label('atLoc'))
         self.interpretation.interpretations_edge[('agent', self.start_point)].world[pr.label.Label('atLoc')] = pr.interval.closed(1, 1)
+
+        # Add initial neighbors
+        self._add_neighbors_to_graph(self.start_point)
 
         # Store the lat/long of the end point
         self.end_point_lat, self.end_point_long = self._get_lat_long(self.end_point)
@@ -141,11 +145,11 @@ class PyReasonMapWorld:
 
         # Query for and add start node and end node
         if self.city == 'Knoxville' or self.city == 'LosAngeles':
-            full_attrib = 'TRUE'
+            result_start, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}", full_attrib:TRUE}}) WHERE ID(n) = {start_node} RETURN n')
+            result_end, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}", full_attrib:TRUE}}) WHERE ID(n) = {end_node} RETURN n')
         else:
-            full_attrib = 'FALSE'
-        result_start, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}", full_attrib:{full_attrib}}}) WHERE ID(n) = {start_node} RETURN n')
-        result_end, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}", full_attrib:{full_attrib}}}) WHERE ID(n) = {end_node} RETURN n')
+            result_start, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}"}}) WHERE ID(n) = {start_node} RETURN n')
+            result_end, _, _ = self.graph_db.execute_query(f'MATCH (n{{locale:"{self.city}"}}) WHERE ID(n) = {end_node} RETURN n')
         record_start = result_start[0].data()
         record_end = result_end[0].data()
         g.add_node(start_node, **record_start['n'])
@@ -156,10 +160,10 @@ class PyReasonMapWorld:
         # Query for all in/out neighbor nodes
         nodes_added = []
         if self.city == 'Knoxville' or self.city == 'LosAngeles':
-            full_attrib = 'TRUE'
+            result, _, _ = self.graph_db.execute_query(f'MATCH (s{{locale:"{self.city}", full_attrib:TRUE}})-[*1]-(t{{locale:"{self.city}", full_attrib:TRUE}}) WHERE ID(s) = {node} RETURN t, ID(t)')
         else:
-            full_attrib = 'FALSE'
-        result, _, _ = self.graph_db.execute_query(f'MATCH (s{{locale:"{self.city}", full_attrib:{full_attrib}}})-[*1]-(t{{locale:"{self.city}", full_attrib:{full_attrib}}}) WHERE ID(s) = {node} RETURN t, ID(t)')
+            result, _, _ = self.graph_db.execute_query(f'MATCH (s{{locale:"{self.city}"}})-[*1]-(t{{locale:"{self.city}"}}) WHERE ID(s) = {node} RETURN t, ID(t)')
+
         for record in result:
             neighbor_id = str(record['ID(t)'])
             neighbor_attributes = record['t']
