@@ -121,6 +121,10 @@ class PyReasonMapWorld:
         current_lat_long = np.array([lat, long], dtype=np.float128)
         end_lat_long = np.array([self.end_point_lat, self.end_point_long], dtype=np.float128)
 
+        # Add new neighbors to graph when agent moves to a new location
+        if self.graph_type == 'remote':
+            self._add_neighbors_to_graph(loc)
+
         # Get info about current action space
         # Get number of outgoing edges. New action space = num outgoing edges. The outgoing edges should not be connected to timesteps
         outgoing_edges = [edge for edge in self.interpretation.edges if edge[0] == loc and not (edge[1][0] == 't' and edge[1][1:].isdigit())]
@@ -128,10 +132,6 @@ class PyReasonMapWorld:
 
         # Add trajectory to graph based on the loc of observation. This is done everytime get_obs is called
         self._add_trajectory_to_graph(loc)
-
-        # Add new neighbors to graph when agent moves to a new location
-        if self.graph_type == 'remote':
-            self._add_neighbors_to_graph(loc)
 
         observation = (loc, current_lat_long, end_lat_long, num_outgoing_edges)
         return observation
